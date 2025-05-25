@@ -21,6 +21,7 @@
 | Plus (`+(pattern)`) | Y | Y | Y | Y | Y | One or more occurrences |
 | Question (`?(pattern)`) | Y | Y | Y | Y | Y | Zero or one occurrence |
 | Asterisk (`*(pattern)`) | Y | Y | Y | Y | Y | Zero or more occurrences |
+| At (`@(pattern)`) | Y | Y | Y | Y | Y | Exactly one occurrence |
 
 <p align="right"> <samp> Y = Yes, N = No <br> Please verify the information listed and let me know if I am wrong with my findings. </samp> </p>
 
