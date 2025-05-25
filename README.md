@@ -18,7 +18,7 @@
 | **Numeric Ranges** |
 | Simple numeric range (`{1..3}`) | Y | Y | Y | N | Y | tiny-glob: returns empty results for all numeric ranges [3] |
 | Zero-padded range (`{01..02}`) | Y | Y | Y | N | N | tiny-glob: no support; tinyglobby: fails on zero-padded patterns [4] |
-| Plus (+(pattern)) | Y | Y | Y | Y | Y | One or more occurrences |
+| Plus (`+(pattern)`) | Y | Y | Y | Y | Y | One or more occurrences |
 
 <p align="right"> <samp> Y = Yes, N = No <br> Please verify the information listed and let me know if I am wrong with my findings. </samp> </p>
 
