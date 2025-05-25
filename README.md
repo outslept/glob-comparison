@@ -5,6 +5,7 @@
 | **Core Glob Patterns** |
 | Asterisk (`*`) | Y | Y | Y | Y | Y | |
 | Question mark (`?`) | Y | Y | Y | N | Y | tiny-glob: globalyzer doesn't recognize ? as glob pattern [1] |
+| Character classes (`[abc]`) | Y | Y | Y | Y | Y | |
 
 ## Notes
 
@@ -23,3 +24,4 @@ globalyzer('**/*.js')  // { base: '.', glob: '**/*.js', isGlob: true }
 ```
 
 When `isGlob: false`, tiny-glob attempts to find a literal file named `?.js` instead of performing glob matching, resulting in empty results.
+
