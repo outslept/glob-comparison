@@ -13,7 +13,9 @@
   "dependencies": {
     "fast-glob": "^3.3.3",
     "glob": "^11.0.2",
+    "globalyzer": "^0.1.4",
     "globby": "^14.1.0",
+    "globrex": "^0.1.2",
     "tiny-glob": "^0.2.9",
     "tinyglobby": "^0.2.13"
   }
