@@ -6,6 +6,7 @@
 | Asterisk (`*`) | Y | Y | Y | Y | Y | |
 | Question mark (`?`) | Y | Y | Y | N | Y | tiny-glob: globalyzer doesn't recognize ? as glob pattern [1] |
 | Character classes (`[abc]`) | Y | Y | Y | Y | Y | |
+| Character ranges (`[a-z]`) | Y | Y | Y | Y | Y | |
 
 ## Notes
 
