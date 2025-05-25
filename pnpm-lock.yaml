@@ -14,9 +14,15 @@ importers:
       glob:
         specifier: ^11.0.2
         version: 11.0.2
+      globalyzer:
+        specifier: ^0.1.4
+        version: 0.1.4
       globby:
         specifier: ^14.1.0
         version: 14.1.0
+      globrex:
+        specifier: ^0.1.2
+        version: 0.1.2
       tiny-glob:
         specifier: ^0.2.9
         version: 0.2.9
@@ -126,6 +132,9 @@ packages:
 
   globalyzer@0.1.0:
     resolution: {integrity: sha512-40oNTM9UfG6aBmuKxk/giHn5nQ8RVz/SS4Ir6zgzOv9/qC3kKZ9v4etGTcJbEl/NyVQH7FGU7d+X1egr57Md2Q==}
+
+  globalyzer@0.1.4:
+    resolution: {integrity: sha512-LeguVWaxgHN0MNbWC6YljNMzHkrCny9fzjmEUdnF1kQ7wATFD1RHFRqA1qxaX2tgxGENlcxjOflopBwj3YZiXA==}
 
   globby@14.1.0:
     resolution: {integrity: sha512-0Ia46fDOaT7k4og1PDW4YbodWWr3scS2vAr2lTbsplOt2WkKp0vQbkI9wKis/T5LV/dqPjO3bpS/z6GTJB82LA==}
@@ -376,6 +385,8 @@ snapshots:
       path-scurry: 2.0.0
 
   globalyzer@0.1.0: {}
+
+  globalyzer@0.1.4: {}
 
   globby@14.1.0:
     dependencies:
