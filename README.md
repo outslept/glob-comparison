@@ -15,13 +15,13 @@
 | Brace expansion (`{js,ts}`) | Y | Y | Y | Y | Y | |
 | Nested brace expansion (`*.{spec,test}.js`) | Y | Y | Y | Y | Y | |
 | Multiple brace expansion (`{app,config}.{js,json}`) | Y | Y | Y | Y | Y | |
-| **Numeric Ranges** |
 | Simple numeric range (`{1..3}`) | Y | Y | Y | N | Y | tiny-glob: returns empty results for all numeric ranges [3] |
 | Zero-padded range (`{01..02}`) | Y | Y | Y | N | N | tiny-glob: no support; tinyglobby: fails on zero-padded patterns [4] |
 | Plus (`+(pattern)`) | Y | Y | Y | Y | Y | One or more occurrences |
 | Question (`?(pattern)`) | Y | Y | Y | Y | Y | Zero or one occurrence |
 | Asterisk (`*(pattern)`) | Y | Y | Y | Y | Y | Zero or more occurrences |
 | At (`@(pattern)`) | Y | Y | Y | Y | Y | Exactly one occurrence |
+| Exclamation (`!(pattern)`) | Y | Y | N | Y | Y | globby: treats extglob negation as negative patterns [5] |
 
 <p align="right"> <samp> Y = Yes, N = No <br> Please verify the information listed and let me know if I am wrong with my findings. </samp> </p>
 
@@ -84,3 +84,27 @@ picomatch.parse('{01..03}')
 ```
 
 ---
+
+[5] **globby negated extglob limitation:**
+
+globby treats extglob negation patterns like `!(foo|bar).js` as negative patterns and converts them to ignore rules for `fast-glob`.
+
+```javascript
+const { globby } = require('globby');
+const fastGlob = require('fast-glob');
+const fs = require('fs');
+
+['foo.js', 'bar.js', 'baz.js'].forEach(file => fs.writeFileSync(file, ''));
+
+async function test() {
+  const globbyResult = await globby('!(foo|bar).js');
+  const fastGlobResult = await fastGlob('!(foo|bar).js');
+
+  console.log('globby:', globbyResult.length);     // 0
+  console.log('fast-glob:', fastGlobResult.length); // 1
+}
+
+test().then(() => {
+  ['foo.js', 'bar.js', 'baz.js'].forEach(file => fs.unlinkSync(file));
+});
+```
