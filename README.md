@@ -8,6 +8,10 @@
 | Character classes (`[abc]`) | Y | Y | Y | Y | Y | |
 | Character ranges (`[a-z]`) | Y | Y | Y | Y | Y | |
 | Negated classes (`[!abc]`) | Y | Y | Y | Y | N | tinyglobby: returns inverted results for negated character classes [2] |
+| **Advanced Patterns** |
+| Globstar (`**`) | Y | Y | Y | Y | Y | |
+| Nested globstar (`src/**/*.js`) | Y | Y | Y | Y | Y | |
+| Mixed globstar (`**/components/*.js`) | Y | Y | Y | Y | Y | |
 
 ## Notes
 
@@ -27,7 +31,7 @@ globalyzer('**/*.js')  // { base: '.', glob: '**/*.js', isGlob: true }
 
 When `isGlob: false`, tiny-glob attempts to find a literal file named `?.js` instead of performing glob matching, resulting in empty results.
 
-**\[2\] tinyglobby negated character classes bug:**
+[2] **tinyglobby negated character classes bug:**
 
 tinyglobby returns inverted results for negated character classes. Pattern `[!abc].js` should match files that do NOT start with 'a', 'b', or 'c', but tinyglobby returns exactly those files (a.js, b.js, c.js) instead of the expected matches (d.js, e.js).
 
