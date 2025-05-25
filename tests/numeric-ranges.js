@@ -58,8 +58,6 @@ async function getFiles(libName, module, pattern) {
       return await module(pattern);
     case 'tinyglobby':
       return await module.glob(pattern);
-    default:
-      throw new Error(`Unknown library: ${libName}`);
   }
 }
 
