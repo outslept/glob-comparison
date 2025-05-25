@@ -20,6 +20,7 @@
 | Zero-padded range (`{01..02}`) | Y | Y | Y | N | N | tiny-glob: no support; tinyglobby: fails on zero-padded patterns [4] |
 | Plus (`+(pattern)`) | Y | Y | Y | Y | Y | One or more occurrences |
 | Question (`?(pattern)`) | Y | Y | Y | Y | Y | Zero or one occurrence |
+| Asterisk (`*(pattern)`) | Y | Y | Y | Y | Y | Zero or more occurrences |
 
 <p align="right"> <samp> Y = Yes, N = No <br> Please verify the information listed and let me know if I am wrong with my findings. </samp> </p>
 
