@@ -15,6 +15,8 @@
 | Brace expansion (`{js,ts}`) | Y | Y | Y | Y | Y | |
 | Nested brace expansion (`*.{spec,test}.js`) | Y | Y | Y | Y | Y | |
 | Multiple brace expansion (`{app,config}.{js,json}`) | Y | Y | Y | Y | Y | |
+| Simple numeric range (`{1..3}`) | Y | Y | Y | N | Y | tiny-glob: returns empty results for all numeric ranges [3] |
+| Zero-padded range (`{01..02}`) | Y | Y | Y | N | N | tiny-glob: no support; tinyglobby: fails on zero-padded patterns [4] |
 
 <p align="right"> <samp> Y = Yes, N = No <br> Please verify the information listed and let me know if I am wrong with my findings. </samp> </p>
 
@@ -43,3 +45,11 @@ tinyglobby returns inverted results for negated character classes. Pattern `[!ab
 This violates the POSIX glob standard where `[!characters]` means "any character NOT in the set". See [POSIX.1-2017 Pattern Matching Notation](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html#tag_18_13_01) section 2.13.1:
 
 > "If an open bracket introduces a bracket expression as in XBD RE Bracket Expression, except that the <exclamation-mark> character ( '!' ) shall replace the <circumflex> character ( '^' ) in its role in a non-matching list in the regular expression notation"
+
+[3] **tiny-glob numeric range limitation:**
+
+tiny-glob returns empty results for all numeric range patterns like `{1..3}` or `{01..02}`. The library appears to lack support for numeric range expansion entirely.
+
+[4] **tinyglobby zero-padded range limitation:**
+
+tinyglobby fails to match zero-padded numeric ranges like `{01..02}` while successfully handling simple ranges like `{1..3}`. This suggests incomplete implementation of the numeric range expansion feature.
