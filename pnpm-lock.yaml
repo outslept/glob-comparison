@@ -23,6 +23,9 @@ importers:
       globrex:
         specifier: ^0.1.2
         version: 0.1.2
+      picomatch:
+        specifier: ^4.0.2
+        version: 4.0.2
       tiny-glob:
         specifier: ^0.2.9
         version: 0.2.9
