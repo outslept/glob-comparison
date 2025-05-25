@@ -12,8 +12,11 @@
 | Globstar (`**`) | Y | Y | Y | Y | Y | |
 | Nested globstar (`src/**/*.js`) | Y | Y | Y | Y | Y | |
 | Mixed globstar (`**/components/*.js`) | Y | Y | Y | Y | Y | |
+| Brace expansion (`{js,ts}`) | Y | Y | Y | Y | Y | |
+| Nested brace expansion (`*.{spec,test}.js`) | Y | Y | Y | Y | Y | |
+| Multiple brace expansion (`{app,config}.{js,json}`) | Y | Y | Y | Y | Y | |
 
-<sub>Y = Yes, N = No</sub>
+<p align="right"> <samp> Y = Yes, N = No <br> Please verify the information listed and let me know if I am wrong with my findings. </samp> </p>
 
 ## Notes
 
