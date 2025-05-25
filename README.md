@@ -13,6 +13,8 @@
 | Nested globstar (`src/**/*.js`) | Y | Y | Y | Y | Y | |
 | Mixed globstar (`**/components/*.js`) | Y | Y | Y | Y | Y | |
 
+<sub>Y = Yes, N = No</sub>
+
 ## Notes
 
 [1] **tiny-glob question mark bug:**
