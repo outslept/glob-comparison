@@ -1,15 +1,11 @@
 {
   "name": "glob-benchmark",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "packageManager": "pnpm@10.10.0",
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
   "dependencies": {
     "fast-glob": "^3.3.3",
     "glob": "^11.0.2",
@@ -19,5 +15,10 @@
     "picomatch": "^4.0.2",
     "tiny-glob": "^0.2.9",
     "tinyglobby": "^0.2.13"
+  },
+  "devDependencies": {
+    "@sxzz/eslint-config": "^7.0.1",
+    "lint-staged": "^16.0.0",
+    "simple-git-hooks": "^2.13.0"
   }
 }
