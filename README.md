@@ -85,7 +85,7 @@
 [Bash Manual - Pattern Matching]: https://www.gnu.org/software/bash/manual/html_node/Pattern-Matching.html
 [Minimatch]: https://github.com/isaacs/minimatch
 
-<p align="right"> <samp> Y = Yes, N = No <br> Please verify the information listed and let me know with my findings. </samp> </p>
+<p align="right"> <samp> Y = Yes, N = No <br> Please verify the information listed and let me know if you find inaccuracies. I would be happy to update the this table.</samp> </p>
 
 ## Notes
 
