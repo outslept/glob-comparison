@@ -2,21 +2,23 @@
 
 | Feature | fast-glob | glob | globby | tiny-glob | tinyglobby | Note |
 |---------|-----------|------|--------|-----------|------------|------|
-| **Core Glob Patterns** |
+| **Basic Patterns** |
 | Asterisk (`*`) | Y | Y | Y | Y | Y | |
 | Question mark (`?`) | Y | Y | Y | N | Y | tiny-glob: globalyzer doesn't recognize ? as glob pattern [1] |
 | Character classes (`[abc]`) | Y | Y | Y | Y | Y | |
 | Character ranges (`[a-z]`) | Y | Y | Y | Y | Y | |
 | Negated classes (`[!abc]`) | Y | Y | Y | Y | N | tinyglobby: returns inverted results for negated character classes [2] |
-| **Advanced Patterns** |
+| **Globstar** |
 | Globstar (`**`) | Y | Y | Y | Y | Y | |
 | Nested globstar (`src/**/*.js`) | Y | Y | Y | Y | Y | |
 | Mixed globstar (`**/components/*.js`) | Y | Y | Y | Y | Y | |
+| **Brace Expansion** |
 | Brace expansion (`{js,ts}`) | Y | Y | Y | Y | Y | |
 | Nested brace expansion (`*.{spec,test}.js`) | Y | Y | Y | Y | Y | |
 | Multiple brace expansion (`{app,config}.{js,json}`) | Y | Y | Y | Y | Y | |
 | Simple numeric range (`{1..3}`) | Y | Y | Y | N | Y | tiny-glob: returns empty results for all numeric ranges [3] |
 | Zero-padded range (`{01..02}`) | Y | Y | Y | N | N | tiny-glob: no support; tinyglobby: fails on zero-padded patterns [4] |
+| **Extended Glob (extglob)** |
 | Plus (`+(pattern)`) | Y | Y | Y | Y | Y | One or more occurrences |
 | Question (`?(pattern)`) | Y | Y | Y | Y | Y | Zero or one occurrence |
 | Asterisk (`*(pattern)`) | Y | Y | Y | Y | Y | Zero or more occurrences |
