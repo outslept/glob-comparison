@@ -1,58 +1,58 @@
 # Feature Comparison
 
-| Feature | [fast-glob] | [glob] | [globby] | [tiny-glob] | [tinyglobby] | Note |
-|---------|-------------|--------|----------|-------------|--------------|------|
-| **Basic Patterns** |
-| [Asterisk] (`*`) | Y | Y | Y | Y | Y | glob: does not sort results |
-| [Question mark] (`?`) | Y | Y | Y | N | Y | tiny-glob: globalyzer doesn't recognize ? as glob pattern [1] |
-| [Character classes] (`[abc]`) | Y | Y | Y | Y | Y | glob: does not sort results |
-| [Character ranges] (`[a-z]`) | Y | Y | Y | Y | Y | glob: does not sort results |
-| [Negated classes] (`[!abc]`) | Y | Y | Y | Y | N | tinyglobby: returns inverted results for negated character classes [2]; glob: does not sort results |
-| **Globstar** |
-| [Globstar] (`**`) | Y | Y | Y | Y | Y | glob, tiny-glob: does not sort results; glob: uses backslashes on Windows |
-| Nested globstar (`src/**/*.js`) | Y | Y | Y | Y | Y | |
-| Mixed globstar (`**/components/*.js`) | Y | Y | Y | Y | Y | |
-| **Brace Expansion** |
-| [Brace expansion] (`{js,ts}`) | Y | Y | Y | Y | Y | glob, tiny-glob, tinyglobby: does not sort results |
-| Nested brace expansion (`*.{spec,test}.js`) | Y | Y | Y | Y | Y | glob: does not sort results |
-| Multiple brace expansion (`{app,config}.{js,json}`) | Y | Y | Y | Y | Y | |
-| Simple numeric range (`{1..3}`) | Y | Y | Y | N | Y | tiny-glob: returns empty results for all numeric ranges [3]; glob: does not sort results |
-| Zero-padded range (`{01..02}`) | Y | Y | Y | N | N | tiny-glob: no support; tinyglobby: fails on zero-padded patterns [4] |
-| [Plus] (`+(pattern)`) | Y | Y | Y | Y | Y | glob: does not sort results |
-| [Question] (`?(pattern)`) | Y | Y | Y | Y | Y | glob: does not sort results |
-| [Asterisk] (`*(pattern)`) | Y | Y | Y | Y | Y | glob: does not sort results |
-| [At] (`@(pattern)`) | Y | Y | Y | Y | Y | glob: does not sort results |
-| [Exclamation] (`!(pattern)`) | Y | Y | N | Y | Y | globby: treats extglob negation as negative patterns [5]; glob: does not sort results |
-| **Pattern Support** |
-| Single pattern (string) | Y | Y | Y | Y | Y | |
-| Multiple patterns (array) | Y | Y | Y | N | Y | tiny-glob: array support missing [6] |
-| Basename matching (`matchBase: true`) | Y | Y | Y | N | N | tiny-glob, tinyglobby: no basename matching support [7] |
-| **Pattern Arrays** |
-| Negation patterns (`['*.js', '!ignore.js']`) | Y | N | Y | N | Y | glob: ignores negation; tiny-glob: no array support [6] |
-| Mixed positive/negative patterns | Y | N | Y | N | Y | glob: ignores negation; tiny-glob: array error [6] |
-| **Ignore Options** |
-| Basic ignore patterns (`ignore: ['*.tmp']`) | Y | Y | Y | N | Y | tiny-glob: ignores the ignore option entirely [8] |
-| Negated ignore patterns (`ignore: ['!pattern']`) | N | N | Y | N | N | tinyglobby: returns empty results; fast-glob: silently ignores [9] |
-| Gitignore support (`gitignore: true`) | N | N | Y | N | N | Only globby reads and applies .gitignore files [10] |
-| Custom ignore files (`ignoreFiles: ['.custom']`) | N | N | Y | N | N | Only globby supports custom ignore file reading [11] |
-| Multiple ignore files | N | N | Y | N | N | Only globby can combine multiple ignore files [11] |
-| **Output Options** |
-| Absolute paths (`absolute: true`) | Y | Y | Y | Y | Y | |
-| Case sensitivity control | Y | Y | Y | Y | N | tinyglobby: case sensitive mode issues [12] |
-| Depth limiting (`deep`/`maxDepth`) | Y | Y | Y | N | Y | tiny-glob: ignores depth options [13] |
-| Directories only (`onlyDirectories: true`) | Y | N | Y | N | Y | glob, tiny-glob: ignore directory filtering [14] |
-| Files only (`onlyFiles: true`) | Y | N | Y | N | Y | glob, tiny-glob: ignore file filtering [14] |
-| Both files and directories | Y | N | Y | N | Y | glob, tiny-glob: no type filtering support [14] |
-| Mark directories (`markDirectories: true`) | Y | N | Y | N | Y | glob, tiny-glob: no directory marking [15] |
-| Object mode (`objectMode`/`withFileTypes`) | Y | Y | Y | N | N | tiny-glob, tinyglobby: no object mode support [16] |
-| Dot files inclusion (`dot: true`) | Y | Y | Y | Y | Y | |
-| **Path Handling** |
-| Relative paths | Y | Y | Y | Y | Y | |
-| String path results | Y | Y | Y | Y | Y | |
-| **Platform Support** |
-| Hidden files (Windows) | Y | Y | Y | Y | Y | |
-| UNC paths (`//server/share/*`) | Y | Y | Y | N | Y | tiny-glob: throws EPERM error on UNC paths [17] |
-| Windows drive letters (`C:/*.js`) | Y | N | Y | N | N | glob, tinyglobby: return 0 files; tiny-glob: EPERM errors [18] |
+| Feature                                             | [fast-glob] | [glob] | [globby] | [tiny-glob] | [tinyglobby] | Note                                                                                                                                                  |
+| --------------------------------------------------- | ----------- | ------ | -------- | ----------- | ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Basic Patterns**                                  |
+| [Asterisk] (`*`)                                    | Y           | Y      | Y        | Y           | Y            | glob: results in indeterminate order, manual sorting required                                                                         |
+| [Question mark] (`?`)                               | Y           | Y      | Y        | N           | Y            | tiny-glob: globalyzer (subdep) doesn't recognize `?` as glob pattern [1]                                                                              |
+| [Character classes] (`[abc]`)                       | Y           | Y      | Y        | Y           | Y            | glob: results in indeterminate order, manual sorting required                                                                         |
+| [Character ranges] (`[a-z]`)                        | Y           | Y      | Y        | Y           | Y            | glob: results in indeterminate order, manual sorting required                                                                         |
+| [Negated classes] (`[!abc]`)                        | Y           | Y      | Y        | Y           | N            | tinyglobby: returns inverted results for negated character classes [2]; glob: results in indeterminate order, manual sorting required |
+| **Globstar**                                        |
+| [Globstar] (`**`)                                   | Y           | Y      | Y        | Y           | Y            | glob, tiny-glob: results in indeterminate order, manual sorting required; glob: uses backslashes on Windows                           |
+| Nested globstar (`src/**/*.js`)                     | Y           | Y      | Y        | Y           | Y            |                                                                                                                                                       |
+| Mixed globstar (`**/components/*.js`)               | Y           | Y      | Y        | Y           | Y            |                                                                                                                                                       |
+| **Brace Expansion**                                 |
+| [Brace expansion] (`{js,ts}`)                       | Y           | Y      | Y        | Y           | Y            | glob, tiny-glob, tinyglobby: does not sort results                                                                                                    |
+| Nested brace expansion (`*.{spec,test}.js`)         | Y           | Y      | Y        | Y           | Y            | glob: results in indeterminate order, manual sorting required                                                                         |
+| Multiple brace expansion (`{app,config}.{js,json}`) | Y           | Y      | Y        | Y           | Y            |                                                                                                                                                       |
+| Simple numeric range (`{1..3}`)                     | Y           | Y      | Y        | N           | Y            | tiny-glob: returns empty results for all numeric ranges [3]; glob: results in indeterminate order, manual sorting required            |
+| Zero-padded range (`{01..02}`)                      | Y           | Y      | Y        | N           | N            | tiny-glob: no support; tinyglobby: fails on zero-padded patterns [4]                                                                                  |
+| [Plus] (`+(pattern)`)                               | Y           | Y      | Y        | Y           | Y            | glob: results in indeterminate order, manual sorting required                                                                         |
+| [Question] (`?(pattern)`)                           | Y           | Y      | Y        | Y           | Y            | glob: results in indeterminate order, manual sorting required                                                                         |
+| [Asterisk] (`*(pattern)`)                           | Y           | Y      | Y        | Y           | Y            | glob: results in indeterminate order, manual sorting required                                                                         |
+| [At] (`@(pattern)`)                                 | Y           | Y      | Y        | Y           | Y            | glob: results in indeterminate order, manual sorting required                                                                         |
+| [Exclamation] (`!(pattern)`)                        | Y           | Y      | N        | Y           | Y            | globby: treats extglob negation as negative patterns [5]; glob: results in indeterminate order, manual sorting required               |
+| **Pattern Support**                                 |
+| Single pattern (string)                             | Y           | Y      | Y        | Y           | Y            |                                                                                                                                                       |
+| Multiple patterns (array)                           | Y           | Y      | Y        | N           | Y            | tiny-glob: array support missing [6]                                                                                                                  |
+| Basename matching (`matchBase: true`)               | Y           | Y      | Y        | N           | N            | tiny-glob, tinyglobby: no basename matching support [7]                                                                                               |
+| **Pattern Arrays**                                  |
+| Negation patterns (`['*.js', '!ignore.js']`)        | Y           | N      | Y        | N           | Y            | glob: ignores negation; tiny-glob: no array support [6]                                                                                               |
+| Mixed positive/negative patterns                    | Y           | N      | Y        | N           | Y            | glob: ignores negation; tiny-glob: array error [6]                                                                                                    |
+| **Ignore Options**                                  |
+| Basic ignore patterns (`ignore: ['*.tmp']`)         | Y           | Y      | Y        | N           | Y            | tiny-glob: ignores the ignore option entirely [8]                                                                                                     |
+| Negated ignore patterns (`ignore: ['!pattern']`)    | N           | N      | Y        | N           | N            | tinyglobby: returns empty results; fast-glob: silently ignores [9]                                                                                    |
+| Gitignore support (`gitignore: true`)               | N           | N      | Y        | N           | N            | Only globby reads and applies .gitignore files [10]                                                                                                   |
+| Custom ignore files (`ignoreFiles: ['.custom']`)    | N           | N      | Y        | N           | N            | Only globby supports custom ignore file reading [11]                                                                                                  |
+| Multiple ignore files                               | N           | N      | Y        | N           | N            | Only globby can combine multiple ignore files [11]                                                                                                    |
+| **Output Options**                                  |
+| Absolute paths (`absolute: true`)                   | Y           | Y      | Y        | Y           | Y            |                                                                                                                                                       |
+| Case sensitivity control                            | Y           | Y      | Y        | Y           | N            | tinyglobby: case sensitive mode issues [12]                                                                                                           |
+| Depth limiting (`deep`/`maxDepth`)                  | Y           | Y      | Y        | N           | Y            | tiny-glob: ignores depth options [13]                                                                                                                 |
+| Directories only (`onlyDirectories: true`)          | Y           | N      | Y        | N           | Y            | glob, tiny-glob: ignore directory filtering [14]                                                                                                      |
+| Files only (`onlyFiles: true`)                      | Y           | N      | Y        | N           | Y            | glob, tiny-glob: ignore file filtering [14]                                                                                                           |
+| Both files and directories                          | Y           | N      | Y        | N           | Y            | glob, tiny-glob: no type filtering support [14]                                                                                                       |
+| Mark directories (`markDirectories: true`)          | Y           | N      | Y        | N           | Y            | glob, tiny-glob: no directory marking [15]                                                                                                            |
+| Object mode (`objectMode`/`withFileTypes`)          | Y           | Y      | Y        | N           | N            | tiny-glob, tinyglobby: no object mode support [16]                                                                                                    |
+| Dot files inclusion (`dot: true`)                   | Y           | Y      | Y        | Y           | Y            |                                                                                                                                                       |
+| **Path Handling**                                   |
+| Relative paths                                      | Y           | Y      | Y        | Y           | Y            |                                                                                                                                                       |
+| String path results                                 | Y           | Y      | Y        | Y           | Y            |                                                                                                                                                       |
+| **Platform Support**                                |
+| Hidden files (Windows)                              | Y           | Y      | Y        | Y           | Y            |                                                                                                                                                       |
+| UNC paths (`//server/share/*`)                      | Y           | Y      | Y        | N           | Y            | tiny-glob: throws EPERM error on UNC paths [17]                                                                                                       |
+| Windows drive letters (`C:/*.js`)                   | Y           | N      | Y        | N           | N            | glob, tinyglobby: return 0 files; tiny-glob: EPERM errors [18]                                                                                        |
 
 ## References
 
@@ -94,18 +94,14 @@
 Testing reveals the potential issue is in the [globalyzer dependency](https://www.npmjs.com/package/globalyzer). In strict mode (default), the STRICT regex pattern doesn't recognize standalone `?` as a glob pattern:
 
 ```javascript
-const globalyzer = require('globalyzer');
+console.log(globalyzer('?.js'))     // { base: '.', glob: '?.js', isGlob: false }
+console.log(globalyzer('file?.txt')) // { base: '.', glob: 'file?.txt', isGlob: false }
 
-// Fails in strict mode (default)
-globalyzer('?.js')     // { base: '.', glob: '?.js', isGlob: false }
-globalyzer('file?.txt') // { base: '.', glob: 'file?.txt', isGlob: false }
-
-// Works in relaxed mode
-globalyzer('?.js', { strict: false })     // { base: '.', glob: '?.js', isGlob: true }
-globalyzer('file?.txt', { strict: false }) // { base: '.', glob: 'file?.txt', isGlob: true }
+console.log(globalyzer('?.js', { strict: false }))     // { base: '.', glob: '?.js', isGlob: true }
+console.log(globalyzer('file?.txt', { strict: false })) // { base: '.', glob: 'file?.txt', isGlob: true }
 ```
 
-The STRICT regex `/\\(.)|(^!|\*|[\].+)]\?|...)/` only matches `?` after `]` but not standalone `?`. When `isGlob: false`, tiny-glob attempts to find a literal file instead of performing glob matching.
+The STRICT regex [`/\\(.)|(^!|\*|[\].+)]\?|...)/`](https://github.com/terkelg/globalyzer/blob/master/src/index.js#L3) only matches `?` after `]` but not standalone `?`. When `isGlob: false`, tiny-glob attempts to find a literal file instead of performing glob matching.
 
 ---
 
