@@ -1,24 +1,22 @@
 #!/bin/bash
 
-run_tests() {
-  local file=$1
-  local category=$2
+run_test() {
+    local file=$1
+    local category=$2
 
-  echo "Running: ${category}/${file}"
+    if [ -f "tests/${category}/${file}" ]; then
+        node "tests/${category}/${file}"
+        echo "Completed: ${file}"
+    else
+        echo "File not found: tests/${category}/${file}"
+    fi
 
-  if [ -f "tests/${category}/${file}" ]; then
-    node "tests/${category}/${file}"
-    echo "Completed: ${file}"
-  else
-    echo "File not found: tests/${category}/${file}"
-  fi
-
-  echo ""
-  read -p "Press enter to continue..."
-  echo "
+    echo ""
+    read -p "Press Enter to continue..."
+    echo ""
 }
 
-echo "Starting Tests..."
+echo "Starting tests..."
 echo "Platform: $(uname -s)"
 echo ""
 
