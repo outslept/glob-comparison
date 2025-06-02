@@ -70,7 +70,7 @@ await tinyGlob('[9-1].txt');
 // Error: Invalid regular expression: /^[9-1]\.txt$/: Range out of order in character class
 ```
 
-### [3] Platform-dependent case sensitivity behavior
+### [3] Platform-dependent case sensitivity behavior {#3}
 
 Character class patterns with mixed case ranges behave differently across platforms due to filesystem case sensitivity:
 
