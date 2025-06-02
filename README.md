@@ -3,8 +3,8 @@
 | Feature                                             | fast-glob | glob | globby | tiny-glob | tinyglobby | Note                                                                                                                                                                            |
 | --------------------------------------------------- | --------- | ---- | ------ | --------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Basic Patterns**                                  |           |      |        |           |            |                                                                                                                                                                                 |
-| Asterisk (`*`)                                      | Y         | Y    | Y      | Y         | Y          | glob: results in indeterminate order, manual sorting required [\[1\]](#1). P.S. [\[1\]](#1) will be used throughout this table to indicate this same behavior                                   |
-| Character ranges (`[a-z]`)                          | Y         | Y    | Y      | Y         | Y          | [\[1\]](#1). tiny-glob throws error on invalid ranges [\[2\]](#2). Platform-dependent case sensitivity [\[3\]](#3)                                                                                                                        |
+| Asterisk (`*`)                                      | Y         | Y    | Y      | Y         | Y          | glob: results in indeterminate order, manual sorting required [\[1\]](#1-indeterminate-result-ordering). P.S. [\[1\]](#1-indeterminate-result-ordering) will be used throughout this table to indicate this same behavior                                   |
+| Character ranges (`[a-z]`)                          | Y         | Y    | Y      | Y         | Y          | [\[1\]](#1-indeterminate-result-ordering). tiny-glob throws error on invalid ranges [\[2\]](#2-tiny-glob-invalid-character-range-handling). Platform-dependent case sensitivity [\[3\]](#3-platform-dependent-case-sensitivity-behavior)                                                                                                                        |
 
 ## References
 
@@ -39,7 +39,7 @@
 
 ## Notes
 
-### [1] Indeterminate Result Ordering {#1}
+### [1] Indeterminate Result Ordering
 
 Starting from `glob` v9, results are returned in non-deterministic order that depends on your filesystem, operating system, disk controller, ..., - they may appear consistently reverse-alphabetical on some systems but this **behavior** is not guaranteed across different environments. Unlike `glob` v8 which automatically sorted results using English locale, you need to manually sort if you depend on consistent ordering. To sort results just as version 8 did, use:
 
@@ -54,7 +54,7 @@ Reference links:
 
 ---
 
-### [2] tiny-glob invalid character range handling {#2}
+### [2] tiny-glob invalid character range handling
 
 tiny-glob throws an error encountering invalid character ranges (like [9-1] where the start character has a higher ASCII value than the end character), while other libraries gracefully return no matches.
 
@@ -70,7 +70,7 @@ await tinyGlob('[9-1].txt');
 // Error: Invalid regular expression: /^[9-1]\.txt$/: Range out of order in character class
 ```
 
-### [3] Platform-dependent case sensitivity behavior {#3}
+### [3] Platform-dependent case sensitivity behavior
 
 Character class patterns with mixed case ranges behave differently across platforms due to filesystem case sensitivity:
 
