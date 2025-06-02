@@ -14,6 +14,10 @@
 | Simple numeric range (`{1..3}`)                     | Y         | Y    | Y      | N         | Y          | [\[1\]](#1-indeterminate-result-ordering). `tiny-glob`: no support for numeric ranges [\[8\]](#8-tiny-glob-numeric-range-limitation) |
 | Zero-padded range (`{01..03}`)                      | Y         | Y    | Y      | N         | N          | [\[1\]](#1-indeterminate-result-ordering). `tiny-glob`: no support [\[8\]](#8-tiny-glob-numeric-range-limitation). `tinyglobby`: fails on zero-padded patterns [\[9\]](#9-tinyglobby-zero-padded-range-limitation) |
 | Single item braces (`{js}`)                         | Literal   | Literal | Literal | Expands   | Literal    | `tiny-glob`: expands single-item braces [\[10\]](#10-tiny-glob-single-item-brace-expansion) |
+| **Globstar**                                        |           |      |        |           |            |                                                                                                                                                                                 |
+| Globstar (`**`)                                     | Y         | Y    | Y      | Y         | Y          | [\[1\]](#1-indeterminate-result-ordering). `tiny-glob`: returns results in different order (deep files first) [\[11\]](#11-tiny-glob-globstar-ordering). `glob`: uses backslashes on Windows [\[12\]](#12-glob-windows-path-separators) |
+| Nested globstar (`src/**/*.js`)                     | Y         | Y    | Y      | Y         | Y          | [\[1\]](#1-indeterminate-result-ordering). [\[11\]](#11-tiny-glob-globstar-ordering). [\[12\]](#12-glob-windows-path-separators) |
+| Mixed globstar (`**/components/*.js`)               | Y         | Y    | Y      | Y         | Y          | [\[1\]](#1-indeterminate-result-ordering). [\[11\]](#11-tiny-glob-globstar-ordering). [\[12\]](#12-glob-windows-path-separators) |
 
 ## References
 
@@ -258,3 +262,32 @@ This behavior means `tiny-glob` will find `foo.js` when searching for `foo.{js}`
 [↑ Back to top](#feature-comparison)
 
 ---
+
+### [11] tiny-glob globstar ordering
+
+`tiny-glob` returns globstar results in a different order compared to other libraries, prioritizing deeper nested files first:
+
+```javascript
+// Standard order (fast-glob, globby, tinyglobby)
+await fastGlob('foo/**/*.js');  // ['foo/index.js', 'foo/main.js', 'foo/bar/component.js', ...]
+
+// tiny-glob order
+await tinyGlob('foo/**/*.js');  // ['foo/bar/baz/deep.js', 'foo/bar/baz/nested.js', 'foo/bar/component.js', ...]
+```
+
+[↑ Back to top](#feature-comparison)
+
+---
+
+### [12] glob Windows path separators
+
+`glob` returns results with backslashes on Windows while other libraries use forward slashes:
+
+```javascript
+// Windows results
+await glob('foo/**/*.js');      // ['foo\\index.js', 'foo\\main.js', ...]
+await fastGlob('foo/**/*.js');  // ['foo/index.js', 'foo/main.js', ...]
+await globby('foo/**/*.js');    // ['foo/index.js', 'foo/main.js', ...]
+```
+
+[↑ Back to top](#feature-comparison)
