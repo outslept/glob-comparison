@@ -6,7 +6,7 @@
 | Asterisk (`*`)             | Y           | Y      | Y        | Y           | Y            | `glob`: results in indeterminate order, manual sorting required [\[1\]](#1-indeterminate-result-ordering). P.S. [\[1\]](#1-indeterminate-result-ordering) will be used throughout this table to indicate this same behavior                     |
 | Character ranges (`[a-z]`) | Y           | Y      | Y        | Y           | Y            | [\[1\]](#1-indeterminate-result-ordering). `tiny-glob` throws error on invalid ranges [\[2\]](#2-tiny-glob-invalid-character-range-handling). Platform-dependent case sensitivity [\[3\]](#3-platform-dependent-case-sensitivity-behavior)      |
 | Negated classes (`[!abc]`) | Y           | Y      | Y        | Y           | N            | [\[1\]](#1-indeterminate-result-ordering). `tinyglobby`: inverts negation logic [\[4\]](#4-tinyglobby-negated-character-classes-issue). `tiny-glob`: handles empty negated class incorrectly [\[5\]](#5-tiny-glob-empty-negated-class-handling) |
-
+| Question mark (`?`)                                 | Y         | Y    | Y      | N         | Y          | [\[1\]](#1-indeterminate-result-ordering). `tiny-glob`: doesn't recognize most `?` patterns as globs [\[6\]](#6-tiny-glob-question-mark-limitation) |
 
 ## References
 
@@ -133,6 +133,36 @@ await fastGlob('[!].js');  // [] - empty negation set matches nothing
 
 // tiny-glob behavior
 await tinyGlob('[!].js');  // ['a.js', 'b.js', 'c.js', 'd.js', 'z.js'] - matches everything
+```
+
+[↑ Back to top](#feature-comparison)
+
+---
+
+### [6] tiny-glob question mark limitation
+
+`tiny-glob` fails to recognize most question mark patterns as glob patterns due to its `globalyzer` dependency. The issue appears to be in the [globalyzer dependency](https://www.npmjs.com/package/globalyzer). In strict mode (default), the STRICT regex pattern doesn't recognize standalone `?` as a glob pattern:
+
+```javascript
+console.log(globalyzer('?.js'))       // { base: '.', glob: '?.js', isGlob: false }
+console.log(globalyzer('file?.txt'))  // { base: '.', glob: 'file?.txt', isGlob: false }
+
+console.log(globalyzer('?.js', { strict: false }))      // { base: '.', glob: '?.js', isGlob: true }
+console.log(globalyzer('file?.txt', { strict: false })) // { base: '.', glob: 'file?.txt', isGlob: true }
+```
+
+The STRICT regex [`/\\(.)|(^!|\*|[\].+)]\?|...)/`](https://github.com/terkelg/globalyzer/blob/master/src/index.js#L3) only matches `?` after `]` but not standalone `?`. When `isGlob: false`, `tiny-glob` attempts to find a literal file instead of performing glob matching.
+
+**Exception:** Patterns with dots like `?.?` work correctly, suggesting the regex handles dot-separated patterns differently.
+
+```javascript
+// Most patterns fail
+await tinyGlob('?.js');     // [] - no matches
+await tinyGlob('???.js');   // [] - no matches
+await tinyGlob('?ar.txt');  // [] - no matches
+
+// Exception: dot patterns work
+await tinyGlob('?.?');      // ['a.b'] - works correctly
 ```
 
 [↑ Back to top](#feature-comparison)

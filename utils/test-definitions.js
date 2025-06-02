@@ -95,5 +95,34 @@ export const testDefinitions = {
       "[!a-z].js", // should match nothing (all files have lowercase letters)
     ],
   },
+
+  question_mark: {
+    testName: "Question Mark",
+    id: "question_mark",
+    files: [
+      "a.js",
+      "foo.js",
+      "bar.txt",
+      "ab.js",
+      "xy.txt",
+      "baz.json",
+      "x",
+      "xy",
+      "a.b",
+      "toolong.js",
+      ".hidden",
+    ],
+    patterns: [
+      "?.js", // single char: a.js
+      "???.js", // 3 chars: foo.js, baz.json (wrong ext)
+      "??.js", // 2 chars: ab.js
+      "foo?.txt", // no matches (foo.js exists)
+      "ba?.txt", // no matches
+      "?ar.txt", // bar.txt
+      "?", // single char no ext: x
+      "??", // 2 chars no ext: xy
+      "?.?", // single.single: a.b
+    ],
+  },
   // ...
 };
