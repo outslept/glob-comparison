@@ -1,6 +1,7 @@
 {
   "name": "glob-benchmark",
   "version": "1.0.0",
+  "type": "module",
   "packageManager": "pnpm@10.10.0",
   "scripts": {
     "lint": "eslint .",
