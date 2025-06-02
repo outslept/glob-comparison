@@ -20,7 +20,9 @@
 | Mixed globstar (`**/components/*.js`)               | Y         | Y    | Y      | Y         | Y          | [\[1\]](#1-indeterminate-result-ordering). [\[11\]](#11-tiny-glob-globstar-ordering). [\[12\]](#12-glob-windows-path-separators) |
 | **Extended Glob (ExtGlob)**                         |           |      |        |           |            |                                                                                                                                                                                 |
 
-| At (`@(pattern)`)                                   | Y         | Y    | Y      | Y         | Y          | [[\1\]](#1-indeterminate-result-ordering)                                                                                                                                                                             |
+| Asterisk (`*(pattern)`)                             | Y         | Y    | Y      | Y         | Y          | [\[1\]](#1-indeterminate-result-ordering)                                                                                                                                                                             |
+| At (`@(pattern)`)                                   | Y         | Y    | Y      | Y         | Y          | [\[1\]](#1-indeterminate-result-ordering)                                                                                                                                                                             |
+
 
 ## References
 

@@ -194,6 +194,31 @@ export const testDefinitions = {
     patterns: ["**/*.js", "foo/**/*.js", "**/bar/*.js", "**/nested/**/*.js"],
   },
 
+  asterisk_pattern: {
+    testName: "Extended Glob - Asterisk Pattern",
+    files: [
+      "foo.js",
+      "foofoo.js",
+      "foofoofoo.js",
+      "bar.js",
+      "test.js",
+      "test.spec.js",
+      "test.specspec.js",
+      "app.js",
+      "app.config.js",
+      "app.configconfig.js",
+      "nomatch.txt",
+    ],
+    patterns: [
+      "*(foo).js", // foo.js, foofoo.js, foofoofoo.js
+      "test.*(spec).js", // test.js, test.spec.js, test.specspec.js
+      "*(foo|bar).js", // foo.js, bar.js, foofoo.js, foobar.js, etc
+      "app.*(config).js", // app.js, app.config.js, app.configconfig.js
+      "*(missing).js", // no matches
+    ],
+    options: { extglob: true },
+  },
+
   at_pattern: {
     testName: "Extended Glob - At Pattern",
     files: [
