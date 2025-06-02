@@ -1,10 +1,12 @@
 # Feature Comparison
 
-| Feature                                             | `fast-glob` | `glob` | `globby` | `tiny-glob` | `tinyglobby` | Note                                                                                                                                                                            |
-| --------------------------------------------------- | --------- | ---- | ------ | --------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Basic Patterns**                                  |           |      |        |           |            |                                                                                                                                                                                 |
-| Asterisk (`*`)                                      | Y         | Y    | Y      | Y         | Y          | `glob`: results in indeterminate order, manual sorting required [\[1\]](#1-indeterminate-result-ordering). P.S. [\[1\]](#1-indeterminate-result-ordering) will be used throughout this table to indicate this same behavior                                   |
-| Character ranges (`[a-z]`)                          | Y         | Y    | Y      | Y         | Y          | [\[1\]](#1-indeterminate-result-ordering). `tiny-glob` throws error on invalid ranges [\[2\]](#2-tiny-glob-invalid-character-range-handling). Platform-dependent case sensitivity [\[3\]](#3-platform-dependent-case-sensitivity-behavior)                                                                                                                        |
+| Feature                    | `fast-glob` | `glob` | `globby` | `tiny-glob` | `tinyglobby` | Note                                                                                                                                                                                                                                            |
+| -------------------------- | ----------- | ------ | -------- | ----------- | ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Basic Patterns**         |             |        |          |             |              |                                                                                                                                                                                                                                                 |
+| Asterisk (`*`)             | Y           | Y      | Y        | Y           | Y            | `glob`: results in indeterminate order, manual sorting required [\[1\]](#1-indeterminate-result-ordering). P.S. [\[1\]](#1-indeterminate-result-ordering) will be used throughout this table to indicate this same behavior                     |
+| Character ranges (`[a-z]`) | Y           | Y      | Y        | Y           | Y            | [\[1\]](#1-indeterminate-result-ordering). `tiny-glob` throws error on invalid ranges [\[2\]](#2-tiny-glob-invalid-character-range-handling). Platform-dependent case sensitivity [\[3\]](#3-platform-dependent-case-sensitivity-behavior)      |
+| Negated classes (`[!abc]`) | Y           | Y      | Y        | Y           | N            | [\[1\]](#1-indeterminate-result-ordering). `tinyglobby`: inverts negation logic [\[4\]](#4-tinyglobby-negated-character-classes-issue). `tiny-glob`: handles empty negated class incorrectly [\[5\]](#5-tiny-glob-empty-negated-class-handling) |
+
 
 ## References
 
@@ -91,6 +93,43 @@ await fastGlob('[a-cA-C].js');  // ['A.js', 'B.js', 'a.js', 'b.js', 'c.js']
 ```
 
 This affects all glob libraries consistently and is a **filesystem-level behavior** rather than a **library-specific difference**.
+
+[↑ Back to top](#feature-comparison)
+
+---
+
+### [4] tinyglobby negated character classes issue
+
+`tinyglobby` inverts the logic of negated character classes. Instead of excluding characters, it includes them:
+
+```javascript
+// Expected behavior (fast-glob, glob, globby, tiny-glob)
+await fastGlob('[!abc].js');  // ['d.js', 'z.js'] - excludes a,b,c
+await glob('[!abc].js');      // ['d.js', 'z.js']
+await globby('[!abc].js');    // ['d.js', 'z.js']
+await tinyGlob('[!abc].js');  // ['d.js', 'z.js']
+
+// tinyglobby behavior (incorrect)
+await tinyglobby('[!abc].js'); // ['a.js', 'b.js', 'c.js'] - includes a,b,c instead
+```
+
+This affects all negated character class patterns including ranges like `[!a-z]` and specific characters like `[!az]`.
+
+[↑ Back to top](#feature-comparison)
+
+---
+
+### [5] tiny-glob empty negated class handling
+
+`tiny-glob` incorrectly handles empty negated character class `[!]`, returning all matching files instead of no matches:
+
+```javascript
+// Expected behavior (fast-glob, glob, globby, tinyglobby)
+await fastGlob('[!].js');  // [] - empty negation set matches nothing
+
+// tiny-glob behavior (incorrect)
+await tinyGlob('[!].js');  // ['a.js', 'b.js', 'c.js', 'd.js', 'z.js'] - matches everything
+```
 
 [↑ Back to top](#feature-comparison)
 

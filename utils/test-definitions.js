@@ -69,5 +69,31 @@ export const testDefinitions = {
       "[9-1].txt", // should not match anything
     ],
   },
+
+  negated_classes: {
+    testName: "Negated Classes",
+    files: [
+      "a.js",
+      "b.js",
+      "c.js",
+      "d.js",
+      "z.js",
+      "foo1.txt",
+      "foo2.txt",
+      "foo3.txt",
+      "foo9.txt",
+      "bar.js",
+      "baz.js",
+    ],
+    patterns: [
+      "[!abc].js", // should match: d.js, z.js, bar.js, baz.js
+      "foo[!123].txt", // should match: foo9.txt
+      "[!a-c].js", // should match: d.js, z.js, bar.js, baz.js
+      "foo[!1-3].txt", // should match: foo9.txt
+      "[!az].js", // should match: b.js, c.js, d.js, bar.js, baz.js
+      "[!].js", // invalid - should test error handling
+      "[!a-z].js", // should match nothing (all files have lowercase letters)
+    ],
+  },
   // ...
 };
