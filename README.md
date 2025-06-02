@@ -162,7 +162,7 @@ await tinyGlob('???.js');   // [] - no matches
 await tinyGlob('?ar.txt');  // [] - no matches
 
 // Exception: dot patterns work
-await tinyGlob('?.?');      // ['a.b'] - works correctly
+await tinyGlob('?.?');      // ['a.b', '...'] - works correctly
 ```
 
 [↑ Back to top](#feature-comparison)
