@@ -24,6 +24,10 @@
 | Exclamation (`!(pattern)`) | Y           | Y      | Partial  | Y           | Y            | globby: fails on patterns starting with `!` [\[13\]](#13-globby-negated-extglob-limitation); [\[1\]](#1-indeterminate-result-ordering) |
 | Plus (`+(pattern)`)        | Y           | Y      | Y        | Y           | Y            | [\[1\]](#1-indeterminate-result-ordering) |
 | Question (`?(pattern)`)    | Y           | Y      | Y        | Y           | Y            | [\[1\]](#1-indeterminate-result-ordering) |
+| **Path Handling** |
+| Absolute paths | Y | Y | Y | Y | Y | [`glob`], [`tiny-glob`]: use backslashes on Windows [[12]]; [[1]] |
+| Relative paths | Y | Y | Y | Y | Y | [`glob`], [`tiny-glob`]: use backslashes on Windows [[12]]; [[1]] |
+| Directory inclusion | Optional | Default | Optional | Default | Optional | [`glob`], [`tiny-glob`]: include directories by default [[14]]; [[1]] |
 
 ## References
 
@@ -320,6 +324,29 @@ await globby('component.!(html)')    // ['component.jsx', 'component.vue'] - wor
 await globby(['*.js', '!(foo|bar).js'])    // Works - excludes foo.js, bar.js
 await globby(['!(foo|bar).js', '*.js'])    // Broken - includes foo.js, bar.js
 ```
+
+[↑ Back to top](#feature-comparison)
+
+---
+
+### [14] Directory Inclusion in Results
+
+`glob` and `tiny-glob` include directories in their results by default, while other libraries return only files.
+
+```javascript
+// Pattern: **/nested/**/*
+
+// Include directories (glob, tiny-glob)
+await glob('**/nested/**/*');      // ['nested/deep', 'nested/config.json', 'nested/deep/file.js']
+await tinyGlob('**/nested/**/*');  // ['nested/config.json', 'nested/deep', 'nested/deep/file.js']
+
+// Files only (fast-glob, globby, tinyglobby)
+await fastGlob('**/nested/**/*');  // ['nested/config.json', 'nested/deep/file.js']
+await globby('**/nested/**/*');    // ['nested/config.json', 'nested/deep/file.js']
+await tinyglobby('**/nested/**/*'); // ['nested/config.json', 'nested/deep/file.js']
+```
+
+This behavior can be controlled in some libraries using `onlyFiles` or `onlyDirectories` options.
 
 [↑ Back to top](#feature-comparison)
 

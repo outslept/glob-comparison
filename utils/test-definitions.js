@@ -330,4 +330,48 @@ export const testDefinitions = {
     ],
     options: { extglob: true },
   },
+
+  absolute_paths: {
+    testName: "Absolute Paths",
+    files: [
+      "foo.js",
+      "bar.txt",
+      "baz/qux.js",
+      "baz/helper.txt",
+      "nested/deep/file.js",
+      "nested/config.json",
+    ],
+    directories: ["baz", "nested", "nested/deep"],
+    patterns: [
+      "*.js", // root level js files
+      "**/*.js", // all js files
+      "baz/*", // all files in baz
+      "**/nested/**/*", // all files in nested paths
+      "**/*.{js,txt}", // multiple extensions
+    ],
+    options: { absolute: true },
+  },
+
+  relative_paths: {
+    testName: "Relative Paths",
+    files: [
+      "foo.js",
+      "bar.txt",
+      "baz/qux.js",
+      "baz/helper.txt",
+      "nested/deep/file.js",
+      "nested/config.json",
+    ],
+    directories: ["baz", "nested", "nested/deep"],
+    patterns: ["*.js", "**/*.js", "baz/*", "**/nested/**/*", "**/*.{js,txt}"],
+    options: { absolute: false },
+  },
+
+  string_output: {
+    testName: "String Output Mode",
+    files: ["foo.js", "bar.txt", "baz/qux.js", "nested/file.json"],
+    directories: ["baz", "nested"],
+    patterns: ["*.js", "**/*", "baz/*"],
+    options: { objectMode: false },
+  },
 };
