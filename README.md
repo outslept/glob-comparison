@@ -1,10 +1,10 @@
 # Feature Comparison
 
-| Feature                                             | fast-glob | glob | globby | tiny-glob | tinyglobby | Note                                                                                                                                                                            |
+| Feature                                             | `fast-glob` | `glob` | `globby` | `tiny-glob` | `tinyglobby` | Note                                                                                                                                                                            |
 | --------------------------------------------------- | --------- | ---- | ------ | --------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Basic Patterns**                                  |           |      |        |           |            |                                                                                                                                                                                 |
-| Asterisk (`*`)                                      | Y         | Y    | Y      | Y         | Y          | glob: results in indeterminate order, manual sorting required [\[1\]](#1-indeterminate-result-ordering). P.S. [\[1\]](#1-indeterminate-result-ordering) will be used throughout this table to indicate this same behavior                                   |
-| Character ranges (`[a-z]`)                          | Y         | Y    | Y      | Y         | Y          | [\[1\]](#1-indeterminate-result-ordering). tiny-glob throws error on invalid ranges [\[2\]](#2-tiny-glob-invalid-character-range-handling). Platform-dependent case sensitivity [\[3\]](#3-platform-dependent-case-sensitivity-behavior)                                                                                                                        |
+| Asterisk (`*`)                                      | Y         | Y    | Y      | Y         | Y          | `glob`: results in indeterminate order, manual sorting required [\[1\]](#1-indeterminate-result-ordering). P.S. [\[1\]](#1-indeterminate-result-ordering) will be used throughout this table to indicate this same behavior                                   |
+| Character ranges (`[a-z]`)                          | Y         | Y    | Y      | Y         | Y          | [\[1\]](#1-indeterminate-result-ordering). `tiny-glob` throws error on invalid ranges [\[2\]](#2-tiny-glob-invalid-character-range-handling). Platform-dependent case sensitivity [\[3\]](#3-platform-dependent-case-sensitivity-behavior)                                                                                                                        |
 
 ## References
 
@@ -13,11 +13,11 @@
 - **[Minimatch]**
 
 <!-- Library links -->
-[fast-glob]: https://github.com/mrmlnc/fast-glob
-[glob]: https://github.com/isaacs/node-glob
-[globby]: https://github.com/sindresorhus/globby
-[tiny-glob]: https://github.com/terkelg/tiny-glob
-[tinyglobby]: https://github.com/SuperchupuDev/tinyglobby
+[`fast-glob`]: https://github.com/mrmlnc/fast-glob
+[`glob`]: https://github.com/isaacs/node-glob
+[`globby`]: https://github.com/sindresorhus/globby
+[`tiny-glob`]: https://github.com/terkelg/tiny-glob
+[`tinyglobby`]: https://github.com/SuperchupuDev/tinyglobby
 
 <!-- Documentation links -->
 [Asterisk]: https://www.gnu.org/software/bash/manual/html_node/Pattern-Matching.html
