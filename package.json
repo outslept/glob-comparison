@@ -20,6 +20,7 @@
   },
   "devDependencies": {
     "@sxzz/eslint-config": "^7.0.1",
+    "@types/node": "^22.15.29",
     "lint-staged": "^16.0.0",
     "simple-git-hooks": "^2.13.0"
   }

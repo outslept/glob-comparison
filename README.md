@@ -7,6 +7,13 @@
 | Character ranges (`[a-z]`) | Y           | Y      | Y        | Y           | Y            | [\[1\]](#1-indeterminate-result-ordering). `tiny-glob` throws error on invalid ranges [\[2\]](#2-tiny-glob-invalid-character-range-handling). Platform-dependent case sensitivity [\[3\]](#3-platform-dependent-case-sensitivity-behavior)      |
 | Negated classes (`[!abc]`) | Y           | Y      | Y        | Y           | N            | [\[1\]](#1-indeterminate-result-ordering). `tinyglobby`: inverts negation logic [\[4\]](#4-tinyglobby-negated-character-classes-issue). `tiny-glob`: handles empty negated class incorrectly [\[5\]](#5-tiny-glob-empty-negated-class-handling) |
 | Question mark (`?`)                                 | Y         | Y    | Y      | N         | Y          | [\[1\]](#1-indeterminate-result-ordering). `tiny-glob`: doesn't recognize most `?` patterns as globs [\[6\]](#6-tiny-glob-question-mark-limitation) |
+| **Brace Expansion**                                 |           |      |        |           |            |                                                                                                                                                                                 |
+| Brace expansion (`{js,ts}`)                         | Y         | Y    | Y      | Y         | Y          | [\[1\]](#1-indeterminate-result-ordering). Result ordering varies [\[7\]](#7-brace-expansion-result-ordering) |
+| Nested brace expansion (`*.{spec,test}.js`)         | Y         | Y    | Y      | Y         | Y          | [\[1\]](#1-indeterminate-result-ordering) |
+| Multiple brace expansion (`{app,config}.{js,json}`) | Y         | Y    | Y      | Y         | Y          | [\[1\]](#1-indeterminate-result-ordering) |
+| Simple numeric range (`{1..3}`)                     | Y         | Y    | Y      | N         | Y          | [\[1\]](#1-indeterminate-result-ordering). `tiny-glob`: no support for numeric ranges [\[8\]](#8-tiny-glob-numeric-range-limitation) |
+| Zero-padded range (`{01..03}`)                      | Y         | Y    | Y      | N         | N          | [\[1\]](#1-indeterminate-result-ordering). `tiny-glob`: no support [\[8\]](#8-tiny-glob-numeric-range-limitation). `tinyglobby`: fails on zero-padded patterns [\[9\]](#9-tinyglobby-zero-padded-range-limitation) |
+| Single item braces (`{js}`)                         | Literal   | Literal | Literal | Expands   | Literal    | `tiny-glob`: expands single-item braces [\[10\]](#10-tiny-glob-single-item-brace-expansion) |
 
 ## References
 
@@ -164,6 +171,89 @@ await tinyGlob('?ar.txt');  // [] - no matches
 // Exception: dot patterns work
 await tinyGlob('?.?');      // ['a.b', '...'] - works correctly
 ```
+
+[↑ Back to top](#feature-comparison)
+
+---
+
+### [7] Brace expansion differences
+
+Libraries handle brace expansion result ordering differently:
+
+```javascript
+// fast-glob, globby: preserve brace order
+await fastGlob('foo.{js,ts,css}');  // ['foo.js', 'foo.ts', 'foo.css']
+await globby('foo.{js,ts,css}');    // ['foo.js', 'foo.ts', 'foo.css']
+
+// tiny-glob, tinyglobby: alphabetical order
+await tinyGlob('foo.{js,ts,css}');     // ['foo.css', 'foo.js', 'foo.ts']
+await tinyglobby('foo.{js,ts,css}');   // ['foo.css', 'foo.js', 'foo.ts']
+```
+
+[↑ Back to top](#feature-comparison)
+
+---
+
+### [8] tiny-glob numeric range limitation
+
+`tiny-glob` doesn't support numeric range syntax in brace expansion. The [globrex dependency](https://www.npmjs.com/package/globrex) treats `..` as literal characters rather than range operators:
+
+```javascript
+// Supported by fast-glob, glob, globby, tinyglobby
+await fastGlob('file{1..3}.txt');   // ['file1.txt', 'file2.txt', 'file3.txt']
+await glob('file{1..3}.txt');       // ['file1.txt', 'file2.txt', 'file3.txt']
+await globby('file{1..3}.txt');     // ['file1.txt', 'file2.txt', 'file3.txt']
+await tinyglobby('file{1..3}.txt'); // ['file1.txt', 'file2.txt', 'file3.txt']
+
+// Not supported by tiny-glob
+await tinyGlob('file{1..3}.txt');   // [] - no matches
+
+// Comma-separated works in tiny-glob
+await tinyGlob('file{1,2,3}.txt');  // ['file1.txt', 'file2.txt', 'file3.txt']
+```
+
+The globrex regex generation treats `{1..3}` as literal `(1\.\.3)` instead of expanding to `(1|2|3)`.
+
+### [9] tinyglobby zero-padded range limitation
+
+`tinyglobby` fails to match zero-padded numeric ranges while successfully handling simple ranges. The issue stems from the [picomatch dependency](https://www.npmjs.com/package/picomatch) where zero-padded ranges create invalid character class syntax:
+
+```javascript
+// Simple ranges work (fast-glob, glob, globby, tinyglobby)
+await fastGlob('file{1..3}.txt');   // ['file1.txt', 'file2.txt', 'file3.txt']
+await tinyglobby('file{1..3}.txt'); // ['file1.txt', 'file2.txt', 'file3.txt']
+
+// Zero-padded ranges fail in tinyglobby
+await fastGlob('file{01..03}.txt');   // ['file01.txt', 'file02.txt', 'file03.txt']
+await glob('file{01..03}.txt');       // ['file01.txt', 'file02.txt', 'file03.txt']
+await globby('file{01..03}.txt');     // ['file01.txt', 'file02.txt', 'file03.txt']
+await tinyglobby('file{01..03}.txt'); // [] - no matches
+
+// tiny-glob fails on both
+await tinyGlob('file{01..03}.txt');   // [] - no matches
+```
+
+Picomatch attempts to create character class `[01-03]` which is invalid regex syntax, causing fallback to literal string matching.
+
+[↑ Back to top](#feature-comparison)
+___
+
+### [10] tiny-glob single item brace expansion
+
+`tiny-glob` expands single-item braces while other libraries treat them as literal filenames:
+
+```javascript
+// Most libraries: treat as literal filename
+await fastGlob('foo.{js}');   // ['foo.{js}'] - if literal file exists
+await glob('foo.{js}');       // ['foo.{js}']
+await globby('foo.{js}');     // ['foo.{js}']
+await tinyglobby('foo.{js}'); // ['foo.{js}']
+
+// tiny-glob: expands single-item braces
+await tinyGlob('foo.{js}');   // ['foo.js'] - expands to foo.js
+```
+
+This behavior means `tiny-glob` will find `foo.js` when searching for `foo.{js}`, while other libraries look for a file literally named `foo.{js}`.
 
 [↑ Back to top](#feature-comparison)
 

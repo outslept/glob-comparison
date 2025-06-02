@@ -124,5 +124,37 @@ export const testDefinitions = {
       "?.?", // single.single: a.b
     ],
   },
-  // ...
+
+  brace_expansion: {
+    testName: "Brace Expansion",
+    id: "brace_expansion",
+    files: [
+      "foo.js",
+      "foo.ts",
+      "foo.css",
+      "bar.spec.js",
+      "bar.test.js",
+      "baz.json",
+      "baz.yaml",
+      "qux1.txt",
+      "qux2.txt",
+      "qux3.txt",
+      "file01.txt",
+      "file02.txt",
+      "file03.txt",
+      "foo.{js}",
+      "nomatch.php",
+    ],
+    patterns: [
+      "foo.{js,ts,css}",
+      "bar.{spec,test}.js",
+      "{foo,baz}.{js,json}",
+      "foo.{js}",
+      "qux{1..3}.txt",
+      "qux{1,2,3}.txt",
+      "file{01..03}.txt",
+      "{foo,bar}.php",
+      "foo.{}",
+    ],
+  },
 };
