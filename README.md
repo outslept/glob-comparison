@@ -125,13 +125,13 @@ This affects all negated character class patterns including ranges like `[!a-z]`
 
 ### [5] tiny-glob empty negated class handling
 
-`tiny-glob` incorrectly handles empty negated character class `[!]`, returning all matching files instead of no matches:
+`tiny-glob`  handles empty negated character class `[!]` differently, returning all matching files instead of no matches:
 
 ```javascript
-// Expected behavior (fast-glob, glob, globby, tinyglobby)
+// Standard behavior (fast-glob, glob, globby, tinyglobby)
 await fastGlob('[!].js');  // [] - empty negation set matches nothing
 
-// tiny-glob behavior (incorrect)
+// tiny-glob behavior
 await tinyGlob('[!].js');  // ['a.js', 'b.js', 'c.js', 'd.js', 'z.js'] - matches everything
 ```
 
