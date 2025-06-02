@@ -8,6 +8,7 @@
     "lint:fix": "eslint . --fix"
   },
   "dependencies": {
+    "console-table-printer": "^2.14.1",
     "fast-glob": "^3.3.3",
     "glob": "^11.0.2",
     "globalyzer": "^0.1.4",

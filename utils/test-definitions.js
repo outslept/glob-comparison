@@ -1,0 +1,42 @@
+export const testDefinitions = {
+  asterisk: {
+    id: "asterisk",
+    testName: "Asterisk Patterns",
+    files: [
+      "foo.js",
+      "bar.js",
+      "baz.txt",
+      "qux.json",
+      "config",
+      "a",
+      "ab",
+      "abc",
+      "abcdef",
+      "foo_bar_baz.js",
+      "start_end.txt",
+      "x.y.z",
+      "foo.bar.baz.with.dots.js",
+      "short.js",
+      "verylongfilename.txt",
+    ],
+    patterns: [
+      "*",
+      "*.js",
+      "a*",
+      "*.txt",
+      "*.*",
+      "*.*.*",
+      "*.*.js",
+      "*foo*",
+      "*_*",
+      "a*c",
+      "foo*baz*",
+      "***",
+      "a*b*c",
+      "*_*_*",
+      "*.*.*.js",
+    ],
+  },
+
+  // ...
+};
