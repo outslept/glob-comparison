@@ -22,7 +22,9 @@
 
 | Asterisk (`*(pattern)`)                             | Y         | Y    | Y      | Y         | Y          | [\[1\]](#1-indeterminate-result-ordering)                                                                                                                                                                             |
 | At (`@(pattern)`)                                   | Y         | Y    | Y      | Y         | Y          | [\[1\]](#1-indeterminate-result-ordering)                                                                                                                                                                             |
-
+| Exclamation (`!(pattern)`)                          | Y         | Y    | Partial | Y         | Y          | globby: fails on patterns starting with `!` [\[13\]](#13-globby-negated-extglob-limitation); [\[1\]](#1-indeterminate-result-ordering) |
+| Plus (`+(pattern)`)                                 | Y         | Y    | Y       | Y         | Y          | [\[1\]](#1-indeterminate-result-ordering) |
+| Question (`?(pattern)`)                             | Y         | Y    | Y       | Y         | Y          | [\[1\]](#1-indeterminate-result-ordering) |
 
 ## References
 
@@ -296,3 +298,30 @@ await globby('foo/**/*.js');    // ['foo/index.js', 'foo/main.js', ...]
 ```
 
 [↑ Back to top](#feature-comparison)
+
+---
+
+### [13] globby negated extglob limitation
+
+`globby` has inconsistent behavior with extglob negation patterns starting with `!`. Patterns beginning with `!(...)` consistently return empty results, while the same logic works correctly when the negation is not at the start of the pattern.
+
+```javascript
+// ❌ Always fails: extglob negation at start
+await globby('!(foo|bar).js')        // [] - empty result
+await globby('!(test|app)*.js')      // [] - empty result
+await globby('!(*.html)')            // [] - empty result
+await globby('!(foo).js')            // [] - empty result
+
+// ✅ Always works: extglob negation not at start
+await globby('app.!(min).js')        // ['app.dev.js', 'app.prod.js'] - works correctly
+await globby('test.!(spec).js')      // ['test.config.js', 'test.unit.js'] - works correctly
+await globby('component.!(html)')    // ['component.jsx', 'component.vue'] - works correctly
+
+// ⚠️ Mixed arrays: order matters
+await globby(['*.js', '!(foo|bar).js'])    // Works - excludes foo.js, bar.js
+await globby(['!(foo|bar).js', '*.js'])    // Broken - includes foo.js, bar.js
+```
+
+[↑ Back to top](#feature-comparison)
+
+---

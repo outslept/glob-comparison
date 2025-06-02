@@ -249,4 +249,85 @@ export const testDefinitions = {
     ],
     options: { extglob: true },
   },
+
+  exclamation_pattern: {
+    testName: "Extended Glob - Exclamation Pattern",
+    files: [
+      "foo.js",
+      "bar.js",
+      "baz.js",
+      "qux.js",
+      "foobar.js",
+      "foobaz.js",
+      "test.spec.js",
+      "test.unit.js",
+      "app.config.js",
+      "app.prod.js",
+      "component.vue",
+      "component.jsx",
+      "nomatch.txt",
+    ],
+    patterns: [
+      "!(foo).js", // all .js except foo.js
+      "!(foo|bar).js", // all .js except foo.js and bar.js
+      "test.!(spec).js", // test.unit.js (not test.spec.js)
+      "app.!(config).js", // app.prod.js (not app.config.js)
+      "component.!(vue)", // component.jsx (not component.vue)
+      "!(test|app)*.js", // excludes files starting with test or app
+      "!(missing).js", // all .js files
+      "!(*.txt)", // all non-.txt files
+    ],
+    options: { extglob: true },
+  },
+
+  plus_pattern: {
+    testName: "Extended Glob - Plus Pattern",
+    files: [
+      "foo.js",
+      "foofoo.js",
+      "foofoofoo.js",
+      "bar.js",
+      "test.spec.js",
+      "test.specspec.js",
+      "app.config.js",
+      "app.configconfig.js",
+      "empty.js",
+      "nomatch.txt",
+    ],
+    patterns: [
+      "+(foo).js", // one or more foo: foofoo.js, foofoofoo.js
+      "test.+(spec).js", // test.spec.js, test.specspec.js
+      "+(foo|bar).js", // foo.js, bar.js, foofoo.js, foofoofoo.js
+      "app.+(config).js", // app.config.js, app.configconfig.js
+      "+(missing).js", // no matches
+      "+(a|b|c).js", // no matches
+    ],
+    options: { extglob: true },
+  },
+
+  question_pattern: {
+    testName: "Extended Glob - Question Pattern",
+    files: [
+      "foo.js",
+      "foofoo.js",
+      "bar.js",
+      "test.js",
+      "test.spec.js",
+      "app.js",
+      "app.config.js",
+      "component.vue",
+      "component.jsx",
+      "nomatch.txt",
+    ],
+    patterns: [
+      "?(foo).js", // zero or one foo: .js, foo.js
+      "test.?(spec).js", // test.js, test.spec.js
+      "?(foo|bar).js", // .js, foo.js, bar.js
+      "app.?(config).js", // app.js, app.config.js
+      "component.?(vue|jsx)", // component, component.vue, component.jsx
+      "?(missing).js", // .js if exists
+      "?(a|b|c).js", // .js if exists
+    ],
+    options: { extglob: true },
+  },
 };
