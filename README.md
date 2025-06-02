@@ -47,10 +47,12 @@ Starting from `glob` v9, results are returned in non-deterministic order that de
 glob.sync('pattern').sort((a, b) => a.localeCompare(b, 'en'))
 ```
 
-Reference links:
+**Reference links:**
 
 1. https://github.com/isaacs/node-glob/issues/576
 2. https://github.com/isaacs/node-glob/blob/v8.1.0/common.js?rgh-link-date=2024-03-01T08%3A48%3A35.000Z#L20
+
+[↑ Back to top](#feature-comparison)
 
 ---
 
@@ -70,6 +72,10 @@ await tinyGlob('[9-1].txt');
 // Error: Invalid regular expression: /^[9-1]\.txt$/: Range out of order in character class
 ```
 
+[↑ Back to top](#feature-comparison)
+
+---
+
 ### [3] Platform-dependent case sensitivity behavior
 
 Character class patterns with mixed case ranges behave differently across platforms due to filesystem case sensitivity:
@@ -86,3 +92,6 @@ await fastGlob('[a-cA-C].js');  // ['A.js', 'B.js', 'a.js', 'b.js', 'c.js']
 
 This affects all glob libraries consistently and is a **filesystem-level behavior** rather than a **library-specific difference**.
 
+[↑ Back to top](#feature-comparison)
+
+---
