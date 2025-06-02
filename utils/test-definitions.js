@@ -193,4 +193,35 @@ export const testDefinitions = {
     ],
     patterns: ["**/*.js", "foo/**/*.js", "**/bar/*.js", "**/nested/**/*.js"],
   },
+
+  at_pattern: {
+    testName: "Extended Glob - At Pattern",
+    files: [
+      "foo.js",
+      "bar.js",
+      "baz.js",
+      "qux.js",
+      "foobar.js",
+      "foobaz.js",
+      "test.spec.js",
+      "test.test.js",
+      "app.config.js",
+      "app.prod.js",
+      "component.vue",
+      "component.jsx",
+      "component.tsx",
+      "nomatch.php",
+    ],
+    patterns: [
+      "@(foo|bar|baz).js", // foo.js, bar.js, baz.js
+      "test.@(spec|test).js", // test.spec.js, test.test.js
+      "app.@(config|prod).js", // app.config.js, app.prod.js
+      "component.@(vue|jsx|tsx)", // component.vue, component.jsx, component.tsx
+      "@(foo)baz.js", // foobaz.js
+      "@(test|app).@(spec|config).js", // test.spec.js, app.config.js
+      "@().js", // empty group - should match nothing
+      "@(missing).js", // no matches
+    ],
+    options: { extglob: true },
+  },
 };
