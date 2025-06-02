@@ -100,18 +100,22 @@ This affects all glob libraries consistently and is a **filesystem-level behavio
 
 ### [4] tinyglobby negated character classes issue
 
-`tinyglobby` inverts the logic of negated character classes. Instead of excluding characters, it includes them:
+`tinyglobby` handles negated character classes differently from the standard glob behavior. Instead of excluding characters, it includes them:
 
 ```javascript
-// Expected behavior (fast-glob, glob, globby, tiny-glob)
+// Standard behavior (fast-glob, glob, globby, tiny-glob)
 await fastGlob('[!abc].js');  // ['d.js', 'z.js'] - excludes a,b,c
 await glob('[!abc].js');      // ['d.js', 'z.js']
 await globby('[!abc].js');    // ['d.js', 'z.js']
 await tinyGlob('[!abc].js');  // ['d.js', 'z.js']
 
-// tinyglobby behavior (incorrect)
+// tinyglobby behavior
 await tinyglobby('[!abc].js'); // ['a.js', 'b.js', 'c.js'] - includes a,b,c instead
 ```
+
+This differs from the [POSIX.1-2017 Pattern Matching Notation](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html#tag_18_13_01) specification, which defines `[!...]` as a **"non-matching list"**:
+
+> "If an open bracket introduces a bracket expression as in XBD RE Bracket Expression, except that the <exclamation-mark> character ( '!' ) shall replace the <circumflex> character ( '^' ) in its role in a non-matching list in the regular expression notation"
 
 This affects all negated character class patterns including ranges like `[!a-z]` and specific characters like `[!az]`.
 
