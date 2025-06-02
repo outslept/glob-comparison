@@ -1,3 +1,37 @@
+/**
+ * @typedef {object} GlobOptions
+ * @property {string[]} [ignore] - Patterns to ignore
+ * @property {boolean} [gitignore] - Respect .gitignore files (globby only)
+ * @property {boolean} [absolute] - Return absolute paths
+ * @property {boolean} [dot] - Include dotfiles
+ * @property {boolean} [caseSensitive] - Enable case-sensitive matching
+ * @property {number} [depth] - Maximum directory depth to traverse
+ * @property {boolean} [onlyDirectories] - Return only directories
+ * @property {boolean} [onlyFiles] - Return only files
+ * @property {boolean} [markDirectories] - Mark directories with trailing slash
+ * @property {boolean} [objectMode] - Return file objects instead of strings
+ * @property {boolean} [extglob] - Enable extended glob patterns
+ */
+
+/**
+ * @typedef {object} GlobModule
+ * @property {Function} [default] - Default export function
+ * @property {Function} [glob] - Named glob function
+ * @property {Function} [globby] - Named globby function
+ */
+
+/**
+ * @typedef {string | object} GlobResult
+ * Result can be a file path string or file object depending on objectMode option
+ */
+
+/**
+ * @param {string} libName - Library name ('fast-glob', 'glob', 'globby', 'tiny-glob', 'tinyglobby')
+ * @param {GlobModule} module - Imported glob library module
+ * @param {string|string[]} pattern - Glob pattern(s) to match
+ * @param {GlobOptions} [options] - Glob options
+ * @returns {Promise<GlobResult[]>} Array of matched file paths or file objects
+ */
 export async function getFiles(libName, module, pattern, options = {}) {
   const opts = normalizeOptions(libName, options);
 
@@ -17,6 +51,11 @@ export async function getFiles(libName, module, pattern, options = {}) {
   }
 }
 
+/**
+ * @param {string} libName - Library name ('fast-glob', 'glob', 'globby', 'tiny-glob', 'tinyglobby')
+ * @param {GlobOptions} options - Input options object
+ * @returns {object} Normalized options object for the specific library
+ */
 export function normalizeOptions(libName, options) {
   const opts = {};
 
