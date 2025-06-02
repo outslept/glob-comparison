@@ -76,9 +76,9 @@ async function runSingleTest(testConfig, options = {}) {
     }
 
     if (verbose) {
-      outputVerbose(testConfig.testName, results);
+      outputVerbose(results);
     } else {
-      outputCompact(testConfig.testName, results);
+      outputCompact(results);
     }
   } finally {
     process.chdir(originalCwd);
