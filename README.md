@@ -4,7 +4,7 @@
 | --------------------------------------------------- | --------- | ---- | ------ | --------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Basic Patterns**                                  |           |      |        |           |            |                                                                                                                                                                                 |
 | Asterisk (`*`)                                      | Y         | Y    | Y      | Y         | Y          | glob: results in indeterminate order, manual sorting required [\[1\]](#1). P.S. [\[1\]](#1) will be used throughout this table to indicate this same behavior                                   |
-
+| Character ranges (`[a-z]`)                          | Y         | Y    | Y      | Y         | Y          | [\[1\]](#1). tiny-glob throws error on invalid ranges [\[2\]](#2). Platform-dependent case sensitivity [\[3\]](#3)                                                                                                                        |
 
 ## References
 
@@ -51,3 +51,38 @@ Reference links:
 
 1. https://github.com/isaacs/node-glob/issues/576
 2. https://github.com/isaacs/node-glob/blob/v8.1.0/common.js?rgh-link-date=2024-03-01T08%3A48%3A35.000Z#L20
+
+---
+
+### [2] tiny-glob invalid character range handling {#2}
+
+tiny-glob throws an error encountering invalid character ranges (like [9-1] where the start character has a higher ASCII value than the end character), while other libraries gracefully return no matches.
+
+```javascript
+// All other libraries handle gracefully
+await fastGlob('[9-1].txt');  // []
+await glob.glob('[9-1].txt'); // []
+await globby('[9-1].txt');    // []
+await tinyglobby('[9-1].txt'); // []
+
+// tiny-glob throws error
+await tinyGlob('[9-1].txt');
+// Error: Invalid regular expression: /^[9-1]\.txt$/: Range out of order in character class
+```
+
+### [3] Platform-dependent case sensitivity behavior
+
+Character class patterns with mixed case ranges behave differently across platforms due to filesystem case sensitivity:
+
+```javascript
+// Files: a.js, b.js, c.js, A.js, B.js
+
+// Windows (case-insensitive filesystem)
+await fastGlob('[a-cA-C].js');  // ['a.js', 'b.js', 'c.js']
+
+// Linux (case-sensitive filesystem)
+await fastGlob('[a-cA-C].js');  // ['A.js', 'B.js', 'a.js', 'b.js', 'c.js']
+```
+
+This affects all glob libraries consistently and is a **filesystem-level behavior** rather than a **library-specific difference**.
+
