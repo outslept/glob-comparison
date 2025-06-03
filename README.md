@@ -6,7 +6,7 @@
 | Asterisk (`*`)             | Y           | Y      | Y        | Y           | Y            | `glob`: results in indeterminate order, manual sorting required [\[1\]](#1-indeterminate-result-ordering). P.S. [\[1\]](#1-indeterminate-result-ordering) will be used throughout this table to indicate this same behavior                     |
 | Character ranges (`[a-z]`) | Y           | Y      | Y        | Y           | Y            | [\[1\]](#1-indeterminate-result-ordering). `tiny-glob` throws error on invalid ranges [\[2\]](#2-tiny-glob-invalid-character-range-handling). Platform-dependent case sensitivity [\[3\]](#3-platform-dependent-case-sensitivity-behavior)      |
 | Negated classes (`[!abc]`) | Y           | Y      | Y        | Y           | N            | [\[1\]](#1-indeterminate-result-ordering). `tinyglobby`: inverts negation logic [\[4\]](#4-tinyglobby-negated-character-classes-issue). `tiny-glob`: handles empty negated class incorrectly [\[5\]](#5-tiny-glob-empty-negated-class-handling) |
-| Question mark (`?`)        | Y           | Y      | Y        | N           | Y            | [\[1\]](#1-indeterminate-result-ordering). `tiny-glob`: doesn't recognize most `?` patterns as globs [\[6\]](#6-tiny-glob-question-mark-limitation) |
+| Question mark (`?`)        | Y           | Y      | Y        | Partial           | Y            | [\[1\]](#1-indeterminate-result-ordering). `tiny-glob`: doesn't recognize most `?` patterns as globs [\[6\]](#6-tiny-glob-question-mark-limitation) |
 | **Brace Expansion**                                                                                                                                                                              |
 | Brace expansion (`{js,ts}`) | Y          | Y      | Y        | Y           | Y            | [\[1\]](#1-indeterminate-result-ordering). Result ordering varies [\[7\]](#7-brace-expansion-result-ordering) |
 | Nested brace expansion (`*.{spec,test}.js`) | Y    | Y      | Y        | Y           | Y            | [\[1\]](#1-indeterminate-result-ordering) |
@@ -203,6 +203,8 @@ await globby('foo.{js,ts,css}');    // ['foo.js', 'foo.ts', 'foo.css']
 await tinyGlob('foo.{js,ts,css}');     // ['foo.css', 'foo.js', 'foo.ts']
 await tinyglobby('foo.{js,ts,css}');   // ['foo.css', 'foo.js', 'foo.ts']
 ```
+
+Speaking of order, do not forget about [\[#1\]](#1-indeterminate-result-ordering).
 
 [↑ Back to top](#feature-comparison)
 
