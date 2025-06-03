@@ -19,7 +19,7 @@ interface GlobOpts {
   follow?: boolean;
   realpath?: boolean;
   posix?: boolean;
-  platform?: NodeJS.Platform;
+  platform?: string;
   withFileTypes?: boolean;
   signal?: AbortSignal;
   includeChildMatches?: boolean;
@@ -133,8 +133,24 @@ export async function getFiles(
 ): Promise<GlobRes[]> {
   const normOpts = normalizeOpts(lib, opts);
 
-  const fn =
-    lib === "glob" ? mod.glob : lib === "globby" ? mod.globby : mod.default;
+  let fn;
+  switch (lib) {
+    case "glob":
+      fn = mod.glob;
+      break;
+    case "globby":
+      fn = mod.globby;
+      break;
+    case "fast-glob":
+      fn = mod.default;
+      break;
+    case "tiny-glob":
+      fn = mod.default;
+      break;
+    case "tinyglobby":
+      fn = mod.glob;
+      break;
+  }
 
   return await fn!(pattern, normOpts);
 }

@@ -10,7 +10,7 @@ export interface TestDefinition {
   directories?: string[];
   patterns: (string | string[] | TestPattern)[];
   options?: Record<string, unknown>;
-  platformSpecific?: NodeJS.Platform;
+  platformSpecific?: string;
   needsSymlinks?: boolean;
   hiddenFiles?: string[];
 }
