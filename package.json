@@ -1,11 +1,12 @@
 {
   "name": "glob-benchmark",
-  "version": "1.0.0",
-  "type": "module",
+  "version": "0.0.0",
   "packageManager": "pnpm@10.10.0",
+  "type": "module",
   "scripts": {
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "test": "tsx run-tests.ts"
   },
   "dependencies": {
     "console-table-printer": "^2.14.1",
@@ -22,6 +23,8 @@
     "@sxzz/eslint-config": "^7.0.1",
     "@types/node": "^22.15.29",
     "lint-staged": "^16.0.0",
-    "simple-git-hooks": "^2.13.0"
+    "simple-git-hooks": "^2.13.0",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3"
   }
 }

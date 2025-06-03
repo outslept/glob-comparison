@@ -1,4 +1,21 @@
-export const testDefinitions = {
+interface TestPattern {
+  pattern: string | string[];
+  options?: Record<string, unknown>;
+}
+
+export interface TestDefinition {
+  id?: string;
+  testName: string;
+  files: string[];
+  directories?: string[];
+  patterns: (string | string[] | TestPattern)[];
+  options?: Record<string, unknown>;
+  platformSpecific?: NodeJS.Platform;
+  needsSymlinks?: boolean;
+  hiddenFiles?: string[];
+}
+
+export const testDefinitions: Record<string, TestDefinition> = {
   asterisk: {
     id: "asterisk",
     testName: "Asterisk Patterns",
@@ -58,15 +75,15 @@ export const testDefinitions = {
       "baz10.txt",
     ],
     patterns: [
-      "[abc].js", // matches a.js, b.js, c.js
-      "foo[123].txt", // matches foo1.txt, foo2.txt, foo3.txt
-      "[a-c].js", // range test
-      "[a-z].js", // full alphabet range
-      "foo[0-9].txt", // digit range
-      "[a-cA-C].js", // mixed case ranges
-      "[az].js", // first and last without range
-      "bar[-_].txt", // special chars in class
-      "[9-1].txt", // should not match anything
+      "[abc].js",
+      "foo[123].txt",
+      "[a-c].js",
+      "[a-z].js",
+      "foo[0-9].txt",
+      "[a-cA-C].js",
+      "[az].js",
+      "bar[-_].txt",
+      "[9-1].txt",
     ],
   },
 
@@ -86,13 +103,13 @@ export const testDefinitions = {
       "baz.js",
     ],
     patterns: [
-      "[!abc].js", // should match: d.js, z.js, bar.js, baz.js
-      "foo[!123].txt", // should match: foo9.txt
-      "[!a-c].js", // should match: d.js, z.js, bar.js, baz.js
-      "foo[!1-3].txt", // should match: foo9.txt
-      "[!az].js", // should match: b.js, c.js, d.js, bar.js, baz.js
-      "[!].js", // invalid - should test error handling
-      "[!a-z].js", // should match nothing (all files have lowercase letters)
+      "[!abc].js",
+      "foo[!123].txt",
+      "[!a-c].js",
+      "foo[!1-3].txt",
+      "[!az].js",
+      "[!].js",
+      "[!a-z].js",
     ],
   },
 
@@ -113,15 +130,15 @@ export const testDefinitions = {
       ".hidden",
     ],
     patterns: [
-      "?.js", // single char: a.js
-      "???.js", // 3 chars: foo.js, baz.json (wrong ext)
-      "??.js", // 2 chars: ab.js
-      "foo?.txt", // no matches (foo.js exists)
-      "ba?.txt", // no matches
-      "?ar.txt", // bar.txt
-      "?", // single char no ext: x
-      "??", // 2 chars no ext: xy
-      "?.?", // single.single: a.b
+      "?.js",
+      "???.js",
+      "??.js",
+      "foo?.txt",
+      "ba?.txt",
+      "?ar.txt",
+      "?",
+      "??",
+      "?.?",
     ],
   },
 
@@ -210,11 +227,11 @@ export const testDefinitions = {
       "nomatch.txt",
     ],
     patterns: [
-      "*(foo).js", // foo.js, foofoo.js, foofoofoo.js
-      "test.*(spec).js", // test.js, test.spec.js, test.specspec.js
-      "*(foo|bar).js", // foo.js, bar.js, foofoo.js, foobar.js, etc
-      "app.*(config).js", // app.js, app.config.js, app.configconfig.js
-      "*(missing).js", // no matches
+      "*(foo).js",
+      "test.*(spec).js",
+      "*(foo|bar).js",
+      "app.*(config).js",
+      "*(missing).js",
     ],
     options: { extglob: true },
   },
@@ -238,14 +255,14 @@ export const testDefinitions = {
       "nomatch.php",
     ],
     patterns: [
-      "@(foo|bar|baz).js", // foo.js, bar.js, baz.js
-      "test.@(spec|test).js", // test.spec.js, test.test.js
-      "app.@(config|prod).js", // app.config.js, app.prod.js
-      "component.@(vue|jsx|tsx)", // component.vue, component.jsx, component.tsx
-      "@(foo)baz.js", // foobaz.js
-      "@(test|app).@(spec|config).js", // test.spec.js, app.config.js
-      "@().js", // empty group - should match nothing
-      "@(missing).js", // no matches
+      "@(foo|bar|baz).js",
+      "test.@(spec|test).js",
+      "app.@(config|prod).js",
+      "component.@(vue|jsx|tsx)",
+      "@(foo)baz.js",
+      "@(test|app).@(spec|config).js",
+      "@().js",
+      "@(missing).js",
     ],
     options: { extglob: true },
   },
@@ -268,14 +285,14 @@ export const testDefinitions = {
       "nomatch.txt",
     ],
     patterns: [
-      "!(foo).js", // all .js except foo.js
-      "!(foo|bar).js", // all .js except foo.js and bar.js
-      "test.!(spec).js", // test.unit.js (not test.spec.js)
-      "app.!(config).js", // app.prod.js (not app.config.js)
-      "component.!(vue)", // component.jsx (not component.vue)
-      "!(test|app)*.js", // excludes files starting with test or app
-      "!(missing).js", // all .js files
-      "!(*.txt)", // all non-.txt files
+      "!(foo).js",
+      "!(foo|bar).js",
+      "test.!(spec).js",
+      "app.!(config).js",
+      "component.!(vue)",
+      "!(test|app)*.js",
+      "!(missing).js",
+      "!(*.txt)",
     ],
     options: { extglob: true },
   },
@@ -295,12 +312,12 @@ export const testDefinitions = {
       "nomatch.txt",
     ],
     patterns: [
-      "+(foo).js", // one or more foo: foofoo.js, foofoofoo.js
-      "test.+(spec).js", // test.spec.js, test.specspec.js
-      "+(foo|bar).js", // foo.js, bar.js, foofoo.js, foofoofoo.js
-      "app.+(config).js", // app.config.js, app.configconfig.js
-      "+(missing).js", // no matches
-      "+(a|b|c).js", // no matches
+      "+(foo).js",
+      "test.+(spec).js",
+      "+(foo|bar).js",
+      "app.+(config).js",
+      "+(missing).js",
+      "+(a|b|c).js",
     ],
     options: { extglob: true },
   },
@@ -320,13 +337,13 @@ export const testDefinitions = {
       "nomatch.txt",
     ],
     patterns: [
-      "?(foo).js", // zero or one foo: .js, foo.js
-      "test.?(spec).js", // test.js, test.spec.js
-      "?(foo|bar).js", // .js, foo.js, bar.js
-      "app.?(config).js", // app.js, app.config.js
-      "component.?(vue|jsx)", // component, component.vue, component.jsx
-      "?(missing).js", // .js if exists
-      "?(a|b|c).js", // .js if exists
+      "?(foo).js",
+      "test.?(spec).js",
+      "?(foo|bar).js",
+      "app.?(config).js",
+      "component.?(vue|jsx)",
+      "?(missing).js",
+      "?(a|b|c).js",
     ],
     options: { extglob: true },
   },
@@ -342,13 +359,7 @@ export const testDefinitions = {
       "nested/config.json",
     ],
     directories: ["baz", "nested", "nested/deep"],
-    patterns: [
-      "*.js", // root level js files
-      "**/*.js", // all js files
-      "baz/*", // all files in baz
-      "**/nested/**/*", // all files in nested paths
-      "**/*.{js,txt}", // multiple extensions
-    ],
+    patterns: ["*.js", "**/*.js", "baz/*", "**/nested/**/*", "**/*.{js,txt}"],
     options: { absolute: true },
   },
 
@@ -373,5 +384,109 @@ export const testDefinitions = {
     directories: ["baz", "nested"],
     patterns: ["*.js", "**/*", "baz/*"],
     options: { objectMode: false },
+  },
+
+  depth_limiting: {
+    testName: "Depth Limiting",
+    id: "depth_limiting",
+    directories: ["foo", "foo/bar", "foo/bar/baz", "foo/bar/baz/qux"],
+    files: [
+      "root.js",
+      "foo/level1.js",
+      "foo/bar/level2.js",
+      "foo/bar/baz/level3.js",
+      "foo/bar/baz/qux/level4.js",
+    ],
+    patterns: [
+      { pattern: "**/*.js", options: {} },
+      { pattern: "**/*.js", options: { depth: 1 } },
+      { pattern: "**/*.js", options: { depth: 2 } },
+      { pattern: "**/*.js", options: { depth: 3 } },
+    ],
+  },
+
+  basename_matching: {
+    testName: "Basename Matching",
+    id: "basename_matching",
+    directories: ["foo", "bar", "foo/baz"],
+    files: [
+      "index.js",
+      "foo/index.js",
+      "bar/index.js",
+      "foo/baz/index.js",
+      "config.json",
+      "foo/config.json",
+    ],
+    patterns: [
+      { pattern: "index.js", options: { matchBase: false } },
+      { pattern: "index.js", options: { matchBase: true } },
+      { pattern: "config.json", options: { matchBase: false } },
+      { pattern: "config.json", options: { matchBase: true } },
+    ],
+  },
+
+  case_sensitivity: {
+    testName: "Case Sensitivity",
+    id: "case_sensitivity",
+    files: ["foo.js", "FOO.txt", "Bar.json", "BAR.xml", "MixedCase.css"],
+    patterns: [
+      { pattern: "foo.*", options: { caseSensitive: true } },
+      { pattern: "foo.*", options: { caseSensitive: false } },
+      { pattern: "FOO.*", options: { caseSensitive: true } },
+      { pattern: "FOO.*", options: { caseSensitive: false } },
+      { pattern: "*case*", options: { caseSensitive: true } },
+      { pattern: "*case*", options: { caseSensitive: false } },
+    ],
+  },
+
+  windows_drive_letters: {
+    testName: "Windows Drive Letters",
+    id: "windows_drive_letters",
+    files: ["foo.js", "bar.txt", "baz/qux.js"],
+    directories: ["baz"],
+    patterns: ["*.js", "**/*.js", "baz/*"],
+    options: { absolute: true },
+    platformSpecific: "win32",
+  },
+
+  unc_paths: {
+    testName: "UNC Paths",
+    id: "unc_paths",
+    files: ["shared.js", "config.json", "data/file.txt"],
+    directories: ["data"],
+    patterns: ["*.js", "**/*", "data/*"],
+    options: { absolute: true },
+    platformSpecific: "win32",
+  },
+
+  symlinks: {
+    testName: "Symbolic Links",
+    id: "symlinks",
+    directories: ["foo", "bar"],
+    files: ["foo/real.js", "foo/config.json", "bar/app.js", "target.txt"],
+    patterns: [
+      { pattern: "**/*.js", options: { followSymbolicLinks: false } },
+      { pattern: "**/*.js", options: { followSymbolicLinks: true } },
+      { pattern: "foo/*", options: { followSymbolicLinks: false } },
+      { pattern: "foo/*", options: { followSymbolicLinks: true } },
+      { pattern: "**/target.txt", options: { followSymbolicLinks: false } },
+      { pattern: "**/target.txt", options: { followSymbolicLinks: true } },
+    ],
+    needsSymlinks: true,
+  },
+
+  windows_hidden_files: {
+    testName: "Windows Hidden Files",
+    id: "windows_hidden_files",
+    files: [
+      "visible.js",
+      "normal.txt",
+      "system.log",
+      "hidden.js",
+      "secret.txt",
+    ],
+    hiddenFiles: ["hidden.js", "secret.txt"],
+    patterns: ["*", "*.js", "*.txt", "hidden.*", "secret.*"],
+    platformSpecific: "win32",
   },
 };

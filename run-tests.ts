@@ -1,12 +1,31 @@
 /* eslint-disable no-console */
 import process from "node:process";
-import { cleanupTestEnvironment, createTestEnvironment } from "./utils/file.js";
-import { formatResults, formatVerboseResults } from "./utils/formatters.js";
-import { outputCompact, outputVerbose } from "./utils/output.js";
-import { getFiles } from "./utils/runner.js";
-import { testDefinitions } from "./utils/test-definitions.js";
+import { cleanupTestEnv, createTestEnv } from "./utils/file";
+import { formatResults, formatVerboseResults } from "./utils/formatters";
+import {
+  outputCompact,
+  outputVerbose,
+  type LibraryResult,
+} from "./utils/output";
+import { getFiles } from "./utils/runner";
+import { testDefinitions, type TestDefinition } from "./utils/test-definitions";
 
-const libraries = [
+interface Library {
+  name: "fast-glob" | "glob" | "globby" | "tiny-glob" | "tinyglobby";
+  pkg: string;
+}
+
+interface RunOptions {
+  verbose?: boolean;
+  testIds?: string[];
+}
+
+interface ParsedArgs {
+  verbose?: boolean;
+  testIds: string[];
+}
+
+const libraries: Library[] = [
   { name: "fast-glob", pkg: "fast-glob" },
   { name: "glob", pkg: "glob" },
   { name: "globby", pkg: "globby" },
@@ -14,23 +33,29 @@ const libraries = [
   { name: "tinyglobby", pkg: "tinyglobby" },
 ];
 
-async function runSingleTest(testConfig, options = {}) {
-  const { verbose = false } = options;
-  const { tempDir, testDir } = createTestEnvironment(testConfig);
+async function runSingleTest(
+  testConfig: TestDefinition,
+  options: RunOptions = {},
+): Promise<void> {
+  const envResult = createTestEnv(testConfig);
 
-  testConfig.setup?.(testDir);
+  if ("skip" in envResult) {
+    console.log(`Skipping ${testConfig.testName} (${envResult.reason})`);
+    return;
+  }
 
+  const { tempDir, testDir } = envResult;
   const originalCwd = process.cwd();
   process.chdir(testDir);
 
   try {
-    const results = new Map();
+    const results = new Map<string, LibraryResult[]>();
 
     for (const patternConfig of testConfig.patterns) {
       const [pattern, patternOptions] =
         typeof patternConfig === "string" || Array.isArray(patternConfig)
           ? [patternConfig, testConfig.options || {}]
-          : patternConfig.pattern
+          : "pattern" in patternConfig
             ? [
                 patternConfig.pattern,
                 { ...(testConfig.options || {}), ...patternConfig.options },
@@ -38,7 +63,7 @@ async function runSingleTest(testConfig, options = {}) {
             : [patternConfig, testConfig.options || {}];
 
       const patternStr = Array.isArray(pattern) ? pattern.join(", ") : pattern;
-      const libraryResults = [];
+      const libraryResults: LibraryResult[] = [];
 
       for (const lib of libraries) {
         try {
@@ -50,7 +75,7 @@ async function runSingleTest(testConfig, options = {}) {
             patternOptions,
           );
 
-          const resultsStr = verbose
+          const resultsStr = options.verbose
             ? formatVerboseResults(files)
             : formatResults(files);
 
@@ -58,16 +83,17 @@ async function runSingleTest(testConfig, options = {}) {
             library: lib.name,
             count: files.length,
             results: resultsStr,
-            rawFiles: files,
           });
         } catch (error) {
+          const errorMessage =
+            error instanceof Error ? error.message : String(error);
           libraryResults.push({
             library: lib.name,
-            count: "❌",
-            results: verbose
-              ? `Error: ${error.message}`
-              : `Error: ${error.message.slice(0, 30)}...`,
-            error: error.message,
+            count: 0,
+            results: options.verbose
+              ? `Error: ${errorMessage}`
+              : `Error: ${errorMessage.slice(0, 30)}...`,
+            error: errorMessage,
           });
         }
       }
@@ -75,23 +101,20 @@ async function runSingleTest(testConfig, options = {}) {
       results.set(patternStr, libraryResults);
     }
 
-    if (verbose) {
+    if (options.verbose) {
       outputVerbose(results);
     } else {
       outputCompact(results);
     }
   } finally {
     process.chdir(originalCwd);
-    cleanupTestEnvironment(tempDir);
+    cleanupTestEnv(tempDir);
   }
 }
 
-function parseArgs() {
+function parseArgs(): ParsedArgs {
   const args = process.argv.slice(2);
-  const options = {
-    mode: "compact",
-    testIds: [],
-  };
+  const options: ParsedArgs = { testIds: [] };
 
   for (let i = 0; i < args.length; i++) {
     const arg = args[i];
@@ -99,7 +122,10 @@ function parseArgs() {
     if (arg === "--verbose" || arg === "-v") {
       options.verbose = true;
     } else if (arg === "--test" || arg === "-t") {
-      options.testIds.push(args[++i]);
+      const nextArg = args[++i];
+      if (nextArg) {
+        options.testIds.push(nextArg);
+      }
     } else if (arg === "--help" || arg === "-h") {
       console.log(`
 Usage: node run-tests.js [options]
@@ -127,7 +153,7 @@ Examples:
   return options;
 }
 
-async function main() {
+async function main(): Promise<void> {
   const options = parseArgs();
 
   console.log(`\nRunning tests on ${process.platform} platform`);
@@ -135,7 +161,9 @@ async function main() {
 
   const testsToRun =
     options.testIds.length > 0
-      ? options.testIds.map((id) => testDefinitions[id]).filter(Boolean)
+      ? options.testIds
+          .map((id) => testDefinitions[id])
+          .filter((test): test is TestDefinition => Boolean(test))
       : Object.values(testDefinitions);
 
   if (testsToRun.length === 0) {
@@ -150,4 +178,4 @@ async function main() {
   }
 }
 
-main().catch(console.error);
+main();
