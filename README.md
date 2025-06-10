@@ -24,10 +24,13 @@
 | Exclamation (`!(pattern)`) | Y           | Y      | Partial  | Y           | Y            | globby: fails on patterns starting with `!` [\[13\]](#13-globby-negated-extglob-limitation); [\[1\]](#1-indeterminate-result-ordering) |
 | Plus (`+(pattern)`)        | Y           | Y      | Y        | Y           | Y            | [\[1\]](#1-indeterminate-result-ordering) |
 | Question (`?(pattern)`)    | Y           | Y      | Y        | Y           | Y            | [\[1\]](#1-indeterminate-result-ordering) |
+| **Options** |
+| Depth limiting | Y | Y | Y | N | Y | [\[1\]](#1-indeterminate-result-ordering) |
+| Basename matching | Y | Y | N | N | N | `fast-glob`, `glob`: support basename matching; others don't support this feature [\[14\]](#14-basename-matching-support) |
+| Case sensitivity | Y | Y | Y | Partial | Y | `tiny-glob`: more restrictive case matching behavior [\[15\]](#15-tiny-glob-case-sensitivity); [\[1\]](#1-indeterminate-result-ordering) |
 | **Path Handling** |
 | Absolute paths | Y | Y | Y | Y | Y | [`glob`], [`tiny-glob`]: use backslashes on Windows [[12]]; [[1]] |
 | Relative paths | Y | Y | Y | Y | Y | [`glob`], [`tiny-glob`]: use backslashes on Windows [[12]]; [[1]] |
-| Directory inclusion | Optional | Default | Optional | Default | Optional | [`glob`], [`tiny-glob`]: include directories by default [[14]]; [[1]] |
 
 ## References
 
@@ -295,13 +298,15 @@ await tinyGlob('foo/**/*.js');  // ['foo/bar/baz/deep.js', 'foo/bar/baz/nested.j
 
 ---
 
-### [12] glob Windows path separators
+### [12] Path Separator Differences on Windows
 
-`glob` returns results with backslashes on Windows while other libraries use forward slashes:
+`glob` and `tiny-glob` return results with native Windows backslashes (`\`) while other libraries consistently return POSIX-style forward slashes (`/`), which is often more convenient for cross-platform development.
 
 ```javascript
 // Windows results
 await glob('foo/**/*.js');      // ['foo\\index.js', 'foo\\main.js', ...]
+await tinyGlob('foo/**/*.js');   // ['foo\\bar\\baz\\deep.js', ...]
+
 await fastGlob('foo/**/*.js');  // ['foo/index.js', 'foo/main.js', ...]
 await globby('foo/**/*.js');    // ['foo/index.js', 'foo/main.js', ...]
 ```
@@ -335,24 +340,45 @@ await globby(['!(foo|bar).js', '*.js'])    // Broken - includes foo.js, bar.js
 
 ---
 
-### [14] Directory Inclusion in Results
+### [14] Basename matching support
 
-`glob` and `tiny-glob` include directories in their results by default, while other libraries return only files.
+Only `fast-glob` and `glob` support basename matching, which allows matching filenames regardless of their directory path:
 
 ```javascript
-// Pattern: **/nested/**/*
+// Files: index.js, foo/index.js, bar/index.js, foo/baz/index.js
 
-// Include directories (glob, tiny-glob)
-await glob('**/nested/**/*');      // ['nested/deep', 'nested/config.json', 'nested/deep/file.js']
-await tinyGlob('**/nested/**/*');  // ['nested/config.json', 'nested/deep', 'nested/deep/file.js']
+// Libraries with basename matching support
+await fastGlob('index.js', { baseNameMatch: true });  // ['index.js', 'foo/index.js', 'bar/index.js', 'foo/baz/index.js']
+await glob('index.js', { matchBase: true });          // ['index.js', 'foo/index.js', 'bar/index.js', 'foo/baz/index.js']
 
-// Files only (fast-glob, globby, tinyglobby)
-await fastGlob('**/nested/**/*');  // ['nested/config.json', 'nested/deep/file.js']
-await globby('**/nested/**/*');    // ['nested/config.json', 'nested/deep/file.js']
-await tinyglobby('**/nested/**/*'); // ['nested/config.json', 'nested/deep/file.js']
+// Libraries without basename matching support
+await globby('index.js');     // ['index.js'] - only exact path match
+await tinyGlob('index.js');   // ['index.js'] - only exact path match
+await tinyglobby('index.js'); // ['index.js'] - only exact path match
 ```
 
-This behavior can be controlled in some libraries using `onlyFiles` or `onlyDirectories` options.
+[↑ Back to top](#feature-comparison)
+
+---
+
+### [15] tiny-glob case sensitivity
+
+`tiny-glob` shows more restrictive case sensitivity behavior compared to other libraries:
+
+```javascript
+// Files: foo.js, FOO.txt, MixedCase.css
+
+// Pattern: *case*
+await fastGlob('*case*');   // ['MixedCase.css']
+await glob('*case*');       // ['MixedCase.css']
+await globby('*case*');     // ['MixedCase.css']
+await tinyglobby('*case*'); // ['MixedCase.css']
+
+// tiny-glob is more restrictive
+await tinyGlob('*case*');   // [] - no matches
+```
+
+This suggests `tiny-glob` has stricter case matching rules that may not follow standard glob behavior.
 
 [↑ Back to top](#feature-comparison)
 
