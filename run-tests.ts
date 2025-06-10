@@ -1,12 +1,8 @@
 /* eslint-disable no-console */
 import process from "node:process";
 import { cleanupTestEnv, createTestEnv } from "./utils/file";
-import { formatResults, formatVerboseResults } from "./utils/formatters";
-import {
-  outputCompact,
-  outputVerbose,
-  type LibraryResult,
-} from "./utils/output";
+import { formatResults } from "./utils/formatters";
+import { printResults, type LibraryResult } from "./utils/output";
 import { getFiles } from "./utils/runner";
 import { testDefinitions, type TestDefinition } from "./utils/test-definitions";
 
@@ -15,13 +11,7 @@ interface Library {
   pkg: string;
 }
 
-interface RunOptions {
-  verbose?: boolean;
-  testIds?: string[];
-}
-
 interface ParsedArgs {
-  verbose?: boolean;
   testIds: string[];
 }
 
@@ -33,14 +23,13 @@ const libraries: Library[] = [
   { name: "tinyglobby", pkg: "tinyglobby" },
 ];
 
-async function runSingleTest(
-  testConfig: TestDefinition,
-  options: RunOptions = {},
-): Promise<void> {
+async function runSingleTest(testConfig: TestDefinition): Promise<void> {
+  console.log(`\n--- Running test: ${testConfig.testName} ---`);
+
   const envResult = createTestEnv(testConfig);
 
   if ("skip" in envResult) {
-    console.log(`Skipping ${testConfig.testName} (${envResult.reason})`);
+    console.log(`Skipping test (${envResult.reason})`);
     return;
   }
 
@@ -75,9 +64,7 @@ async function runSingleTest(
             patternOptions,
           );
 
-          const resultsStr = options.verbose
-            ? formatVerboseResults(files)
-            : formatResults(files);
+          const resultsStr = formatResults(files);
 
           libraryResults.push({
             library: lib.name,
@@ -90,22 +77,16 @@ async function runSingleTest(
           libraryResults.push({
             library: lib.name,
             count: 0,
-            results: options.verbose
-              ? `Error: ${errorMessage}`
-              : `Error: ${errorMessage.slice(0, 30)}...`,
+            results: `Error: ${errorMessage}`,
             error: errorMessage,
           });
         }
       }
-
       results.set(patternStr, libraryResults);
     }
 
-    if (options.verbose) {
-      outputVerbose(results);
-    } else {
-      outputCompact(results);
-    }
+    printResults(results);
+
   } finally {
     process.chdir(originalCwd);
     cleanupTestEnv(tempDir);
@@ -119,9 +100,7 @@ function parseArgs(): ParsedArgs {
   for (let i = 0; i < args.length; i++) {
     const arg = args[i];
 
-    if (arg === "--verbose" || arg === "-v") {
-      options.verbose = true;
-    } else if (arg === "--test" || arg === "-t") {
+    if (arg === "--test" || arg === "-t") {
       const nextArg = args[++i];
       if (nextArg) {
         options.testIds.push(nextArg);
@@ -131,7 +110,6 @@ function parseArgs(): ParsedArgs {
 Usage: node run-tests.js [options]
 
 Options:
-  -v, --verbose     Use verbose output format
   -t, --test <id>   Run specific test by ID (can be used multiple times)
   -h, --help        Show this help
 
@@ -141,10 +119,9 @@ ${Object.keys(testDefinitions)
   .join("\n")}
 
 Examples:
-  node run-tests.js                    # Run all tests in compact mode
-  node run-tests.js --verbose          # Run all tests in verbose mode
+  node run-tests.js                    # Run all tests
   node run-tests.js -t asterisk        # Run only asterisk test
-  node run-tests.js -v -t asterisk -t character_classes  # Run specific tests in verbose mode
+  node run-tests.js -t asterisk -t character_classes  # Run specific tests
       `);
       process.exit(0);
     }
@@ -157,7 +134,6 @@ async function main(): Promise<void> {
   const options = parseArgs();
 
   console.log(`\nRunning tests on ${process.platform} platform`);
-  console.log(`Output mode: ${options.verbose ? "verbose" : "compact"}\n`);
 
   const testsToRun =
     options.testIds.length > 0
@@ -171,10 +147,10 @@ async function main(): Promise<void> {
     process.exit(1);
   }
 
-  console.log(`Total tests: ${testsToRun.length}`);
+  console.log(`Total tests to run: ${testsToRun.length}`);
 
   for (const test of testsToRun) {
-    await runSingleTest(test, options);
+    await runSingleTest(test);
   }
 }
 

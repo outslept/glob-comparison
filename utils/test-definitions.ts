@@ -1,3 +1,5 @@
+import type { Platform } from "./file";
+
 interface TestPattern {
   pattern: string | string[];
   options?: Record<string, unknown>;
@@ -10,7 +12,7 @@ export interface TestDefinition {
   directories?: string[];
   patterns: (string | string[] | TestPattern)[];
   options?: Record<string, unknown>;
-  platformSpecific?: string;
+  platformSpecific?: Platform;
   needsSymlinks?: boolean;
   hiddenFiles?: string[];
 }
