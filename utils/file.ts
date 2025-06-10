@@ -10,12 +10,21 @@ import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import process from "node:process";
 
+export type Platform =
+  | "linux"
+  | "win32";
+
 interface TestConfig {
   files: string[];
   dirs?: string[];
-  platformSpecific?: NodeJS.Platform;
-  needsSymlinks?: boolean;
+  symlinks?: {
+    from: string;
+    to: string;
+    type?: "file" | "dir" | "junction";
+  }[];
   hiddenFiles?: string[];
+  platformSpecific?: Platform;
+  needsSymlinks?: boolean;
 }
 
 interface TestEnvResult {
@@ -31,19 +40,19 @@ interface TestEnvSuccess {
 function canCreateSymlinks(): boolean {
   if (process.platform !== "win32") return true;
 
+  const testDir = mkdtempSync(join(tmpdir(), "symlink-test-"));
   try {
-    const testDir = mkdtempSync(join(tmpdir(), "symlink-test-"));
-
     const testFile = join(testDir, "test.txt");
     const testLink = join(testDir, "test-link.txt");
 
     writeFileSync(testFile, "test");
     symlinkSync(testFile, testLink, "file");
-
-    rmSync(testDir, { recursive: true, force: true });
     return true;
   } catch {
     return false;
+  } finally {
+
+    rmSync(testDir, { recursive: true, force: true });
   }
 }
 
@@ -52,7 +61,8 @@ export function createTestEnv(cfg: TestConfig): TestEnvResult | TestEnvSuccess {
     return { skip: true, reason: `${cfg.platformSpecific} only` };
   }
 
-  if (cfg.needsSymlinks && !canCreateSymlinks()) {
+  const hasSymlinks = cfg.symlinks && cfg.symlinks.length > 0;
+  if ((cfg.needsSymlinks || hasSymlinks) && !canCreateSymlinks()) {
     return {
       skip: true,
       reason:
@@ -62,34 +72,33 @@ export function createTestEnv(cfg: TestConfig): TestEnvResult | TestEnvSuccess {
 
   const tempDir = mkdtempSync(join(tmpdir(), "glob-test-"));
   const testDir = join(tempDir, "test");
-
   mkdirSync(testDir, { recursive: true });
 
   (cfg.dirs || []).forEach((dir) =>
     mkdirSync(join(testDir, dir), { recursive: true }),
   );
 
+  const uniqueFileDirs = new Set(cfg.files.map((file) => dirname(file)));
+
+  uniqueFileDirs.forEach((dir) => {
+    if (dir !== ".") {
+      mkdirSync(join(testDir, dir), { recursive: true });
+    }
+  });
+
   cfg.files.forEach((file) => {
     const path = join(testDir, file);
-    mkdirSync(dirname(path), { recursive: true });
     writeFileSync(path, "");
   });
 
-  if (cfg.needsSymlinks) {
+  if (hasSymlinks) {
     try {
-      const symlinkType = process.platform === "win32" ? "file" : undefined;
-
-      symlinkSync(
-        join(testDir, "foo/real.js"),
-        join(testDir, "foo/link.js"),
-        symlinkType,
-      );
-      symlinkSync(
-        join(testDir, "target.txt"),
-        join(testDir, "bar/link-target.txt"),
-        symlinkType,
-      );
-      symlinkSync(join(testDir, "foo"), join(testDir, "baz"), "dir");
+      cfg.symlinks?.forEach((link) => {
+        const target = join(testDir, link.from);
+        const path = join(testDir, link.to);
+        mkdirSync(dirname(path), { recursive: true });
+        symlinkSync(target, path, link.type);
+      });
     } catch (error) {
       rmSync(tempDir, { recursive: true, force: true });
       return {
@@ -111,6 +120,7 @@ export function createTestEnv(cfg: TestConfig): TestEnvResult | TestEnvSuccess {
         }
       });
     } catch (error) {
+
       console.warn("Failed to mark files as hidden:", (error as Error).message);
     }
   }
