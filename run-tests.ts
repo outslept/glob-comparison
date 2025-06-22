@@ -1,157 +1,105 @@
 /* eslint-disable no-console */
 import process from "node:process";
-import { cleanupTestEnv, createTestEnv } from "./utils/file";
-import { formatResults } from "./utils/formatters";
-import { printResults, type LibraryResult } from "./utils/output";
-import { getFiles } from "./utils/runner";
-import { testDefinitions, type TestDefinition } from "./utils/test-definitions";
-
-interface Library {
-  name: "fast-glob" | "glob" | "globby" | "tiny-glob" | "tinyglobby";
-  pkg: string;
-}
+import { TestRunner } from "./api/runner.js";
+import type { TestSuite } from "./api/types.js";
 
 interface ParsedArgs {
-  testIds: string[];
-}
-
-const libraries: Library[] = [
-  { name: "fast-glob", pkg: "fast-glob" },
-  { name: "glob", pkg: "glob" },
-  { name: "globby", pkg: "globby" },
-  { name: "tiny-glob", pkg: "tiny-glob" },
-  { name: "tinyglobby", pkg: "tinyglobby" },
-];
-
-async function runSingleTest(testConfig: TestDefinition): Promise<void> {
-  console.log(`\n--- Running test: ${testConfig.testName} ---`);
-
-  const envResult = createTestEnv(testConfig);
-
-  if ("skip" in envResult) {
-    console.log(`Skipping test (${envResult.reason})`);
-    return;
-  }
-
-  const { tempDir, testDir } = envResult;
-  const originalCwd = process.cwd();
-  process.chdir(testDir);
-
-  try {
-    const results = new Map<string, LibraryResult[]>();
-
-    for (const patternConfig of testConfig.patterns) {
-      const [pattern, patternOptions] =
-        typeof patternConfig === "string" || Array.isArray(patternConfig)
-          ? [patternConfig, testConfig.options || {}]
-          : "pattern" in patternConfig
-            ? [
-                patternConfig.pattern,
-                { ...(testConfig.options || {}), ...patternConfig.options },
-              ]
-            : [patternConfig, testConfig.options || {}];
-
-      const patternStr = Array.isArray(pattern) ? pattern.join(", ") : pattern;
-      const libraryResults: LibraryResult[] = [];
-
-      for (const lib of libraries) {
-        try {
-          const module = await import(lib.pkg);
-          const files = await getFiles(
-            lib.name,
-            module,
-            pattern,
-            patternOptions,
-          );
-
-          const resultsStr = formatResults(files);
-
-          libraryResults.push({
-            library: lib.name,
-            count: files.length,
-            results: resultsStr,
-          });
-        } catch (error) {
-          const errorMessage =
-            error instanceof Error ? error.message : String(error);
-          libraryResults.push({
-            library: lib.name,
-            count: 0,
-            results: `Error: ${errorMessage}`,
-            error: errorMessage,
-          });
-        }
-      }
-      results.set(patternStr, libraryResults);
-    }
-
-    printResults(results);
-
-  } finally {
-    process.chdir(originalCwd);
-    cleanupTestEnv(tempDir);
-  }
+  testFiles: string[];
+  pattern?: string;
+  help: boolean;
 }
 
 function parseArgs(): ParsedArgs {
   const args = process.argv.slice(2);
-  const options: ParsedArgs = { testIds: [] };
+  const options: ParsedArgs = {
+    testFiles: [],
+    help: false,
+  };
 
   for (let i = 0; i < args.length; i++) {
     const arg = args[i];
 
-    if (arg === "--test" || arg === "-t") {
-      const nextArg = args[++i];
-      if (nextArg) {
-        options.testIds.push(nextArg);
-      }
-    } else if (arg === "--help" || arg === "-h") {
-      console.log(`
-Usage: node run-tests.js [options]
-
-Options:
-  -t, --test <id>   Run specific test by ID (can be used multiple times)
-  -h, --help        Show this help
-
-Available test IDs:
-${Object.keys(testDefinitions)
-  .map((id) => `  ${id}`)
-  .join("\n")}
-
-Examples:
-  node run-tests.js                    # Run all tests
-  node run-tests.js -t asterisk        # Run only asterisk test
-  node run-tests.js -t asterisk -t character_classes  # Run specific tests
-      `);
-      process.exit(0);
+    if (arg === "--help" || arg === "-h") {
+      options.help = true;
+    } else if (arg === "--pattern" || arg === "-p") {
+      options.pattern = args[++i];
+    } else if (arg.endsWith(".test.ts")) {
+      options.testFiles.push(arg);
     }
   }
 
   return options;
 }
 
+function showHelp(): void {
+  console.log(`
+Usage: tsx run-tests.ts [options] [test-files...]
+
+Options:
+  -h, --help           Show this help
+  -p, --pattern <glob> Run tests matching pattern
+
+Examples:
+  tsx run-tests.ts                           # Run all *.test.ts files
+  tsx run-tests.ts basic.test.ts             # Run specific test file
+  tsx run-tests.ts -p "glob*"                # Run tests matching pattern
+  `);
+}
+
+async function loadTestFiles(files: string[]): Promise<TestSuite[]> {
+  globalThis.__testSuites = [];
+
+  for (const file of files) {
+    try {
+      await import(`./${file}`);
+    } catch (error) {
+      console.error(`Failed to load test file ${file}:`, error);
+    }
+  }
+
+  return globalThis.__testSuites || [];
+}
+
+async function findTestFiles(): Promise<string[]> {
+  const { glob } = await import("fast-glob");
+  return await glob("**/*.{test,spec}.ts", {
+    ignore: ["node_modules/**", "dist/**"],
+  });
+}
+
 async function main(): Promise<void> {
   const options = parseArgs();
 
-  console.log(`\nRunning tests on ${process.platform} platform`);
-
-  const testsToRun =
-    options.testIds.length > 0
-      ? options.testIds
-          .map((id) => testDefinitions[id])
-          .filter((test): test is TestDefinition => Boolean(test))
-      : Object.values(testDefinitions);
-
-  if (testsToRun.length === 0) {
-    console.error("No valid tests found!");
-    process.exit(1);
+  if (options.help) {
+    showHelp();
+    return;
   }
 
-  console.log(`Total tests to run: ${testsToRun.length}`);
+  let testFiles = options.testFiles;
 
-  for (const test of testsToRun) {
-    await runSingleTest(test);
+  if (testFiles.length === 0) {
+    testFiles = await findTestFiles();
   }
+
+  if (options.pattern) {
+    const pattern = new RegExp(options.pattern);
+    testFiles = testFiles.filter((file) => pattern.test(file));
+  }
+
+  if (testFiles.length === 0) {
+    console.log("No test files found!");
+    return;
+  }
+
+  const suites = await loadTestFiles(testFiles);
+
+  if (suites.length === 0) {
+    console.log("No test suites found!");
+    return;
+  }
+
+  const runner = new TestRunner();
+  await runner.runSuites(suites);
 }
 
-main();
+main().catch(console.error);
