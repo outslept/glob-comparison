@@ -1,123 +1,7 @@
-interface GlobOpts {
-  ignore?: string[];
-  absolute?: boolean;
-  dot?: boolean;
-  cwd?: string;
-  root?: string;
-  windowsPathsNoEscape?: boolean;
-  magicalBraces?: boolean;
-  dotRelative?: boolean;
-  mark?: boolean;
-  nobrace?: boolean;
-  noglobstar?: boolean;
-  noext?: boolean;
-  nocase?: boolean;
-  maxDepth?: number;
-  matchBase?: boolean;
-  nodir?: boolean;
-  stat?: boolean;
-  follow?: boolean;
-  realpath?: boolean;
-  posix?: boolean;
-  platform?: string;
-  withFileTypes?: boolean;
-  signal?: AbortSignal;
-  includeChildMatches?: boolean;
-  caseSensitive?: boolean;
-  depth?: number;
-  onlyDirectories?: boolean;
-  onlyFiles?: boolean;
-  markDirectories?: boolean;
-  objectMode?: boolean;
-  extglob?: boolean;
-  followSymbolicLinks?: boolean;
-  gitignore?: boolean;
-}
-
-interface FastGlobOpts {
-  ignore?: string[];
-  absolute?: boolean;
-  dot?: boolean;
-  cwd?: string;
-  concurrency?: number;
-  deep?: number;
-  followSymbolicLinks?: boolean;
-  fs?: Record<string, unknown>;
-  suppressErrors?: boolean;
-  throwErrorOnBrokenSymbolicLink?: boolean;
-  markDirectories?: boolean;
-  objectMode?: boolean;
-  onlyDirectories?: boolean;
-  onlyFiles?: boolean;
-  stats?: boolean;
-  unique?: boolean;
-  braceExpansion?: boolean;
-  caseSensitiveMatch?: boolean;
-  extglob?: boolean;
-  globstar?: boolean;
-  baseNameMatch?: boolean;
-}
-
-interface GlobbyOpts {
-  ignore?: string[];
-  absolute?: boolean;
-  dot?: boolean;
-  cwd?: string;
-  concurrency?: number;
-  deep?: number;
-  followSymbolicLinks?: boolean;
-  fs?: Record<string, unknown>;
-  suppressErrors?: boolean;
-  throwErrorOnBrokenSymbolicLink?: boolean;
-  markDirectories?: boolean;
-  objectMode?: boolean;
-  onlyDirectories?: boolean;
-  onlyFiles?: boolean;
-  stats?: boolean;
-  unique?: boolean;
-  braceExpansion?: boolean;
-  caseSensitiveMatch?: boolean;
-  extglob?: boolean;
-  globstar?: boolean;
-  baseNameMatch?: boolean;
-  expandDirectories?:
-    | boolean
-    | string[]
-    | { files?: string[]; extensions?: string[] };
-  gitignore?: boolean;
-  ignoreFiles?: string | string[];
-}
-
-interface TinyGlobOpts {
-  absolute?: boolean;
-  dot?: boolean;
-  cwd?: string;
-  filesOnly?: boolean;
-  flush?: boolean;
-}
-
-interface TinyGlobbyOpts {
-  ignore?: string[];
-  absolute?: boolean;
-  dot?: boolean;
-  cwd?: string;
-  deep?: number;
-  followSymbolicLinks?: boolean;
-  caseSensitiveMatch?: boolean;
-  expandDirectories?: boolean;
-  onlyDirectories?: boolean;
-  onlyFiles?: boolean;
-  debug?: boolean;
-}
+import type { AnyGlobOptions } from "./options";
 
 type LibraryName = "fast-glob" | "glob" | "globby" | "tiny-glob" | "tinyglobby";
 type GlobRes = string | object;
-type AnyOpts =
-  | GlobOpts
-  | FastGlobOpts
-  | GlobbyOpts
-  | TinyGlobOpts
-  | TinyGlobbyOpts;
 
 interface GlobMod {
   default?: (pattern: string | string[], options?: any) => Promise<GlobRes[]>;
@@ -129,7 +13,7 @@ export async function getFiles(
   lib: LibraryName,
   mod: GlobMod,
   pattern: string | string[],
-  opts: AnyOpts = {},
+  opts: AnyGlobOptions = {},
 ): Promise<GlobRes[]> {
   const normOpts = normalizeOpts(lib, opts);
 
@@ -155,16 +39,24 @@ export async function getFiles(
   return await fn!(pattern, normOpts);
 }
 
-export function normalizeOpts(lib: LibraryName, opts: any): any {
+export function normalizeOpts(lib: LibraryName, opts: AnyGlobOptions): any {
   const res: any = {};
 
-  if (opts.ignore) res.ignore = opts.ignore;
-  if (opts.absolute) res.absolute = true;
-  if (opts.dot) res.dot = true;
-  if (opts.cwd) res.cwd = opts.cwd;
-  if (opts.gitignore && lib === "globby") res.gitignore = true;
+  if ("ignore" in opts && opts.ignore) res.ignore = opts.ignore;
+  if ("absolute" in opts && opts.absolute) res.absolute = true;
+  if ("dot" in opts && opts.dot) res.dot = true;
+  if ("cwd" in opts && opts.cwd) res.cwd = opts.cwd;
 
-  const caseSensitive = opts.caseSensitive ?? opts.caseSensitiveMatch;
+  if ("gitignore" in opts && opts.gitignore && lib === "globby") {
+    res.gitignore = true;
+  }
+
+  const caseSensitive =
+    "caseSensitiveMatch" in opts
+      ? opts.caseSensitiveMatch
+      : "nocase" in opts
+        ? !opts.nocase
+        : undefined;
   if (caseSensitive !== undefined) {
     if (["fast-glob", "globby", "tinyglobby"].includes(lib)) {
       res.caseSensitiveMatch = caseSensitive;
@@ -173,7 +65,8 @@ export function normalizeOpts(lib: LibraryName, opts: any): any {
     }
   }
 
-  const depth = opts.depth ?? opts.deep ?? opts.maxDepth;
+  const depth =
+    "deep" in opts ? opts.deep : "maxDepth" in opts ? opts.maxDepth : undefined;
   if (depth !== undefined) {
     if (["fast-glob", "globby", "tinyglobby"].includes(lib)) {
       res.deep = depth;
@@ -182,11 +75,15 @@ export function normalizeOpts(lib: LibraryName, opts: any): any {
     }
   }
 
-  if (opts.onlyDirectories && ["fast-glob", "tinyglobby"].includes(lib)) {
+  if (
+    "onlyDirectories" in opts &&
+    opts.onlyDirectories &&
+    ["fast-glob", "globby", "tinyglobby"].includes(lib)
+  ) {
     res.onlyDirectories = true;
   }
 
-  if (opts.onlyFiles !== undefined) {
+  if ("onlyFiles" in opts && opts.onlyFiles !== undefined) {
     if (["fast-glob", "globby", "tinyglobby"].includes(lib)) {
       res.onlyFiles = opts.onlyFiles;
     } else if (lib === "glob") {
@@ -196,44 +93,68 @@ export function normalizeOpts(lib: LibraryName, opts: any): any {
     }
   }
 
-  const markDirs = opts.markDirectories ?? opts.mark;
+  if ("filesOnly" in opts && opts.filesOnly && lib === "tiny-glob") {
+    res.filesOnly = true;
+  }
+
+  const markDirs =
+    "markDirectories" in opts
+      ? opts.markDirectories
+      : "mark" in opts
+        ? opts.mark
+        : undefined;
   if (markDirs) {
-    if (["fast-glob", "tinyglobby"].includes(lib)) {
+    if (["fast-glob", "globby"].includes(lib)) {
       res.markDirectories = true;
     } else if (lib === "glob") {
       res.mark = true;
     }
   }
 
-  const objectMode = opts.objectMode ?? opts.withFileTypes;
+  const objectMode =
+    "objectMode" in opts
+      ? opts.objectMode
+      : "withFileTypes" in opts
+        ? opts.withFileTypes
+        : undefined;
   if (objectMode) {
-    if (["fast-glob", "tinyglobby"].includes(lib)) {
+    if (["fast-glob", "globby"].includes(lib)) {
       res.objectMode = true;
     } else if (lib === "glob") {
       res.withFileTypes = true;
     }
   }
 
-  if (opts.stats && ["fast-glob", "glob"].includes(lib)) res.stats = true;
+  if ("stats" in opts && opts.stats && ["fast-glob", "globby"].includes(lib)) {
+    res.stats = true;
+  }
 
-  const matchBase = opts.matchBase ?? opts.baseNameMatch;
+  const matchBase =
+    "baseNameMatch" in opts
+      ? opts.baseNameMatch
+      : "matchBase" in opts
+        ? opts.matchBase
+        : undefined;
   if (matchBase !== undefined) {
     if (lib === "glob") {
       res.matchBase = matchBase;
-    } else if (lib === "fast-glob") {
+    } else if (["fast-glob", "globby"].includes(lib)) {
       res.baseNameMatch = matchBase;
     }
   }
 
-  if (
-    opts.extglob !== false &&
-    opts.noext !== true &&
-    ["glob", "fast-glob", "globby"].includes(lib)
-  ) {
+  const extglob =
+    "extglob" in opts ? opts.extglob : "noext" in opts ? !opts.noext : true;
+  if (extglob && ["glob", "fast-glob", "globby"].includes(lib)) {
     res.extglob = true;
   }
 
-  const followSymlinks = opts.followSymbolicLinks ?? opts.follow;
+  const followSymlinks =
+    "followSymbolicLinks" in opts
+      ? opts.followSymbolicLinks
+      : "follow" in opts
+        ? opts.follow
+        : undefined;
   if (followSymlinks !== undefined) {
     if (["fast-glob", "globby", "tinyglobby"].includes(lib)) {
       res.followSymbolicLinks = followSymlinks;
@@ -243,57 +164,102 @@ export function normalizeOpts(lib: LibraryName, opts: any): any {
   }
 
   if (
+    "braceExpansion" in opts &&
     opts.braceExpansion !== undefined &&
     ["fast-glob", "globby"].includes(lib)
   ) {
     res.braceExpansion = opts.braceExpansion;
   }
-  if (opts.nobrace && lib === "glob") res.nobrace = opts.nobrace;
 
-  if (opts.globstar !== undefined && ["fast-glob", "globby"].includes(lib)) {
+  if ("nobrace" in opts && opts.nobrace && lib === "glob") {
+    res.nobrace = opts.nobrace;
+  }
+
+  if (
+    "globstar" in opts &&
+    opts.globstar !== undefined &&
+    ["fast-glob", "globby"].includes(lib)
+  ) {
     res.globstar = opts.globstar;
   }
-  if (opts.noglobstar && lib === "glob") res.noglobstar = opts.noglobstar;
 
-  if (opts.unique !== undefined && ["fast-glob", "globby"].includes(lib)) {
+  if ("noglobstar" in opts && opts.noglobstar && lib === "glob") {
+    res.noglobstar = opts.noglobstar;
+  }
+
+  if (
+    "unique" in opts &&
+    opts.unique !== undefined &&
+    ["fast-glob", "globby"].includes(lib)
+  ) {
     res.unique = opts.unique;
   }
 
-  if (opts.concurrency && ["fast-glob", "globby"].includes(lib)) {
+  if (
+    "concurrency" in opts &&
+    opts.concurrency &&
+    ["fast-glob", "globby"].includes(lib)
+  ) {
     res.concurrency = opts.concurrency;
   }
 
   if (
+    "expandDirectories" in opts &&
     opts.expandDirectories !== undefined &&
     ["globby", "tinyglobby"].includes(lib)
   ) {
     res.expandDirectories = opts.expandDirectories;
   }
 
-  if (opts.ignoreFiles && lib === "globby") res.ignoreFiles = opts.ignoreFiles;
-  if (opts.debug && lib === "tinyglobby") res.debug = opts.debug;
-  if (opts.flush && lib === "tiny-glob") res.flush = opts.flush;
+  if (lib === "globby" && "ignoreFiles" in opts && opts.ignoreFiles) {
+    res.ignoreFiles = opts.ignoreFiles;
+  }
+
+  if (lib === "tinyglobby" && "debug" in opts && opts.debug) {
+    res.debug = opts.debug;
+  }
+
+  if (lib === "tiny-glob" && "flush" in opts && opts.flush) {
+    res.flush = opts.flush;
+  }
 
   if (lib === "glob") {
-    if (opts.root) res.root = opts.root;
-    if (opts.windowsPathsNoEscape)
+    if ("root" in opts && opts.root) res.root = opts.root;
+    if ("windowsPathsNoEscape" in opts && opts.windowsPathsNoEscape) {
       res.windowsPathsNoEscape = opts.windowsPathsNoEscape;
-    if (opts.magicalBraces) res.magicalBraces = opts.magicalBraces;
-    if (opts.dotRelative) res.dotRelative = opts.dotRelative;
-    if (opts.nocase) res.nocase = opts.nocase;
-    if (opts.realpath) res.realpath = opts.realpath;
-    if (opts.posix) res.posix = opts.posix;
-    if (opts.platform) res.platform = opts.platform;
-    if (opts.signal) res.signal = opts.signal;
-    if (opts.includeChildMatches !== undefined)
+    }
+    if ("magicalBraces" in opts && opts.magicalBraces) {
+      res.magicalBraces = opts.magicalBraces;
+    }
+    if ("dotRelative" in opts && opts.dotRelative) {
+      res.dotRelative = opts.dotRelative;
+    }
+    if ("realpath" in opts && opts.realpath) res.realpath = opts.realpath;
+    if ("posix" in opts && opts.posix) res.posix = opts.posix;
+    if ("platform" in opts && opts.platform) res.platform = opts.platform;
+    if ("signal" in opts && opts.signal) res.signal = opts.signal;
+    if (
+      "includeChildMatches" in opts &&
+      opts.includeChildMatches !== undefined
+    ) {
       res.includeChildMatches = opts.includeChildMatches;
+    }
+    if ("stat" in opts && opts.stat) res.stat = opts.stat;
+    if ("matchBase" in opts && opts.matchBase) res.matchBase = opts.matchBase;
+    if ("nodir" in opts && opts.nodir) res.nodir = opts.nodir;
   }
 
   if (["fast-glob", "globby"].includes(lib)) {
-    if (opts.suppressErrors) res.suppressErrors = opts.suppressErrors;
-    if (opts.throwErrorOnBrokenSymbolicLink)
+    if ("suppressErrors" in opts && opts.suppressErrors) {
+      res.suppressErrors = opts.suppressErrors;
+    }
+    if (
+      "throwErrorOnBrokenSymbolicLink" in opts &&
+      opts.throwErrorOnBrokenSymbolicLink
+    ) {
       res.throwErrorOnBrokenSymbolicLink = opts.throwErrorOnBrokenSymbolicLink;
-    if (opts.fs) res.fs = opts.fs;
+    }
+    if ("fs" in opts && opts.fs) res.fs = opts.fs;
   }
 
   return res;
