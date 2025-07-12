@@ -12,14 +12,6 @@ This analysis is based on testing of real glob patterns across all major librari
 
 The goal is to provide an objective reference for developers who need to understand these differences when choosing a glob library for their projects.
 
-## Table of Contents
-
-- [Feature Comparison Matrix](#feature-comparison-matrix)
-- [Detailed Notes](#detailed-notes)
-- [References & Resources](#references--resources)
-
----
-
 ## Feature Comparison Matrix
 
 | Feature | [`fast-glob`] | [`glob`] | [`globby`] | [`tiny-glob`] | [`tinyglobby`] | [`node:fs`] | Notes |
