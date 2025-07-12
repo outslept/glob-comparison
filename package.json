@@ -3,11 +3,6 @@
   "version": "0.0.0",
   "packageManager": "pnpm@10.10.0",
   "type": "module",
-  "scripts": {
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "test": "tsx run-tests.ts"
-  },
   "dependencies": {
     "fast-glob": "^3.3.3",
     "glob": "^11.0.2",
