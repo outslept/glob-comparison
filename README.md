@@ -55,10 +55,10 @@ The goal is to provide an objective reference for developers who need to underst
 | Absolute paths | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | `glob`, `tiny-glob`, `node:fs`: Windows backslashes [[14]](#14-path-separator-differences-on-windows) • [[1]](#1-indeterminate-result-ordering) |
 | Relative paths | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | `glob`, `tiny-glob`, `node:fs`: Windows backslashes [[14]](#14-path-separator-differences-on-windows) • [[1]](#1-indeterminate-result-ordering) |
 | **Package Information** |
-| Bundle size (min+gzip) | TBD | TBD | TBD | TBD | TBD | Built-in |
-| Dependencies count | TBD | TBD | TBD | TBD | TBD | 0 |
-| Module format support | ESM/CJS | ESM/CJS | ESM only | CJS only | ESM/CJS | ESM/CJS |
-| TypeScript support | Built-in | @types | Built-in | None | Built-in | Built-in |
+| Install size | 96kb | 464kb | 28kb | TBD | 30kb | - |
+| Dependencies count | 17 | 33 | 22 | 2 | 2 | - |
+| Module format support | CJS | DUAL | ESM | CJS | DUAL | - |
+| TypeScript support | Built-in | Built-in | Built-in | Built-in | Built-in | - |
 
 ---
 
