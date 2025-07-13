@@ -66,8 +66,6 @@ The goal is to provide an objective reference for developers who need to underst
 
 ### [1] Indeterminate Result Ordering
 
-> **Critical Behavior Change in `glob` v9+**
-
 Starting from `glob` v9, results are returned in **non-deterministic order** that depends on your filesystem,
 operating system, disk controller, and other environmental factors.
 They may appear consistently reverse-alphabetical on some systems, but this behavior is **not guaranteed**
