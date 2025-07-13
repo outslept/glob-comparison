@@ -14,51 +14,51 @@ The goal is to provide an objective reference for developers who need to underst
 
 ## Feature Comparison Matrix
 
-| Feature | [`fast-glob`] | [`glob`] | [`globby`] | [`tiny-glob`] | [`tinyglobby`] | [`node:fs`] | Notes |
-|---------|:-------------:|:--------:|:----------:|:-------------:|:--------------:|:-----------:|-------|
-| **Basic Patterns** |
-| Asterisk (`*`) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | `glob`: indeterminate ordering [[1]](#1-indeterminate-result-ordering) |
-| Character ranges (`[a-z]`) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | [[1]](#1-indeterminate-result-ordering) • `tiny-glob`: throws on invalid ranges [[2]](#2-tiny-glob-invalid-character-range-handling) • Platform-dependent case sensitivity [[3]](#3-platform-dependent-case-sensitivity-behavior) |
-| Negated classes (`[!abc]`) | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | [[1]](#1-indeterminate-result-ordering) • `tinyglobby`: inverts logic [[4]](#4-tinyglobby-negated-character-classes-issue) • `tiny-glob`: empty class issues [[5]](#5-tiny-glob-empty-negated-class-handling) |
-| Caret negated classes (`[^abc]`) | ✅ | ✅ | ✅ | ❌ | ✅ | ✅ | [[1]](#1-indeterminate-result-ordering) • `tiny-glob`: inverts caret logic [[6]](#6-tiny-glob-caret-negation-inversion) |
-| Negated ranges (`[!a-c]`, `[!A-Z]`) | ✅ | Partial | ✅ | ✅ | ❌ | Partial | [[1]](#1-indeterminate-result-ordering) • `glob`, `node:fs`: case issues [[7]](#7-glob-negated-range-case-sensitivity) • `tinyglobby`: inverts logic [[4]](#4-tinyglobby-negated-character-classes-issue) |
-| Complex negated ranges (`[!a-zA-Z]`) | ✅ | ✅ | ✅ | ✅ | ❌ | ✅ | [[1]](#1-indeterminate-result-ordering) • `tinyglobby`: inverts logic [[4]](#4-tinyglobby-negated-character-classes-issue) |
-| Question mark (`?`) | ✅ | ✅ | ✅ | ❌ | ✅ | ✅ | [[1]](#1-indeterminate-result-ordering) • `tiny-glob`: recognition issues [[8]](#8-tiny-glob-question-mark-limitation) |
-| **Brace Expansion** |
-| Basic expansion (`{js,ts}`) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | [[1]](#1-indeterminate-result-ordering) • Result ordering varies [[9]](#9-brace-expansion-result-ordering) |
-| Nested expansion (`*.{spec,test}.js`) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | [[1]](#1-indeterminate-result-ordering) |
-| Multiple expansion (`{app,config}.{js,json}`) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | [[1]](#1-indeterminate-result-ordering) |
-| Numeric ranges (`{1..3}`) | ✅ | ✅ | ✅ | ❌ | ✅ | ✅ | [[1]](#1-indeterminate-result-ordering) • `tiny-glob`: no support [[10]](#10-tiny-glob-numeric-range-limitation) |
-| Zero-padded ranges (`{01..03}`) | ✅ | ✅ | ✅ | ❌ | ❌ | ✅ | [[1]](#1-indeterminate-result-ordering) • `tiny-glob`: no support [[10]](#10-tiny-glob-numeric-range-limitation) • `tinyglobby`: fails [[11]](#11-tinyglobby-zero-padded-range-limitation) |
-| Single item braces (`{js}`) | Literal | Literal | Literal | Expands | Literal | Literal | `tiny-glob`: expands single items [[12]](#12-tiny-glob-single-item-brace-expansion) |
-| **Globstar** |
-| Basic globstar (`**`) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | [[1]](#1-indeterminate-result-ordering) • `tiny-glob`: different ordering [[13]](#13-tiny-glob-globstar-ordering) • `glob`, `node:fs`: Windows backslashes [[14]](#14-path-separator-differences-on-windows) |
-| Nested globstar (`src/**/*.js`) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | [[1]](#1-indeterminate-result-ordering) • [[13]](#13-tiny-glob-globstar-ordering) • [[14]](#14-path-separator-differences-on-windows) |
-| Mixed globstar (`**/components/*.js`) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | [[1]](#1-indeterminate-result-ordering) • [[13]](#13-tiny-glob-globstar-ordering) • [[14]](#14-path-separator-differences-on-windows) |
-| **Extended Glob (ExtGlob)** |
-| Zero or more (`*(pattern)`) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | [[1]](#1-indeterminate-result-ordering) |
-| Exactly one (`@(pattern)`) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | [[1]](#1-indeterminate-result-ordering) |
-| Negation (`!(pattern)`) | ✅ | ✅ | Partial | ✅ | ✅ | ✅ | `globby`: fails on leading `!` [[15]](#15-globby-negated-extglob-limitation) • Different negation logic [[16]](#16-extglob-negation-logic-differences) • [[1]](#1-indeterminate-result-ordering) |
-| One or more (`+(pattern)`) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | [[1]](#1-indeterminate-result-ordering) |
-| Zero or one (`?(pattern)`) | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | [[1]](#1-indeterminate-result-ordering) |
-| **Special Behaviors** |
-| Hidden files with `*` | ❌ | ❌ | ❌ | ✅ | ❌ | ❌ | `tiny-glob`: includes hidden files [[17]](#17-tiny-glob-hidden-files-behavior) |
-| Hidden files with `*.*` | ❌ | ✅ | ❌ | ✅ | ❌ | ✅ | `glob`, `tiny-glob`, `node:fs`: include dot files [[18]](#18-dot-file-handling-differences) |
-| Case sensitivity (`*.js` vs `*.JS`) | Strict | Loose | Strict | Strict | Strict | Loose | `glob`, `node:fs`: loose matching [[19]](#19-case-sensitivity-differences) |
-| Hidden files with extension (`.*`) | ✅ | ✅ | ✅ | Partial | ✅ | ✅ | `tiny-glob`: misses complex patterns [[20]](#20-tiny-glob-hidden-extension-limitation) |
-| Directory inclusion in results | Files only | Files+Dirs | Files only | Files+Dirs | Files only | Files+Dirs | `glob`, `tiny-glob`, `node:fs`: include directories [[21]](#21-directory-inclusion-differences) |
-| **Configuration Options** |
-| Depth limiting | ✅ | ✅ | ✅ | ❌ | ✅ | ✅ | [[1]](#1-indeterminate-result-ordering) |
-| Basename matching | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ | `fast-glob`, `glob`: support basename matching [[22]](#22-basename-matching-support) |
-| Case sensitivity control | ✅ | ✅ | ✅ | Partial | ✅ | ✅ | `tiny-glob`: restrictive behavior [[23]](#23-tiny-glob-case-sensitivity) • [[1]](#1-indeterminate-result-ordering) |
-| **Path Handling** |
-| Absolute paths | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | `glob`, `tiny-glob`, `node:fs`: Windows backslashes [[14]](#14-path-separator-differences-on-windows) • [[1]](#1-indeterminate-result-ordering) |
-| Relative paths | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | `glob`, `tiny-glob`, `node:fs`: Windows backslashes [[14]](#14-path-separator-differences-on-windows) • [[1]](#1-indeterminate-result-ordering) |
-| **Package Information** |
-| Install size | 96kb | 464kb | 28kb | TBD | 30kb | - |
-| Dependencies count | 17 | 33 | 22 | 2 | 2 | - |
-| Module format support | CJS | DUAL | ESM | CJS | DUAL | - |
-| TypeScript support | Built-in | Built-in | Built-in | Built-in | Built-in | - |
+| Feature / library                             | [`fast-glob`] |  [`glob`]  | [`globby`] | [`tiny-glob`] | [`tinyglobby`] | [`node:fs`] | Notes                                                                                                                                                                                                                             |
+| --------------------------------------------- | :-----------: | :--------: | :--------: | :-----------: | :------------: | :---------: | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Basic Patterns**                            |
+| Asterisk (`*`)                                |      ✅       |     ✅     |     ✅     |      ✅       |       ✅       |     ✅      | `glob`: indeterminate ordering [[1]](#1-indeterminate-result-ordering)                                                                                                                                                            |
+| Character ranges (`[a-z]`)                    |      ✅       |     ✅     |     ✅     |      ✅       |       ✅       |     ✅      | [[1]](#1-indeterminate-result-ordering) • `tiny-glob`: throws on invalid ranges [[2]](#2-tiny-glob-invalid-character-range-handling) • Platform-dependent case sensitivity [[3]](#3-platform-dependent-case-sensitivity-behavior) |
+| Negated classes (`[!abc]`)                    |      ✅       |     ✅     |     ✅     |      ✅       |       ❌       |     ✅      | [[1]](#1-indeterminate-result-ordering) • `tinyglobby`: inverts logic [[4]](#4-tinyglobby-negated-character-classes-issue) • `tiny-glob`: empty class issues [[5]](#5-tiny-glob-empty-negated-class-handling)                     |
+| Caret negated classes (`[^abc]`)              |      ✅       |     ✅     |     ✅     |      ❌       |       ✅       |     ✅      | [[1]](#1-indeterminate-result-ordering) • `tiny-glob`: inverts caret logic [[6]](#6-tiny-glob-caret-negation-inversion)                                                                                                           |
+| Negated ranges (`[!a-c]`, `[!A-Z]`)           |      ✅       |  Partial   |     ✅     |      ✅       |       ❌       |   Partial   | [[1]](#1-indeterminate-result-ordering) • `glob`, `node:fs`: case issues [[7]](#7-glob-negated-range-case-sensitivity) • `tinyglobby`: inverts logic [[4]](#4-tinyglobby-negated-character-classes-issue)                         |
+| Complex negated ranges (`[!a-zA-Z]`)          |      ✅       |     ✅     |     ✅     |      ✅       |       ❌       |     ✅      | [[1]](#1-indeterminate-result-ordering) • `tinyglobby`: inverts logic [[4]](#4-tinyglobby-negated-character-classes-issue)                                                                                                        |
+| Question mark (`?`)                           |      ✅       |     ✅     |     ✅     |      ❌       |       ✅       |     ✅      | [[1]](#1-indeterminate-result-ordering) • `tiny-glob`: recognition issues [[8]](#8-tiny-glob-question-mark-limitation)                                                                                                            |
+| **Brace Expansion**                           |
+| Basic expansion (`{js,ts}`)                   |      ✅       |     ✅     |     ✅     |      ✅       |       ✅       |     ✅      | [[1]](#1-indeterminate-result-ordering) • Result ordering varies [[9]](#9-brace-expansion-result-ordering)                                                                                                                        |
+| Nested expansion (`*.{spec,test}.js`)         |      ✅       |     ✅     |     ✅     |      ✅       |       ✅       |     ✅      | [[1]](#1-indeterminate-result-ordering)                                                                                                                                                                                           |
+| Multiple expansion (`{app,config}.{js,json}`) |      ✅       |     ✅     |     ✅     |      ✅       |       ✅       |     ✅      | [[1]](#1-indeterminate-result-ordering)                                                                                                                                                                                           |
+| Numeric ranges (`{1..3}`)                     |      ✅       |     ✅     |     ✅     |      ❌       |       ✅       |     ✅      | [[1]](#1-indeterminate-result-ordering) • `tiny-glob`: no support [[10]](#10-tiny-glob-numeric-range-limitation)                                                                                                                  |
+| Zero-padded ranges (`{01..03}`)               |      ✅       |     ✅     |     ✅     |      ❌       |       ❌       |     ✅      | [[1]](#1-indeterminate-result-ordering) • `tiny-glob`: no support [[10]](#10-tiny-glob-numeric-range-limitation) • `tinyglobby`: fails [[11]](#11-tinyglobby-zero-padded-range-limitation)                                        |
+| Single item braces (`{js}`)                   |    Literal    |  Literal   |  Literal   |    Expands    |    Literal     |   Literal   | `tiny-glob`: expands single items [[12]](#12-tiny-glob-single-item-brace-expansion)                                                                                                                                               |
+| **Globstar**                                  |
+| Basic globstar (`**`)                         |      ✅       |     ✅     |     ✅     |      ✅       |       ✅       |     ✅      | [[1]](#1-indeterminate-result-ordering) • `tiny-glob`: different ordering [[13]](#13-tiny-glob-globstar-ordering) • `glob`, `node:fs`: Windows backslashes [[14]](#14-path-separator-differences-on-windows)                      |
+| Nested globstar (`src/**/*.js`)               |      ✅       |     ✅     |     ✅     |      ✅       |       ✅       |     ✅      | [[1]](#1-indeterminate-result-ordering) • [[13]](#13-tiny-glob-globstar-ordering) • [[14]](#14-path-separator-differences-on-windows)                                                                                             |
+| Mixed globstar (`**/components/*.js`)         |      ✅       |     ✅     |     ✅     |      ✅       |       ✅       |     ✅      | [[1]](#1-indeterminate-result-ordering) • [[13]](#13-tiny-glob-globstar-ordering) • [[14]](#14-path-separator-differences-on-windows)                                                                                             |
+| **Extended Glob (ExtGlob)**                   |
+| Zero or more (`*(pattern)`)                   |      ✅       |     ✅     |     ✅     |      ✅       |       ✅       |     ✅      | [[1]](#1-indeterminate-result-ordering)                                                                                                                                                                                           |
+| Exactly one (`@(pattern)`)                    |      ✅       |     ✅     |     ✅     |      ✅       |       ✅       |     ✅      | [[1]](#1-indeterminate-result-ordering)                                                                                                                                                                                           |
+| Negation (`!(pattern)`)                       |      ✅       |     ✅     |  Partial   |      ✅       |       ✅       |     ✅      | `globby`: fails on leading `!` [[15]](#15-globby-negated-extglob-limitation) • Different negation logic [[16]](#16-extglob-negation-logic-differences) • [[1]](#1-indeterminate-result-ordering)                                  |
+| One or more (`+(pattern)`)                    |      ✅       |     ✅     |     ✅     |      ✅       |       ✅       |     ✅      | [[1]](#1-indeterminate-result-ordering)                                                                                                                                                                                           |
+| Zero or one (`?(pattern)`)                    |      ✅       |     ✅     |     ✅     |      ✅       |       ✅       |     ✅      | [[1]](#1-indeterminate-result-ordering)                                                                                                                                                                                           |
+| **Special Behaviors**                         |
+| Hidden files with `*`                         |      ❌       |     ❌     |     ❌     |      ✅       |       ❌       |     ❌      | `tiny-glob`: includes hidden files [[17]](#17-tiny-glob-hidden-files-behavior)                                                                                                                                                    |
+| Hidden files with `*.*`                       |      ❌       |     ✅     |     ❌   |      ✅       |       ❌       |     ✅      | `glob`, `tiny-glob`, `node:fs`: include dot files [[18]](#18-dot-file-handling-differences)                                                                                                                                       |
+| Case sensitivity (`*.js` vs `*.JS`)           |    Strict     |   Loose    |   Strict   |    Strict     |     Strict     |    Loose    | `glob`, `node:fs`: loose matching [[19]](#19-case-sensitivity-differences)                                                                                                                                                        |
+| Hidden files with extension (`.*`)            |      ✅       |     ✅     |     ✅     |    Partial    |       ✅       |     ✅      | `tiny-glob`: misses complex patterns [[20]](#20-tiny-glob-hidden-extension-limitation)                                                                                                                                            |
+| Directory inclusion in results                |  Files only   | Files+Dirs | Files only |  Files+Dirs   |   Files only   | Files+Dirs  | `glob`, `tiny-glob`, `node:fs`: include directories [[21]](#21-directory-inclusion-differences)                                                                                                                                   |
+| **Configuration Options**                     |
+| Depth limiting                                |      ✅       |     ✅     |     ✅     |      ❌       |       ✅       |     ✅      | [[1]](#1-indeterminate-result-ordering)                                                                                                                                                                                           |
+| Basename matching                             |      ✅       |     ✅     |     ❌     |      ❌       |       ❌       |     ❌      | `fast-glob`, `glob`: support basename matching [[22]](#22-basename-matching-support)                                                                                                                                              |
+| Case sensitivity control                      |      ✅       |     ✅     |     ✅     |    Partial    |       ✅       |     ✅      | `tiny-glob`: restrictive behavior [[23]](#23-tiny-glob-case-sensitivity) • [[1]](#1-indeterminate-result-ordering)                                                                                                                |
+| **Path Handling**                             |
+| Absolute paths                                |      ✅       |     ✅     |     ✅     |      ✅       |       ✅       |     ✅      | `glob`, `tiny-glob`, `node:fs`: Windows backslashes [[14]](#14-path-separator-differences-on-windows) • [[1]](#1-indeterminate-result-ordering)                                                                                   |
+| Relative paths                                |      ✅       |     ✅     |     ✅     |      ✅       |       ✅       |     ✅      | `glob`, `tiny-glob`, `node:fs`: Windows backslashes [[14]](#14-path-separator-differences-on-windows) • [[1]](#1-indeterminate-result-ordering)                                                                                   |
+| **Package Information**                       |
+| Bundle size (min+gzip)                        |      TBD      |    TBD     |    TBD     |      TBD      |      TBD       |  Built-in   |
+| Dependencies count                            |      TBD      |    TBD     |    TBD     |      TBD      |      TBD       |      0      |
+| Module format support                         |    ESM/CJS    |  ESM/CJS   |  ESM only  |   CJS only    |    ESM/CJS     |   ESM/CJS   |
+| TypeScript support                            |   Built-in    |   @types   |  Built-in  |     None      |    Built-in    |  Built-in   |
 
 ---
 
@@ -68,9 +68,13 @@ The goal is to provide an objective reference for developers who need to underst
 
 > **Critical Behavior Change in `glob` v9+**
 
-Starting from `glob` v9, results are returned in **non-deterministic order** that depends on your filesystem, operating system, disk controller, and other environmental factors. They may appear consistently reverse-alphabetical on some systems, but this behavior is **not guaranteed** across different environments.
+Starting from `glob` v9, results are returned in **non-deterministic order** that depends on your filesystem,
+operating system, disk controller, and other environmental factors.
+They may appear consistently reverse-alphabetical on some systems, but this behavior is **not guaranteed**
+across different environments.
 
-Unlike `glob` v8 which automatically sorted results using English locale, you now need to manually sort if you depend on consistent ordering.
+Unlike `glob` v8 which automatically sorted results using English locale,
+you now need to manually sort if you depend on consistent ordering.
 
 **Solution:**
 
@@ -80,8 +84,9 @@ glob.sync('pattern').sort((a, b) => a.localeCompare(b, 'en'))
 ```
 
 **References:**
+
 - [Issue #576: glob v9 result ordering](https://github.com/isaacs/node-glob/issues/576)
-- [v8.1.0 sorting implementation](https://github.com/isaacs/node-glob/blob/v8.1.0/common.js?rgh-link-date=2024-03-01T08%3A48%3A35.000Z#L20)
+- [v8.1.0 sorting](https://github.com/isaacs/node-glob/blob/v8.1.0/common.js?rgh-link-date=2024-03-01T08%3A48%3A35.000Z#L20)
 
 [↑ Back to top](#feature-comparison-matrix)
 
@@ -89,7 +94,9 @@ glob.sync('pattern').sort((a, b) => a.localeCompare(b, 'en'))
 
 ### [2] tiny-glob invalid character range handling
 
-`tiny-glob` throws an error when encountering invalid character ranges (like `[9-1]` where the start character has a higher ASCII value than the end character), while other libraries gracefully return no matches.
+`tiny-glob` throws an error when encountering invalid character ranges
+(like `[9-1]` where the start character has a higher ASCII value than the end character),
+while other libraries gracefully return no matches.
 
 **Error Example:**
 
@@ -123,7 +130,8 @@ await fastGlob('[a-cA-C].js');  // ['a.js', 'b.js', 'c.js']
 await fastGlob('[a-cA-C].js');  // ['A.js', 'B.js', 'a.js', 'b.js', 'c.js']
 ```
 
-This affects all glob libraries consistently and is a **filesystem-level behavior** rather than a **library-specific difference**.
+This affects all glob libraries consistently and is a **filesystem-level behavior**
+rather than a **library-specific difference**.
 
 [↑ Back to top](#feature-comparison-matrix)
 
@@ -131,7 +139,8 @@ This affects all glob libraries consistently and is a **filesystem-level behavio
 
 ### [4] tinyglobby negated character classes issue
 
-`tinyglobby` handles negated character classes differently from the standard glob behavior. Instead of excluding characters, it includes them:
+`tinyglobby` handles negated character classes differently from the standard glob behavior.
+Instead of excluding characters, it includes them:
 
 ```javascript
 // Standard behavior (fast-glob, glob, globby, tiny-glob)
@@ -144,9 +153,12 @@ await tinyGlob('[!abc].js');  // ['d.js', 'z.js']
 await tinyglobby('[!abc].js'); // ['a.js', 'b.js', 'c.js'] - includes a,b,c instead
 ```
 
-This differs from the [POSIX.1-2017 Pattern Matching Notation](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html#tag_18_13_01) specification, which defines `[!...]` as a **"non-matching list"**:
+This differs from the [POSIX.1-2017 Pattern Matching Notation](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html#tag_18_13_01)
+specification, which defines `[!...]` as a **"non-matching list"**:
 
-> "If an open bracket introduces a bracket expression as in XBD RE Bracket Expression, except that the <exclamation-mark> character ( '!' ) shall replace the <circumflex> character ( '^' ) in its role in a non-matching list in the regular expression notation"
+> "If an open bracket introduces a bracket expression as in XBD RE Bracket Expression,
+> except that the <exclamation-mark> character ( '!' ) shall replace the <circumflex> character ( '^' )
+> in its role in a non-matching list in the regular expression notation"
 
 This affects all negated character class patterns including ranges like `[!a-z]` and specific characters like `[!az]`.
 
@@ -156,7 +168,8 @@ This affects all negated character class patterns including ranges like `[!a-z]`
 
 ### [5] tiny-glob empty negated class handling
 
-`tiny-glob` handles empty negated character class `[!]` differently, returning all matching files instead of no matches:
+`tiny-glob` handles empty negated character class `[!]` differently,
+returning all matching files instead of no matches:
 
 ```javascript
 // Standard behavior (fast-glob, glob, globby, tinyglobby)
@@ -172,7 +185,8 @@ await tinyGlob('[!].js');  // ['a.js', 'b.js', 'c.js', 'd.js', 'z.js'] - matches
 
 ### [6] tiny-glob caret negation inversion
 
-`tiny-glob` inverts the logic for caret negation syntax `[^abc]`, returning matching characters instead of excluding them:
+`tiny-glob` inverts the logic for caret negation syntax `[^abc]`,
+returning matching characters instead of excluding them:
 
 ```javascript
 // Standard behavior (fast-glob, glob, globby, tinyglobby, node:fs)
@@ -194,7 +208,8 @@ This affects both simple character lists and ranges like `[^a-c]`.
 
 ### [7] glob negated range case sensitivity
 
-`glob` and `node:fs` show inconsistent case sensitivity behavior with negated ranges, particularly with `[!A-Z]` patterns:
+`glob` and `node:fs` show inconsistent case sensitivity behavior with negated ranges,
+particularly with `[!A-Z]` patterns:
 
 ```javascript
 // Files: 1.js, 2.js, 9.js, a.js, b.js, c.js, d.js, z.js, A.js, B.js, C.js, Z.js
@@ -210,7 +225,8 @@ await glob('[!A-Z].js');       // ['1.js', '2.js', '9.js'] - excludes lowercase 
 await nodeFs('[!A-Z].js');     // ['1.js', '2.js', '9.js'] - excludes lowercase letters
 ```
 
-`glob` and `node:fs` exclude lowercase letters from `[!A-Z]` patterns when they should include them, suggesting case sensitivity handling issues in their negated range implementation.
+`glob` and `node:fs` exclude lowercase letters from `[!A-Z]` patterns when they should include them,
+suggesting case sensitivity handling issues in their negated range implementation.
 
 [↑ Back to top](#feature-comparison-matrix)
 
@@ -218,7 +234,9 @@ await nodeFs('[!A-Z].js');     // ['1.js', '2.js', '9.js'] - excludes lowercase 
 
 ### [8] tiny-glob question mark limitation
 
-`tiny-glob` fails to recognize most question mark patterns as glob patterns due to its `globalyzer` dependency. The issue appears to be in the [globalyzer dependency](https://www.npmjs.com/package/globalyzer). In strict mode (default), the STRICT regex pattern doesn't recognize standalone `?` as a glob pattern:
+`tiny-glob` fails to recognize most question mark patterns as glob patterns due to its `globalyzer` dependency.
+The issue appears to be in the [globalyzer dependency](https://www.npmjs.com/package/globalyzer).
+In strict mode (default), the STRICT regex pattern doesn't recognize standalone `?` as a glob pattern:
 
 ```javascript
 console.log(globalyzer('?.js'))       // { base: '.', glob: '?.js', isGlob: false }
@@ -228,9 +246,12 @@ console.log(globalyzer('?.js', { strict: false }))      // { base: '.', glob: '?
 console.log(globalyzer('file?.txt', { strict: false })) // { base: '.', glob: 'file?.txt', isGlob: true }
 ```
 
-The STRICT regex [`/\\(.)|(^!|\*|[\].+)]\?|...)/`](https://github.com/terkelg/globalyzer/blob/master/src/index.js#L3) only matches `?` after `]` but not standalone `?`. When `isGlob: false`, `tiny-glob` attempts to find a literal file instead of performing glob matching.
+The STRICT regex [`/\\(.)|(^!|\*|[\].+)]\?|...)/`](https://github.com/terkelg/globalyzer/blob/master/src/index.js#L3)
+only matches `?` after `]` but not standalone `?`.
+When `isGlob: false`, `tiny-glob` attempts to find a literal file instead of performing glob matching.
 
-**Exception:** Patterns with dots like `?.?` work correctly, suggesting the regex handles dot-separated patterns differently.
+**Exception:** Patterns with dots like `?.?` work correctly,
+suggesting the regex handles dot-separated patterns differently.
 
 ```javascript
 // Most patterns fail
@@ -268,7 +289,9 @@ Speaking of order, do not forget about [[1]](#1-indeterminate-result-ordering).
 
 ### [10] tiny-glob numeric range limitation
 
-`tiny-glob` doesn't support numeric range syntax in brace expansion. The [globrex dependency](https://www.npmjs.com/package/globrex) treats `..` as literal characters rather than range operators:
+`tiny-glob` doesn't support numeric range syntax in brace expansion.
+The [globrex dependency](https://www.npmjs.com/package/globrex)
+treats `..` as literal characters rather than range operators:
 
 ```javascript
 // Supported by fast-glob, glob, globby, tinyglobby, node:fs
@@ -284,7 +307,8 @@ await tinyGlob('file{1..3}.txt');   // [] - no matches
 await tinyGlob('file{1,2,3}.txt');  // ['file1.txt', 'file2.txt', 'file3.txt']
 ```
 
-The globrex regex generation treats `{1..3}` as literal `(1\.\.3)` instead of expanding to `(1|2|3)`.
+The globrex regex generation treats `{1..3}` as literal `(1\.\.3)`
+instead of expanding to `(1|2|3)`.
 
 [↑ Back to top](#feature-comparison-matrix)
 
@@ -292,7 +316,9 @@ The globrex regex generation treats `{1..3}` as literal `(1\.\.3)` instead of ex
 
 ### [11] tinyglobby zero-padded range limitation
 
-`tinyglobby` fails to match zero-padded numeric ranges while successfully handling simple ranges. The issue stems from the [picomatch dependency](https://www.npmjs.com/package/picomatch) where zero-padded ranges create invalid character class syntax:
+`tinyglobby` fails to match zero-padded numeric ranges while successfully handling simple ranges.
+The issue stems from the [picomatch dependency](https://www.npmjs.com/package/picomatch)
+where zero-padded ranges create invalid character class syntax:
 
 ```javascript
 // Simple ranges work (fast-glob, glob, globby, tinyglobby, node:fs)
@@ -309,7 +335,8 @@ await tinyglobby('file{01..03}.txt'); // [] - no matches
 await tinyGlob('file{01..03}.txt');   // [] - no matches
 ```
 
-Picomatch attempts to create character class `[01-03]` which is invalid regex syntax, causing fallback to literal string matching.
+Picomatch attempts to create character class `[01-03]` which is invalid regex syntax,
+causing fallback to literal string matching.
 
 [↑ Back to top](#feature-comparison-matrix)
 
@@ -330,7 +357,8 @@ await tinyglobby('foo.{js}'); // ['foo.{js}']
 await tinyGlob('foo.{js}');   // ['foo.js'] - expands to foo.js
 ```
 
-This behavior means `tiny-glob` will find `foo.js` when searching for `foo.{js}`, while other libraries look for a file literally named `foo.{js}`.
+This behavior means `tiny-glob` will find `foo.js` when searching for `foo.{js}`,
+while other libraries look for a file literally named `foo.{js}`.
 
 [↑ Back to top](#feature-comparison-matrix)
 
@@ -338,7 +366,8 @@ This behavior means `tiny-glob` will find `foo.js` when searching for `foo.{js}`
 
 ### [13] tiny-glob globstar ordering
 
-`tiny-glob` returns globstar results in a different order compared to other libraries, prioritizing deeper nested files first:
+`tiny-glob` returns globstar results in a different order compared to other libraries,
+prioritizing deeper nested files first:
 
 ```javascript
 // Standard order (fast-glob, globby, tinyglobby)
@@ -354,7 +383,9 @@ await tinyGlob('foo/**/*.js');  // ['foo/bar/baz/deep.js', 'foo/bar/baz/nested.j
 
 ### [14] Path separator differences on Windows
 
-`glob`, `tiny-glob`, and `node:fs` return results with native Windows backslashes (`\`) while other libraries consistently return POSIX-style forward slashes (`/`), which is often more convenient for cross-platform development.
+`glob`, `tiny-glob`, and `node:fs` return results with native Windows backslashes (`\`)
+while other libraries consistently return POSIX-style forward slashes (`/`),
+which is often more convenient for cross-platform development.
 
 ```javascript
 // Windows results
@@ -373,7 +404,9 @@ await tinyglobby('foo/**/*.js'); // ['foo/index.js', 'foo/main.js', ...]
 
 ### [15] globby negated extglob limitation
 
-`globby` has inconsistent behavior with extglob negation patterns starting with `!`. Patterns beginning with `!(...)` consistently return empty results, while the same logic works correctly when the negation is not at the start of the pattern.
+`globby` has inconsistent behavior with extglob negation patterns starting with `!`.
+Patterns beginning with `!(...)` consistently return empty results,
+while the same logic works correctly when the negation is not at the start of the pattern.
 
 ```javascript
 // Always fails: extglob negation at start
@@ -419,7 +452,8 @@ This represents different interpretations of how negation should work with parti
 
 ### [17] tiny-glob hidden files behavior
 
-`tiny-glob` includes hidden files (starting with `.`) in `*` pattern results, while other libraries exclude them:
+`tiny-glob` includes hidden files (starting with `.`) in `*` pattern results,
+while other libraries exclude them:
 
 ```javascript
 // Files: .hidden, foo.js, bar.txt
@@ -481,7 +515,8 @@ await nodeFs('*.js');     // ['foo.js', 'MixedCase.Js', 'UPPERCASE.JS']
 
 ### [20] tiny-glob hidden extension limitation
 
-`tiny-glob` has inconsistent behavior with hidden files that have extensions when using `.*` patterns:
+`tiny-glob` has inconsistent behavior with hidden files that have extensions
+when using `.*` patterns:
 
 ```javascript
 // Files: .hidden, .config.js
@@ -515,7 +550,8 @@ await tinyGlob('foo/**');   // ['foo\\bar', 'foo\\bar\\baz', 'foo\\index.js', 'f
 await nodeFs('foo/**');     // ['foo', 'foo\\bar', 'foo\\bar\\baz', 'foo\\index.js', 'foo\\bar\\component.js']
 ```
 
-This affects result counts and may impact applications that expect only files or need to handle directories separately.
+This affects result counts and may impact applications that expect only files
+or need to handle directories separately.
 
 [↑ Back to top](#feature-comparison-matrix)
 
@@ -523,7 +559,8 @@ This affects result counts and may impact applications that expect only files or
 
 ### [22] Basename matching support
 
-Only `fast-glob` and `glob` support basename matching, which allows matching filenames regardless of their directory path:
+Only `fast-glob` and `glob` support basename matching,
+which allows matching filenames regardless of their directory path:
 
 ```javascript
 // Files: index.js, foo/index.js, bar/index.js, foo/baz/index.js
