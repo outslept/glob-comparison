@@ -16,8 +16,6 @@ mise install node@24.4.1
 mise use node@24.4.1
 ```
 
-> Note: I wanted to use the latest available Node version (24.4.1) because `node:fs` glob functionality is experimental and I wanted to get the most of it as it's evolving rapidly.
-
 3. Install dependencies
 
 ```sh
