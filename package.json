@@ -3,6 +3,15 @@
   "version": "0.0.0",
   "packageManager": "pnpm@10.10.0",
   "type": "module",
+  "scripts": {
+    "prebuild": "node -e \"require('fs').promises.rm('dist', { recursive: true, force: true, maxRetries: process.platform === 'win32' ? 10 : 0 })\"",
+    "build": "tsc",
+    "lint:fix": "eslint --cache --fix",
+    "lint": "eslint --cache",
+    "format:fix": "prettier --write .",
+    "format": "prettier --check .",
+    "typecheck": "tsc --noEmit"
+  },
   "dependencies": {
     "fast-glob": "^3.3.3",
     "glob": "^11.0.2",
@@ -14,11 +23,9 @@
     "tinyglobby": "^0.2.13"
   },
   "devDependencies": {
-    "@sxzz/eslint-config": "^7.0.1",
+    "@prettier/plugin-oxc": "^0.0.4",
     "@types/node": "^22.15.29",
-    "lint-staged": "^16.0.0",
-    "simple-git-hooks": "^2.13.0",
-    "tsx": "^4.19.4",
+    "prettier": "^3.6.2",
     "typescript": "^5.8.3"
   }
 }
