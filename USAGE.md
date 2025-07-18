@@ -35,5 +35,3 @@ pnpm build
 ```sh
 node dist/tests/asterisk.js
 ```
-
-

@@ -19,12 +19,12 @@ The goal is to provide an objective reference for developers who need to underst
 | **Basic Patterns**                            |
 | Asterisk (`*`)                                |      ✅       |     ✅     |     ✅     |      ✅       |       ✅       |     ✅      | `glob`: indeterminate ordering [[1]](#1-indeterminate-result-ordering)                                                                                                                                                            |
 | Character ranges (`[a-z]`)                    |      ✅       |     ✅     |     ✅     |      ✅       |       ✅       |     ✅      | [[1]](#1-indeterminate-result-ordering) • `tiny-glob`: throws on invalid ranges [[2]](#2-tiny-glob-invalid-character-range-handling) • Platform-dependent case sensitivity [[3]](#3-platform-dependent-case-sensitivity-behavior) |
-| Question mark (`?`)                           |      ✅       |     ✅     |     ✅     |      ❌       |       ✅       |     ✅      | [[1]](#1-indeterminate-result-ordering) • `tiny-glob`: fails to recognize most patterns [[4]](#4-tiny-glob-question-mark-limitation)                                                                                            |
+| Question mark (`?`)                           |      ✅       |     ✅     |     ✅     |      ❌       |       ✅       |     ✅      | [[1]](#1-indeterminate-result-ordering) • `tiny-glob`: fails to recognize most patterns [[4]](#4-tiny-glob-question-mark-limitation)                                                                                              |
 | **Negated Character Classes**                 |
-| Exclamation negation (`[!abc]`)               |      ✅       |     ✅     |     ✅     |      ✅       |       ❌       |     ✅      | `tinyglobby`: inverts logic completely [[5]](#5-tinyglobby-negated-character-classes-issue) • [[1]](#1-indeterminate-result-ordering)                                                                                           |
-| Caret negation (`[^abc]`)                     |      ✅       |     ✅     |     ✅     |      ❌       |       ✅       |     ✅      | `tiny-glob`: inverts logic completely [[6]](#6-tiny-glob-caret-negation-inversion) • [[1]](#1-indeterminate-result-ordering)                                                                                                    |
-| Case-sensitive negation (`[!A-Z]`)            |      ✅       |   Partial  |     ✅     |      ✅       |       ❌       |   Partial   | `glob`, `node:fs`: exclude lowercase incorrectly [[7]](#7-glob-negated-range-case-sensitivity) • `tinyglobby`: inverts logic [[5]](#5-tinyglobby-negated-character-classes-issue)                                              |
-| Empty negation (`[!]`)                        |      ✅       |     ✅     |     ✅     |      ❌       |       ✅       |     ✅      | `tiny-glob`: matches everything instead of nothing [[8]](#8-tiny-glob-empty-negated-class-handling)                                                                                                                              |
+| Exclamation negation (`[!abc]`)               |      ✅       |     ✅     |     ✅     |      ✅       |       ❌       |     ✅      | `tinyglobby`: inverts logic completely [[5]](#5-tinyglobby-negated-character-classes-issue) • [[1]](#1-indeterminate-result-ordering)                                                                                             |
+| Caret negation (`[^abc]`)                     |      ✅       |     ✅     |     ✅     |      ❌       |       ✅       |     ✅      | `tiny-glob`: inverts logic completely [[6]](#6-tiny-glob-caret-negation-inversion) • [[1]](#1-indeterminate-result-ordering)                                                                                                      |
+| Case-sensitive negation (`[!A-Z]`)            |      ✅       |  Partial   |     ✅     |      ✅       |       ❌       |   Partial   | `glob`, `node:fs`: exclude lowercase incorrectly [[7]](#7-glob-negated-range-case-sensitivity) • `tinyglobby`: inverts logic [[5]](#5-tinyglobby-negated-character-classes-issue)                                                 |
+| Empty negation (`[!]`)                        |      ✅       |     ✅     |     ✅     |      ❌       |       ✅       |     ✅      | `tiny-glob`: matches everything instead of nothing [[8]](#8-tiny-glob-empty-negated-class-handling)                                                                                                                               |
 | **Brace Expansion**                           |
 | Basic expansion (`{js,ts}`)                   |      ✅       |     ✅     |     ✅     |      ✅       |       ✅       |     ✅      | [[1]](#1-indeterminate-result-ordering) • Result ordering varies [[9]](#9-brace-expansion-result-ordering)                                                                                                                        |
 | Nested expansion (`*.{spec,test}.js`)         |      ✅       |     ✅     |     ✅     |      ✅       |       ✅       |     ✅      | [[1]](#1-indeterminate-result-ordering)                                                                                                                                                                                           |
@@ -79,11 +79,11 @@ you now need to manually sort if you depend on consistent ordering.
 
 ```javascript
 // Sort results just as version 8 did
-glob.sync('pattern').sort((a, b) => a.localeCompare(b, 'en'))
+glob.sync("pattern").sort((a, b) => a.localeCompare(b, "en"));
 
 // Or use your preferred locale for locale-aware sorting
-glob.sync('pattern').sort((a, b) => a.localeCompare(b, 'de'))      // German
-glob.sync('pattern').sort((a, b) => a.localeCompare(b, 'ja'))      // Japanese
+glob.sync("pattern").sort((a, b) => a.localeCompare(b, "de")); // German
+glob.sync("pattern").sort((a, b) => a.localeCompare(b, "ja")); // Japanese
 ```
 
 **References:**
@@ -109,13 +109,13 @@ creating an invalid regex `/^[9-1]\.txt$/` that throws a runtime error.
 **Error reproduction:**
 
 ```javascript
-const globrex = require('globrex');
+const globrex = require("globrex");
 
 // This works (brackets treated as literals)
-globrex('[9-1].txt');                    // /^\[9-1\]\.txt$/
+globrex("[9-1].txt"); // /^\[9-1\]\.txt$/
 
 // This throws (brackets treated as character class)
-globrex('[9-1].txt', { extended: true });
+globrex("[9-1].txt", { extended: true });
 // Error: Invalid regular expression: /^[9-1]\.txt$/: Range out of order in character class
 
 // tiny-glob uses extended: true internally
@@ -133,10 +133,10 @@ Character class patterns with mixed case ranges behave differently across platfo
 // Files: a.js, b.js, c.js, A.js, B.js
 
 // Windows (case-insensitive filesystem)
-await fastGlob('[a-cA-C].js');  // ['a.js', 'b.js', 'c.js']
+await fastGlob("[a-cA-C].js"); // ['a.js', 'b.js', 'c.js']
 
 // Linux (case-sensitive filesystem)
-await fastGlob('[a-cA-C].js');  // ['A.js', 'B.js', 'a.js', 'b.js', 'c.js']
+await fastGlob("[a-cA-C].js"); // ['A.js', 'B.js', 'a.js', 'b.js', 'c.js']
 ```
 
 This affects all glob libraries consistently and is a **filesystem-level behavior**
@@ -153,11 +153,11 @@ The issue appears to be in the [globalyzer dependency](https://www.npmjs.com/pac
 In strict mode (default), the STRICT regex pattern doesn't recognize standalone `?` as a glob pattern:
 
 ```javascript
-console.log(globalyzer('?.js'))       // { base: '.', glob: '?.js', isGlob: false }
-console.log(globalyzer('file?.txt'))  // { base: '.', glob: 'file?.txt', isGlob: false }
+console.log(globalyzer("?.js")); // { base: '.', glob: '?.js', isGlob: false }
+console.log(globalyzer("file?.txt")); // { base: '.', glob: 'file?.txt', isGlob: false }
 
-console.log(globalyzer('?.js', { strict: false }))      // { base: '.', glob: '?.js', isGlob: true }
-console.log(globalyzer('file?.txt', { strict: false })) // { base: '.', glob: 'file?.txt', isGlob: true }
+console.log(globalyzer("?.js", { strict: false })); // { base: '.', glob: '?.js', isGlob: true }
+console.log(globalyzer("file?.txt", { strict: false })); // { base: '.', glob: 'file?.txt', isGlob: true }
 ```
 
 The STRICT regex [`/\\(.)|(^!|\*|[\].+)]\?|...)/`](https://github.com/terkelg/globalyzer/blob/master/src/index.js#L3)
@@ -169,12 +169,12 @@ suggesting the regex handles dot-separated patterns differently.
 
 ```javascript
 // Most patterns fail
-await tinyGlob('?.js');     // [] - no matches
-await tinyGlob('???.js');   // [] - no matches
-await tinyGlob('?ar.txt');  // [] - no matches
+await tinyGlob("?.js"); // [] - no matches
+await tinyGlob("???.js"); // [] - no matches
+await tinyGlob("?ar.txt"); // [] - no matches
 
 // Exception: dot patterns work
-await tinyGlob('?.?');      // ['a.b', '...'] - works correctly
+await tinyGlob("?.?"); // ['a.b', '...'] - works correctly
 ```
 
 [↑ Back to top](#feature-comparison-matrix)
@@ -188,13 +188,13 @@ Instead of excluding characters, it includes them:
 
 ```javascript
 // Standard behavior (fast-glob, glob, globby, tiny-glob)
-await fastGlob('[!abc].js');  // ['d.js', 'z.js'] - excludes a,b,c
-await glob('[!abc].js');      // ['d.js', 'z.js']
-await globby('[!abc].js');    // ['d.js', 'z.js']
-await tinyGlob('[!abc].js');  // ['d.js', 'z.js']
+await fastGlob("[!abc].js"); // ['d.js', 'z.js'] - excludes a,b,c
+await glob("[!abc].js"); // ['d.js', 'z.js']
+await globby("[!abc].js"); // ['d.js', 'z.js']
+await tinyGlob("[!abc].js"); // ['d.js', 'z.js']
 
 // tinyglobby behavior
-await tinyglobby('[!abc].js'); // ['a.js', 'b.js', 'c.js'] - includes a,b,c instead
+await tinyglobby("[!abc].js"); // ['a.js', 'b.js', 'c.js'] - includes a,b,c instead
 ```
 
 This differs from the [POSIX.1-2017 Pattern Matching Notation](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/V3_chap02.html#tag_18_13_01)
@@ -217,14 +217,14 @@ returning matching characters instead of excluding them:
 
 ```javascript
 // Standard behavior (fast-glob, glob, globby, tinyglobby, node:fs)
-await fastGlob('[^abc].js');  // ['d.js', 'z.js'] - excludes a,b,c
-await glob('[^abc].js');      // ['d.js', 'z.js']
-await globby('[^abc].js');    // ['d.js', 'z.js']
-await tinyglobby('[^abc].js'); // ['d.js', 'z.js']
-await nodeFs('[^abc].js');    // ['d.js', 'z.js']
+await fastGlob("[^abc].js"); // ['d.js', 'z.js'] - excludes a,b,c
+await glob("[^abc].js"); // ['d.js', 'z.js']
+await globby("[^abc].js"); // ['d.js', 'z.js']
+await tinyglobby("[^abc].js"); // ['d.js', 'z.js']
+await nodeFs("[^abc].js"); // ['d.js', 'z.js']
 
 // tiny-glob behavior
-await tinyGlob('[^abc].js');  // ['a.js', 'b.js', 'c.js'] - includes a,b,c instead
+await tinyGlob("[^abc].js"); // ['a.js', 'b.js', 'c.js'] - includes a,b,c instead
 ```
 
 This affects both simple character lists and ranges like `[^a-c]`.
@@ -242,16 +242,16 @@ particularly with `[!A-Z]` patterns:
 // Files: 1.js, 2.js, 9.js, a.js, b.js, c.js, d.js, z.js, A.js, B.js, C.js, Z.js
 
 // Standard behavior (fast-glob, globby, tiny-glob)
-await fastGlob('[!A-Z].js');   // ['1.js', '2.js', '9.js', 'a.js', 'b.js', 'c.js', 'd.js', 'z.js']
-await globby('[!A-Z].js');     // ['1.js', '2.js', '9.js', 'a.js', 'b.js', 'c.js', 'd.js', 'z.js']
-await tinyGlob('[!A-Z].js');   // ['1.js', '2.js', '9.js', 'a.js', 'b.js', 'c.js', 'd.js', 'z.js']
+await fastGlob("[!A-Z].js"); // ['1.js', '2.js', '9.js', 'a.js', 'b.js', 'c.js', 'd.js', 'z.js']
+await globby("[!A-Z].js"); // ['1.js', '2.js', '9.js', 'a.js', 'b.js', 'c.js', 'd.js', 'z.js']
+await tinyGlob("[!A-Z].js"); // ['1.js', '2.js', '9.js', 'a.js', 'b.js', 'c.js', 'd.js', 'z.js']
 
 // Inconsistent behavior (glob, node:fs)
-await glob('[!A-Z].js');       // ['1.js', '2.js', '9.js'] - excludes lowercase letters
-await nodeFs('[!A-Z].js');     // ['1.js', '2.js', '9.js'] - excludes lowercase letters
+await glob("[!A-Z].js"); // ['1.js', '2.js', '9.js'] - excludes lowercase letters
+await nodeFs("[!A-Z].js"); // ['1.js', '2.js', '9.js'] - excludes lowercase letters
 
 // tinyglobby inverts logic
-await tinyglobby('[!A-Z].js'); // [] - returns nothing due to inversion bug
+await tinyglobby("[!A-Z].js"); // [] - returns nothing due to inversion bug
 ```
 
 `glob` and `node:fs` exclude lowercase letters from `[!A-Z]` patterns when they should include them,
@@ -268,10 +268,10 @@ returning all matching files instead of no matches:
 
 ```javascript
 // Standard behavior (fast-glob, glob, globby, tinyglobby)
-await fastGlob('[!].js');  // [] - empty negation set matches nothing
+await fastGlob("[!].js"); // [] - empty negation set matches nothing
 
 // tiny-glob behavior
-await tinyGlob('[!].js');  // ['a.js', 'b.js', 'c.js', 'd.js', 'z.js'] - matches everything
+await tinyGlob("[!].js"); // ['a.js', 'b.js', 'c.js', 'd.js', 'z.js'] - matches everything
 ```
 
 [↑ Back to top](#feature-comparison-matrix)
@@ -284,12 +284,12 @@ Libraries handle brace expansion result ordering differently:
 
 ```javascript
 // fast-glob, globby: preserve brace order
-await fastGlob('foo.{js,ts,css}');  // ['foo.js', 'foo.ts', 'foo.css']
-await globby('foo.{js,ts,css}');    // ['foo.js', 'foo.ts', 'foo.css']
+await fastGlob("foo.{js,ts,css}"); // ['foo.js', 'foo.ts', 'foo.css']
+await globby("foo.{js,ts,css}"); // ['foo.js', 'foo.ts', 'foo.css']
 
 // tiny-glob, tinyglobby: alphabetical order
-await tinyGlob('foo.{js,ts,css}');     // ['foo.css', 'foo.js', 'foo.ts']
-await tinyglobby('foo.{js,ts,css}');   // ['foo.css', 'foo.js', 'foo.ts']
+await tinyGlob("foo.{js,ts,css}"); // ['foo.css', 'foo.js', 'foo.ts']
+await tinyglobby("foo.{js,ts,css}"); // ['foo.css', 'foo.js', 'foo.ts']
 ```
 
 Speaking of order, do not forget about [[1]](#1-indeterminate-result-ordering).
@@ -306,16 +306,16 @@ treats `..` as literal characters rather than range operators:
 
 ```javascript
 // Supported by fast-glob, glob, globby, tinyglobby, node:fs
-await fastGlob('file{1..3}.txt');   // ['file1.txt', 'file2.txt', 'file3.txt']
-await glob('file{1..3}.txt');       // ['file1.txt', 'file2.txt', 'file3.txt']
-await globby('file{1..3}.txt');     // ['file1.txt', 'file2.txt', 'file3.txt']
-await tinyglobby('file{1..3}.txt'); // ['file1.txt', 'file2.txt', 'file3.txt']
+await fastGlob("file{1..3}.txt"); // ['file1.txt', 'file2.txt', 'file3.txt']
+await glob("file{1..3}.txt"); // ['file1.txt', 'file2.txt', 'file3.txt']
+await globby("file{1..3}.txt"); // ['file1.txt', 'file2.txt', 'file3.txt']
+await tinyglobby("file{1..3}.txt"); // ['file1.txt', 'file2.txt', 'file3.txt']
 
 // Not supported by tiny-glob
-await tinyGlob('file{1..3}.txt');   // [] - no matches
+await tinyGlob("file{1..3}.txt"); // [] - no matches
 
 // Comma-separated works in tiny-glob
-await tinyGlob('file{1,2,3}.txt');  // ['file1.txt', 'file2.txt', 'file3.txt']
+await tinyGlob("file{1,2,3}.txt"); // ['file1.txt', 'file2.txt', 'file3.txt']
 ```
 
 The globrex regex generation treats `{1..3}` as literal `(1\.\.3)`
@@ -333,17 +333,17 @@ where zero-padded ranges create invalid character class syntax:
 
 ```javascript
 // Simple ranges work (fast-glob, glob, globby, tinyglobby, node:fs)
-await fastGlob('file{1..3}.txt');   // ['file1.txt', 'file2.txt', 'file3.txt']
-await tinyglobby('file{1..3}.txt'); // ['file1.txt', 'file2.txt', 'file3.txt']
+await fastGlob("file{1..3}.txt"); // ['file1.txt', 'file2.txt', 'file3.txt']
+await tinyglobby("file{1..3}.txt"); // ['file1.txt', 'file2.txt', 'file3.txt']
 
 // Zero-padded ranges fail in tinyglobby
-await fastGlob('file{01..03}.txt');   // ['file01.txt', 'file02.txt', 'file03.txt']
-await glob('file{01..03}.txt');       // ['file01.txt', 'file02.txt', 'file03.txt']
-await globby('file{01..03}.txt');     // ['file01.txt', 'file02.txt', 'file03.txt']
-await tinyglobby('file{01..03}.txt'); // [] - no matches
+await fastGlob("file{01..03}.txt"); // ['file01.txt', 'file02.txt', 'file03.txt']
+await glob("file{01..03}.txt"); // ['file01.txt', 'file02.txt', 'file03.txt']
+await globby("file{01..03}.txt"); // ['file01.txt', 'file02.txt', 'file03.txt']
+await tinyglobby("file{01..03}.txt"); // [] - no matches
 
 // tiny-glob fails on both
-await tinyGlob('file{01..03}.txt');   // [] - no matches
+await tinyGlob("file{01..03}.txt"); // [] - no matches
 ```
 
 Picomatch attempts to create character class `[01-03]` which is invalid regex syntax,
@@ -359,13 +359,13 @@ causing fallback to literal string matching.
 
 ```javascript
 // Most libraries: treat as literal filename
-await fastGlob('foo.{js}');   // ['foo.{js}'] - if literal file exists
-await glob('foo.{js}');       // ['foo.{js}']
-await globby('foo.{js}');     // ['foo.{js}']
-await tinyglobby('foo.{js}'); // ['foo.{js}']
+await fastGlob("foo.{js}"); // ['foo.{js}'] - if literal file exists
+await glob("foo.{js}"); // ['foo.{js}']
+await globby("foo.{js}"); // ['foo.{js}']
+await tinyglobby("foo.{js}"); // ['foo.{js}']
 
 // tiny-glob: expands single-item braces
-await tinyGlob('foo.{js}');   // ['foo.js'] - expands to foo.js
+await tinyGlob("foo.{js}"); // ['foo.js'] - expands to foo.js
 ```
 
 This behavior means `tiny-glob` will find `foo.js` when searching for `foo.{js}`,
@@ -382,10 +382,10 @@ prioritizing deeper nested files first:
 
 ```javascript
 // Standard order (fast-glob, globby, tinyglobby)
-await fastGlob('foo/**/*.js');  // ['foo/index.js', 'foo/main.js', 'foo/bar/component.js', ...]
+await fastGlob("foo/**/*.js"); // ['foo/index.js', 'foo/main.js', 'foo/bar/component.js', ...]
 
 // tiny-glob order
-await tinyGlob('foo/**/*.js');  // ['foo/bar/baz/deep.js', 'foo/bar/baz/nested.js', 'foo/bar/component.js', ...]
+await tinyGlob("foo/**/*.js"); // ['foo/bar/baz/deep.js', 'foo/bar/baz/nested.js', 'foo/bar/component.js', ...]
 ```
 
 [↑ Back to top](#feature-comparison-matrix)
@@ -400,13 +400,13 @@ which is often more convenient for cross-platform development.
 
 ```javascript
 // Windows results
-await glob('foo/**/*.js');      // ['foo\\index.js', 'foo\\main.js', ...]
-await tinyGlob('foo/**/*.js');   // ['foo\\bar\\baz\\deep.js', ...]
-await nodeFs('foo/**/*.js');     // ['foo\\index.js', 'foo\\main.js', ...]
+await glob("foo/**/*.js"); // ['foo\\index.js', 'foo\\main.js', ...]
+await tinyGlob("foo/**/*.js"); // ['foo\\bar\\baz\\deep.js', ...]
+await nodeFs("foo/**/*.js"); // ['foo\\index.js', 'foo\\main.js', ...]
 
-await fastGlob('foo/**/*.js');  // ['foo/index.js', 'foo/main.js', ...]
-await globby('foo/**/*.js');    // ['foo/index.js', 'foo/main.js', ...]
-await tinyglobby('foo/**/*.js'); // ['foo/index.js', 'foo/main.js', ...]
+await fastGlob("foo/**/*.js"); // ['foo/index.js', 'foo/main.js', ...]
+await globby("foo/**/*.js"); // ['foo/index.js', 'foo/main.js', ...]
+await tinyglobby("foo/**/*.js"); // ['foo/index.js', 'foo/main.js', ...]
 ```
 
 [↑ Back to top](#feature-comparison-matrix)
@@ -419,13 +419,13 @@ Libraries handle `!(pattern)` negation differently when matching files that cont
 
 ```javascript
 // Standard exclusion logic (fast-glob, tiny-glob, tinyglobby)
-await fastGlob('!(foo).js');   // ['bar.js'] - excludes files containing 'foo'
-await tinyGlob('!(foo).js');   // ['bar.js'] - excludes files containing 'foo'
-await tinyglobby('!(foo).js'); // ['bar.js'] - excludes files containing 'foo'
+await fastGlob("!(foo).js"); // ['bar.js'] - excludes files containing 'foo'
+await tinyGlob("!(foo).js"); // ['bar.js'] - excludes files containing 'foo'
+await tinyglobby("!(foo).js"); // ['bar.js'] - excludes files containing 'foo'
 
 // Literal pattern matching (glob, node:fs)
-await glob('!(foo).js');       // ['bar.js', 'foobar.js', 'foofoo.js'] - excludes only exact 'foo'
-await nodeFs('!(foo).js');     // ['bar.js', 'foobar.js', 'foofoo.js'] - excludes only exact 'foo'
+await glob("!(foo).js"); // ['bar.js', 'foobar.js', 'foofoo.js'] - excludes only exact 'foo'
+await nodeFs("!(foo).js"); // ['bar.js', 'foobar.js', 'foofoo.js'] - excludes only exact 'foo'
 ```
 
 This represents different interpretations of how negation should work with partial matches.
@@ -443,10 +443,10 @@ while other libraries exclude them:
 // Files: .hidden, foo.js, bar.txt
 
 // Standard behavior (fast-glob, glob, globby, tinyglobby, node:fs)
-await fastGlob('*');  // ['foo.js', 'bar.txt'] - excludes .hidden
+await fastGlob("*"); // ['foo.js', 'bar.txt'] - excludes .hidden
 
 // tiny-glob behavior
-await tinyGlob('*');  // ['.hidden', 'foo.js', 'bar.txt'] - includes .hidden
+await tinyGlob("*"); // ['.hidden', 'foo.js', 'bar.txt'] - includes .hidden
 ```
 
 [↑ Back to top](#feature-comparison-matrix)
@@ -461,14 +461,14 @@ Libraries handle files ending with `.` differently in `*.*` patterns:
 // Files: file., file.., foo.js
 
 // Include files ending with dot
-await glob('*.*');     // ['file.', 'file..', 'foo.js']
-await tinyGlob('*.*'); // ['file.', 'file..', 'foo.js']
-await nodeFs('*.*');   // ['file.', 'file..', 'foo.js']
+await glob("*.*"); // ['file.', 'file..', 'foo.js']
+await tinyGlob("*.*"); // ['file.', 'file..', 'foo.js']
+await nodeFs("*.*"); // ['file.', 'file..', 'foo.js']
 
 // Exclude files ending with single dot
-await fastGlob('*.*');   // ['file..', 'foo.js'] - excludes file.
-await globby('*.*');     // ['file..', 'foo.js'] - excludes file.
-await tinyglobby('*.*'); // ['file..', 'foo.js'] - excludes file.
+await fastGlob("*.*"); // ['file..', 'foo.js'] - excludes file.
+await globby("*.*"); // ['file..', 'foo.js'] - excludes file.
+await tinyglobby("*.*"); // ['file..', 'foo.js'] - excludes file.
 ```
 
 [↑ Back to top](#feature-comparison-matrix)
@@ -483,14 +483,14 @@ Libraries handle case sensitivity in file extensions differently:
 // Files: foo.js, MixedCase.Js, UPPERCASE.JS
 
 // Case-sensitive matching
-await fastGlob('*.js');   // ['foo.js'] - strict .js only
-await globby('*.js');     // ['foo.js'] - strict .js only
-await tinyGlob('*.js');   // ['foo.js'] - strict .js only
-await tinyglobby('*.js'); // ['foo.js'] - strict .js only
+await fastGlob("*.js"); // ['foo.js'] - strict .js only
+await globby("*.js"); // ['foo.js'] - strict .js only
+await tinyGlob("*.js"); // ['foo.js'] - strict .js only
+await tinyglobby("*.js"); // ['foo.js'] - strict .js only
 
 // Case-insensitive matching
-await glob('*.js');       // ['foo.js', 'MixedCase.Js', 'UPPERCASE.JS']
-await nodeFs('*.js');     // ['foo.js', 'MixedCase.Js', 'UPPERCASE.JS']
+await glob("*.js"); // ['foo.js', 'MixedCase.Js', 'UPPERCASE.JS']
+await nodeFs("*.js"); // ['foo.js', 'MixedCase.Js', 'UPPERCASE.JS']
 ```
 
 [↑ Back to top](#feature-comparison-matrix)
@@ -506,10 +506,10 @@ when using `.*` patterns:
 // Files: .hidden, .config.js
 
 // Standard behavior (fast-glob, glob, globby, tinyglobby, node:fs)
-await fastGlob('.*');  // ['.hidden', '.config.js'] - finds both
+await fastGlob(".*"); // ['.hidden', '.config.js'] - finds both
 
 // tiny-glob behavior
-await tinyGlob('.*');  // ['.hidden'] - misses .config.js
+await tinyGlob(".*"); // ['.hidden'] - misses .config.js
 ```
 
 [↑ Back to top](#feature-comparison-matrix)
@@ -524,14 +524,14 @@ Libraries differ in whether they include directories in globstar results:
 // Files and directories: foo/, foo/bar/, foo/bar/baz/, foo/index.js, foo/bar/component.js
 
 // Files only (fast-glob, globby, tinyglobby)
-await fastGlob('foo/**');   // ['foo/index.js', 'foo/bar/component.js'] - files only
-await globby('foo/**');     // ['foo/index.js', 'foo/bar/component.js'] - files only
-await tinyglobby('foo/**'); // ['foo/index.js', 'foo/bar/component.js'] - files only
+await fastGlob("foo/**"); // ['foo/index.js', 'foo/bar/component.js'] - files only
+await globby("foo/**"); // ['foo/index.js', 'foo/bar/component.js'] - files only
+await tinyglobby("foo/**"); // ['foo/index.js', 'foo/bar/component.js'] - files only
 
 // Files and directories (glob, tiny-glob, node:fs)
-await glob('foo/**');       // ['foo', 'foo\\bar', 'foo\\bar\\baz', 'foo\\index.js', 'foo\\bar\\component.js']
-await tinyGlob('foo/**');   // ['foo\\bar', 'foo\\bar\\baz', 'foo\\index.js', 'foo\\bar\\component.js']
-await nodeFs('foo/**');     // ['foo', 'foo\\bar', 'foo\\bar\\baz', 'foo\\index.js', 'foo\\bar\\component.js']
+await glob("foo/**"); // ['foo', 'foo\\bar', 'foo\\bar\\baz', 'foo\\index.js', 'foo\\bar\\component.js']
+await tinyGlob("foo/**"); // ['foo\\bar', 'foo\\bar\\baz', 'foo\\index.js', 'foo\\bar\\component.js']
+await nodeFs("foo/**"); // ['foo', 'foo\\bar', 'foo\\bar\\baz', 'foo\\index.js', 'foo\\bar\\component.js']
 ```
 
 This affects result counts and may impact applications that expect only files
@@ -550,14 +550,14 @@ which allows matching filenames regardless of their directory path:
 // Files: index.js, foo/index.js, bar/index.js, foo/baz/index.js
 
 // Libraries with basename matching support
-await fastGlob('index.js', { baseNameMatch: true });  // ['index.js', 'foo/index.js', 'bar/index.js', 'foo/baz/index.js']
-await glob('index.js', { matchBase: true });          // ['index.js', 'foo/index.js', 'bar/index.js', 'foo/baz/index.js']
+await fastGlob("index.js", { baseNameMatch: true }); // ['index.js', 'foo/index.js', 'bar/index.js', 'foo/baz/index.js']
+await glob("index.js", { matchBase: true }); // ['index.js', 'foo/index.js', 'bar/index.js', 'foo/baz/index.js']
 
 // Libraries without basename matching support
-await globby('index.js');     // ['index.js'] - only exact path match
-await tinyGlob('index.js');   // ['index.js'] - only exact path match
-await tinyglobby('index.js'); // ['index.js'] - only exact path match
-await nodeFs('index.js');     // ['index.js'] - only exact path match
+await globby("index.js"); // ['index.js'] - only exact path match
+await tinyGlob("index.js"); // ['index.js'] - only exact path match
+await tinyglobby("index.js"); // ['index.js'] - only exact path match
+await nodeFs("index.js"); // ['index.js'] - only exact path match
 ```
 
 [↑ Back to top](#feature-comparison-matrix)
@@ -572,13 +572,13 @@ await nodeFs('index.js');     // ['index.js'] - only exact path match
 // Files: foo.js, FOO.txt, MixedCase.css
 
 // Pattern: *case*
-await fastGlob('*case*');   // ['MixedCase.css']
-await glob('*case*');       // ['MixedCase.css']
-await globby('*case*');     // ['MixedCase.css']
-await tinyglobby('*case*'); // ['MixedCase.css']
+await fastGlob("*case*"); // ['MixedCase.css']
+await glob("*case*"); // ['MixedCase.css']
+await globby("*case*"); // ['MixedCase.css']
+await tinyglobby("*case*"); // ['MixedCase.css']
 
 // tiny-glob is more restrictive
-await tinyGlob('*case*');   // [] - no matches
+await tinyGlob("*case*"); // [] - no matches
 ```
 
 This suggests `tiny-glob` has stricter case matching rules that may not follow standard glob behavior.
