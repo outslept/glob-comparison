@@ -1,21 +1,5 @@
 ![alt text](./banner.png)
 
-## Author's Note
-
-While working on various projects, I found myself curious about the subtle differences between
-glob libraries. This analysis examines the technical differences between glob libraries that are not
-well documented in existing resources.
-
-What started as casual research grew into this analysis. The existing documentation,
-while helpful, didn't provide the granular comparison I was looking for.
-
-This analysis is based on testing of glob patterns across all major libraries
-using their default configurations. Each behavior documented here has been verified
-through actual code execution.
-
-The goal is to provide reference for developers who need to understand
-these differences when choosing a glob library for their projects.
-
 ## Feature Comparison Matrix
 
 | Feature / library                             | [`fast-glob`] |  [`glob`]  | [`globby`] | [`tiny-glob`] | [`tinyglobby`] | [`node:fs`] | Notes                                                                                                                                                                                                                             |
