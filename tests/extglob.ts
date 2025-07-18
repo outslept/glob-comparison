@@ -108,9 +108,7 @@ async function runTests(): Promise<void> {
           console.log(
             `  ${libName} (${results.length}): ${styleText(
               "gray",
-              results
-                .map((path) => normalizePath(path))
-                .join(", "),
+              results.map((path) => normalizePath(path)).join(", "),
             )}`,
           );
         } catch (error) {
