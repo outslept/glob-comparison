@@ -35,36 +35,23 @@ const FILES = [
 ];
 
 const PATTERNS = [
-  // Basic globstar
   "**",
   "**/*",
   "**/*.js",
-
-  // Nested globstar
   "src/**/*.js",
   "lib/**/*.js",
   "tests/**/*.js",
-
-  // Mixed globstar
   "**/components/*.js",
   "**/plugins/**/*.js",
   "**/utils/*.js",
-
-  // Globstar with specific paths
   "src/**/Button.js",
   "lib/**/auth.js",
   "config/**/*.json",
-
-  // Multiple globstar
   "src/**/**/calc.js",
   "lib/**/**/redis.js",
-
-  // Globstar at different positions
   "**/src/*.js",
   "src/**",
   "**/*.md",
-
-  // Complex combinations
   "{src,lib}/**/*.js",
   "**/test*/**/*.js",
   "**/{components,utils}/*.js",

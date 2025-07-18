@@ -1,4 +1,3 @@
-// test/extglob.ts
 import { mkdir, writeFile, rm } from "fs/promises";
 import { join } from "path";
 import { styleText } from "node:util";
@@ -120,7 +119,6 @@ async function runTests(): Promise<void> {
               "gray",
               results
                 .map((path) => normalizePath(path))
-                .sort()
                 .join(", "),
             )}`,
           );

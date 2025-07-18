@@ -1,3 +1,41 @@
+/**
+ * @fileoverview
+ *
+ * DIRECTORY INCLUSION:
+ *
+ * Libraries differ in their default approach to directory inclusion. Some libraries (glob, tiny-glob, node:fs)
+ * include directories by default, while others (fast-glob, globby, tinyglobby) return only files by default.
+ * This reflects different design priorities between shell compatibility and performance optimization.
+ *
+ * This behavior is configurable in most libraries (e.g.):
+ * - fast-glob, globby, tinyglobby: Set onlyFiles: false to include directories
+ * - glob: Set nodir: true to exclude directories
+ * - tiny-glob: Set filesOnly: true to exclude directories
+ *
+ * DOTFILE HANDLING:
+ *
+ * All libraries default to excluding dotfiles (dot: false). However, tiny-glob has a regex implementation
+ * bug that causes non-deterministic dotfile filtering. The library uses a global regex with retained state:
+ * `const isHidden = /(^|[\\\/])\.[^\\\/\.]/g;`
+ *
+ * The regex lastIndex property persists between calls, causing different dotfiles to be included or excluded
+ * based on filesystem iteration order rather than consistent logic.
+ *
+ * Dotfile inclusion is configurable:
+ * - All libraries: Set dot: true to include dotfiles
+ *
+ * CASE SENSITIVITY:
+ *
+ * Libraries handle case sensitivity differently. Some (glob, node:fs) adapt to the underlying filesystem,
+ * performing case-insensitive matching on Windows and case-sensitive matching on Linux. Others
+ * (fast-glob, globby, tiny-glob, tinyglobby) always perform case-sensitive matching regardless of platform.
+ *
+ * Case sensitivity is configurable in most libraries:
+ * - glob: Set nocase: true/false to override platform defaults
+ * - fast-glob, globby, tinyglobby: Set caseSensitiveMatch: false for case-insensitive matching
+ * - tiny-glob, node:fs: Not configurable
+ */
+
 import { mkdir, writeFile, rm } from "fs/promises";
 import { join } from "path";
 import { styleText } from "node:util";
