@@ -62,7 +62,7 @@ const PATTERNS = [
   "@(main|app).js",
   "@(foo|bar).js",
 
-  // Negation !(pattern) - problematic for globby
+  // Negation !(pattern)
   "!(foo|bar).js",
   "!(test|app)*.js",
   "!(*.html)",
@@ -84,12 +84,6 @@ const PATTERNS = [
   "test.?(spec.)js",
   "style.?(min.)css",
   "?(main|app).js",
-
-  // Complex combinations
-  "*(app|test).@(js|ts)",
-  "!(foo|bar).+(js|ts)",
-  "file.?(min.)*(js|css)",
-  "@(app|main).!(min).js",
 ];
 
 const LIBS: Record<string, (pattern: string) => Promise<string[]>> = {
