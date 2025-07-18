@@ -47,21 +47,16 @@ const FILES = [
 ];
 
 const PATTERNS = [
-  // Zero or more *(pattern)
   "*.*(js|ts)",
   "app.*(min|dev|prod).js",
   "file.*(css|scss|sass)",
   "*(test|spec).js",
   "*(foo|bar|baz).js",
-
-  // Exactly one @(pattern)
   "file.@(js|ts|css)",
   "app.@(min|dev).js",
   "test.@(spec|unit).js",
   "@(main|app).js",
   "@(foo|bar).js",
-
-  // Negation !(pattern)
   "!(foo|bar).js",
   "!(test|app)*.js",
   "!(*.html)",
@@ -69,15 +64,11 @@ const PATTERNS = [
   "app.!(min).js",
   "test.!(spec).js",
   "component.!(html)",
-
-  // One or more +(pattern)
   "file.+(js|ts)",
   "app.+(min|dev|prod).js",
   "+(test|main).js",
   "+(foo|bar|baz).js",
   "style.+(css|scss)",
-
-  // Zero or one ?(pattern)
   "file.?(min.)js",
   "app.?(dev.)js",
   "test.?(spec.)js",

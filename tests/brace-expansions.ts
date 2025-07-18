@@ -1,4 +1,3 @@
-// test/brace-expansion.ts
 import { mkdir, writeFile, rm } from "fs/promises";
 import { join } from "path";
 import { styleText } from "node:util";
@@ -51,37 +50,24 @@ const FILES = [
 ];
 
 const PATTERNS = [
-  // Basic expansion
   "app.{js,ts}",
   "config.{js,json}",
   "*.{js,ts,css}",
-
-  // Nested expansion
   "*.{spec,test}.js",
   "app.{js,ts,jsx}",
   "style.{css,scss}",
-
-  // Multiple expansion
   "{app,config}.{js,json}",
   "{test,main}.{spec,test}.js",
   "{style,app}.{css,js}",
-
-  // Numeric ranges
   "file{1..3}.txt",
   "file{1..5}.txt",
   "file{2..4}.txt",
-
-  // Zero-padded ranges
   "file{01..03}.txt",
   "file{01..05}.txt",
   "file{02..04}.txt",
-
-  // Single item braces
   "app.{js}",
   "config.{json}",
   "style.{css}",
-
-  // Complex combinations
   "{foo,bar,baz}.js",
   "data.{json,xml,yaml}",
   "component.{vue,jsx,tsx}",
