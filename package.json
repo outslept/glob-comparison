@@ -14,18 +14,21 @@
   },
   "dependencies": {
     "fast-glob": "^3.3.3",
-    "glob": "^11.0.2",
+    "glob": "^11.0.3",
     "globalyzer": "^0.1.4",
     "globby": "^14.1.0",
     "globrex": "^0.1.2",
-    "picomatch": "^4.0.2",
+    "picomatch": "^4.0.3",
     "tiny-glob": "^0.2.9",
-    "tinyglobby": "^0.2.13"
+    "tinyglobby": "^0.2.14"
   },
   "devDependencies": {
+    "@eslint/js": "^9.31.0",
     "@prettier/plugin-oxc": "^0.0.4",
-    "@types/node": "^22.15.29",
+    "@types/node": "^22.16.4",
+    "eslint": "^9.31.0",
     "prettier": "^3.6.2",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.37.0"
   }
 }

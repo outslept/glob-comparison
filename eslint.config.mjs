@@ -1,3 +1,7 @@
-import { sxzz } from "@sxzz/eslint-config";
+import eslint from '@eslint/js';
+import tseslint from 'typescript-eslint';
 
-export default sxzz();
+export default tseslint.config(
+  eslint.configs.recommended,
+  tseslint.configs.recommended,
+);
