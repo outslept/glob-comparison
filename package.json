@@ -6,6 +6,7 @@
   "scripts": {
     "prebuild": "node -e \"require('fs').promises.rm('dist', { recursive: true, force: true, maxRetries: process.platform === 'win32' ? 10 : 0 })\"",
     "build": "tsc",
+    "execute": "mise exec -- node --version && mise exec -- node",
     "lint:fix": "eslint --cache --fix",
     "lint": "eslint --cache",
     "format:fix": "prettier --write .",
