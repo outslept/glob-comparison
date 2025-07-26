@@ -1,10 +1,6 @@
 name: glob pattern tests
 
 on:
-  push:
-    branches: [ canary ]
-  pull_request:
-    branches: [ canary ]
   workflow_dispatch:
 
 jobs:
@@ -34,7 +30,7 @@ jobs:
       run: pnpm add tiny-glob
 
     - name: execute glob pattern tests
-      run: node test-glob.mjs > test-output-${{ matrix.os }}.log 2>&1
+      run: node index.mjs > test-output-${{ matrix.os }}.log 2>&1
       continue-on-error: true
 
     - name: upload test results and logs

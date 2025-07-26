@@ -1,8 +1,8 @@
 import { mkdir, writeFile, rm, symlink, chmod } from "fs/promises";
 import { join, resolve } from "path";
-import { styleText } from "util";
+import console from "node:console";
+import process from "node:process";
 import tinyGlob from "tiny-glob";
-import process from "process";
 
 const FIXTURE_DIR = "test-fixtures";
 
@@ -97,7 +97,7 @@ async function setupFixtures() {
       const fullPath = join(FIXTURE_DIR, file);
       await mkdir(join(fullPath, ".."), { recursive: true });
       await writeFile(fullPath, "");
-    } catch { /* ignore */ }
+    } catch { /** ignore */ }
   }
 
   try {
@@ -115,7 +115,7 @@ async function setupFixtures() {
 
     await symlink("cycle-b", join(FIXTURE_DIR, "cycle-a"));
     await symlink("cycle-a", join(FIXTURE_DIR, "cycle-b"));
-  } catch { /* ignore */ }
+  } catch { /** ignore */ }
 
   if (process.platform !== "win32") {
     try {
@@ -134,7 +134,7 @@ async function setupFixtures() {
       await writeFile(join(FIXTURE_DIR, "dir-perms/noexec/blocked.js"), "");
       await chmod(join(FIXTURE_DIR, "dir-perms/noread"), 0o300);
       await chmod(join(FIXTURE_DIR, "dir-perms/noexec"), 0o600);
-    } catch { /** ignore */}
+    } catch { /** ignore */ }
   }
 }
 
@@ -142,40 +142,34 @@ async function runTests() {
   await setupFixtures();
 
   try {
-    console.log(styleText("bold", "=== RELATIVE PATTERNS ==="));
     for (const pattern of PATTERNS) {
-      console.log(styleText("bold", `"${pattern}"`));
-
+      console.log(`pattern: ${JSON.stringify(pattern)}`);
       for (const [i, options] of OPTIONS_SETS.entries()) {
         try {
           const results = await tinyGlob(`${FIXTURE_DIR}/${pattern}`, options);
           const normalized = results.map(path =>
             path.replace(/\\/g, '/').replace(new RegExp(`^${FIXTURE_DIR.replace(/\\/g, '/')}/`), '')
           ).sort();
-          console.log(`  [${i}] (${results.length}): ${normalized.join(", ")}`);
+          console.log(`${i}: ${results.length} ${normalized.slice(0, 5).join(' ')}`);
         } catch (error) {
-          console.log(`  [${i}] ERROR: ${String(error)}`);
+          console.log(`${i}: error ${error.message}`);
         }
       }
-      console.log("");
     }
 
-    console.log(styleText("bold", "=== ABSOLUTE PATTERNS ==="));
     for (const pattern of ABSOLUTE_PATTERNS) {
-      console.log(styleText("bold", `"${pattern}"`));
-
+      console.log(`absolute: ${JSON.stringify(pattern)}`);
       for (const [i, options] of OPTIONS_SETS.entries()) {
         try {
           const results = await tinyGlob(pattern, options);
           const normalized = results.map(path =>
             path.replace(/\\/g, '/').replace(new RegExp(`^${FIXTURE_DIR.replace(/\\/g, '/')}/`), '')
           ).sort();
-          console.log(`  [${i}] (${results.length}): ${normalized.join(", ")}`);
+          console.log(`${i}: ${results.length} ${normalized.slice(0, 5).join(' ')}`);
         } catch (error) {
-          console.log(`  [${i}] ERROR: ${String(error)}`);
+          console.log(`${i}: error ${error.message}`);
         }
       }
-      console.log("");
     }
 
   } finally {
@@ -185,7 +179,7 @@ async function runTests() {
         await chmod(join(FIXTURE_DIR, "dir-perms/noread"), 0o755);
         await chmod(join(FIXTURE_DIR, "dir-perms/noexec"), 0o755);
       }
-    } catch { /** ignore */}
+    } catch { /* ignore */ }
     await rm(FIXTURE_DIR, { recursive: true, force: true });
   }
 }
