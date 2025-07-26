@@ -1,0 +1,52 @@
+name: tests
+
+on:
+  push:
+    branches: [ canary ]
+  pull_request:
+    branches: [ canary ]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+      fail-fast: false
+
+    steps:
+    - name: checkout repository
+      uses: actions/checkout@v4
+
+    - name: setup node.js 20
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20
+        cache: 'npm'
+
+    - name: install test dependencies
+      run: npm install tiny-glob
+
+    - name: execute glob pattern tests
+      run: node test-glob.mjs > test-output-${{ matrix.os }}.log 2>&1
+      continue-on-error: true
+
+    - name: upload test results and logs
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: test-results-${{ matrix.os }}
+        path: test-output-*.log
+        retention-days: 30
+
+    - name: debug test artifacts on failure
+      if: failure()
+      run: |
+        echo "=== Directory listing ==="
+        ls -la || dir
+        echo "=== Test fixtures check ==="
+        if [ -d "test-fixtures" ]; then find test-fixtures -type f | head -20; fi || true
+        echo "=== Log tail ==="
+        tail -50 test-output-*.log || true
+      shell: bash

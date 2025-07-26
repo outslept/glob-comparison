@@ -21,7 +21,8 @@
     "globrex": "^0.1.2",
     "picomatch": "^4.0.3",
     "tiny-glob": "^0.2.9",
-    "tinyglobby": "^0.2.14"
+    "tinyglobby": "^0.2.14",
+    "tinyglobby-pr": "https://pkg.pr.new/tinyglobby@151"
   },
   "devDependencies": {
     "@eslint/js": "^9.31.0",
