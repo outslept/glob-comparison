@@ -138,38 +138,124 @@ async function setupFixtures() {
   }
 }
 
+function getOptionTypes(indices) {
+  const dotIndices = [];
+  const filesOnlyIndices = [];
+
+  for (const index of indices) {
+    const options = OPTIONS_SETS[index];
+    if (options.dot) dotIndices.push(index);
+    if (options.filesOnly) filesOnlyIndices.push(index);
+  }
+
+  const allHaveDot = dotIndices.length === indices.length;
+  const allHaveFilesOnly = filesOnlyIndices.length === indices.length;
+  const noneHaveDot = dotIndices.length === 0;
+  const noneHaveFilesOnly = filesOnlyIndices.length === 0;
+
+  if (allHaveDot && allHaveFilesOnly) return 'dot+filesOnly';
+  if (allHaveDot && noneHaveFilesOnly) return 'dot only';
+  if (noneHaveDot && allHaveFilesOnly) return 'filesOnly';
+  if (noneHaveDot && noneHaveFilesOnly) return 'base';
+
+  return 'mixed';
+}
+
+function analyzeResults(pattern, results) {
+  const errorIndices = results.map((r, i) => r.error ? i : null).filter(i => i !== null);
+
+  if (errorIndices.length === results.length) {
+    console.log(`${pattern} → ERROR: ${results[0].error}`);
+    return;
+  }
+
+  const countGroups = {};
+  results.forEach((r, i) => {
+    if (r.error) return;
+    if (!countGroups[r.count]) countGroups[r.count] = { indices: [], files: r.files };
+    countGroups[r.count].indices.push(i);
+  });
+
+  if (Object.keys(countGroups).length === 1 && errorIndices.length === 0) {
+    const [count, data] = Object.entries(countGroups)[0];
+    if (Number(count) === 0) {
+      console.log(`${pattern} → no matches`);
+    } else {
+      console.log(`${pattern} → ${count} files: ${data.files.join(' ')}`);
+    }
+    return;
+  }
+
+  console.log(`${pattern} →`);
+
+  if (errorIndices.length > 0) {
+    console.log(`  ERROR: ${results[errorIndices[0]].error}`);
+  }
+
+  const sortedGroups = Object.entries(countGroups).sort(([a], [b]) => Number(a) - Number(b));
+
+  for (let i = 0; i < sortedGroups.length; i++) {
+    const [count, data] = sortedGroups[i];
+    const optionTypes = getOptionTypes(data.indices);
+    console.log(`  ${count} files (${optionTypes}):`);
+
+    if (Number(count) === 0) {
+      console.log(`    no matches`);
+    } else {
+      console.log(`    ${data.files.join(' ')}`);
+    }
+
+    if (i < sortedGroups.length - 1) {
+      console.log(`  ---`);
+    }
+  }
+}
+
 async function runTests() {
   await setupFixtures();
 
   try {
     for (const pattern of PATTERNS) {
-      console.log(`pattern: ${JSON.stringify(pattern)}`);
-      for (const [i, options] of OPTIONS_SETS.entries()) {
+      const results = [];
+
+      for (const options of OPTIONS_SETS) {
         try {
-          const results = await tinyGlob(`${FIXTURE_DIR}/${pattern}`, options);
-          const normalized = results.map(path =>
-            path.replace(/\\/g, '/').replace(new RegExp(`^${FIXTURE_DIR.replace(/\\/g, '/')}/`), '')
-          ).sort();
-          console.log(`${i}: ${results.length} ${normalized.slice(0, 5).join(' ')}`);
+          const matches = await tinyGlob(`${FIXTURE_DIR}/${pattern}`, options);
+          results.push({
+            count: matches.length,
+            files: matches.map(path =>
+              path.replace(/\\/g, '/').replace(new RegExp(`^${FIXTURE_DIR.replace(/\\/g, '/')}/`), '')
+            ).sort(),
+            error: null
+          });
         } catch (error) {
-          console.log(`${i}: error ${error.message}`);
+          results.push({ count: 0, files: [], error: error.message.split(',')[0] });
         }
       }
+
+      analyzeResults(pattern, results);
     }
 
+    console.log('\nabsolute patterns:');
     for (const pattern of ABSOLUTE_PATTERNS) {
-      console.log(`absolute: ${JSON.stringify(pattern)}`);
-      for (const [i, options] of OPTIONS_SETS.entries()) {
+      const results = [];
+
+      for (const options of OPTIONS_SETS) {
         try {
-          const results = await tinyGlob(pattern, options);
-          const normalized = results.map(path =>
-            path.replace(/\\/g, '/').replace(new RegExp(`^${FIXTURE_DIR.replace(/\\/g, '/')}/`), '')
-          ).sort();
-          console.log(`${i}: ${results.length} ${normalized.slice(0, 5).join(' ')}`);
+          const matches = await tinyGlob(pattern, options);
+          results.push({
+            count: matches.length,
+            files: matches.map(path =>
+              path.replace(/\\/g, '/').replace(new RegExp(`^${FIXTURE_DIR.replace(/\\/g, '/')}/`), '')
+            ).sort(),
+            error: null
+          });
         } catch (error) {
-          console.log(`${i}: error ${error.message}`);
+          results.push({ count: 0, files: [], error: error.message.split(',')[0] });
         }
       }
+
+      analyzeResults(pattern.replace(process.cwd(), '.'), results);
     }
 
   } finally {
