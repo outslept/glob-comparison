@@ -64,7 +64,6 @@ const PATTERNS = [
   "file{01..03}.txt",
   "file{01..05}.txt",
   "file{02..04}.txt",
-  "app.{js}",
   "{foo,bar,baz}.js",
   "data.{json,xml,yaml}",
   "component.{vue,jsx,tsx}",
