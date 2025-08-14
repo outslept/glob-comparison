@@ -4,6 +4,10 @@
 
 | Feature / library                             | [`fast-glob`] | [`glob`] | [`globby`] | [`tiny-glob`] | [`tinyglobby`] | [`node:fs`] | Notes                                                                                                                                             |
 | --------------------------------------------- | :-----------: | :------: | :--------: | :-----------: | :------------: | :---------: | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Package Information**                       |
+| Package Type                                  |      N/A      |   N/A    |    N/A     |      N/A      |      N/A       |     N/A     |                                                                                                                                                   |
+| Depends on (X) packages                       |      N/A      |   N/A    |    N/A     |      N/A      |      N/A       |     N/A     |                                                                                                                                                   |
+| Size                                          |      N/A      |   N/A    |    N/A     |      N/A      |      N/A       |     N/A     |                                                                                                                                                   |
 | **Basic Patterns**                            |
 | Asterisk (`*`) - Files                        |      ✅       |    ✅    |     ✅     |      ✅       |       ✅       |     ✅      |                                                                                                                                                   |
 | Asterisk (`*`) - Directories                  |      ❌       |    ✅    |     ❌     |      ✅       |       ❌       |     ✅      | Directory inclusion differences [[1]](#1-directory-inclusion-differences)                                                                         |
