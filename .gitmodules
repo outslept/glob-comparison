@@ -1,0 +1,3 @@
+[submodule "tinyglobby"]
+	path = tinyglobby
+	url = https://github.com/SuperchupuDev/tinyglobby.git
