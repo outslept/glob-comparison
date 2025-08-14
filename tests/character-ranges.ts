@@ -7,7 +7,6 @@ import { globby } from "globby";
 import tinyGlob from "tiny-glob";
 import { glob as tinyglobby } from "tinyglobby";
 import { globSync as nodeGlobSync } from "node:fs";
-import normalizePath from "../internal/normalize-path.js";
 
 const FIXTURE_DIR = "test-fixtures";
 
@@ -51,16 +50,14 @@ const PATTERNS = [
   "file-[a-z].js",
   "test[0-9].js",
   "[a-z]*.css",
+  "file-[!z].js",
+  "file-[abz].js",
+  "file-[a-cz].js",
+  "file-[^ab].js",
+  "test[!1-3].js",
+  "[!a-z].js",
+  "file-[-z].js",
 ];
-
-const LIBS: Record<string, (pattern: string) => Promise<string[]>> = {
-  glob: (pattern: string) => glob(pattern),
-  "fast-glob": (pattern: string) => fastGlob(pattern),
-  globby: (pattern: string) => globby(pattern),
-  "tiny-glob": (pattern: string) => tinyGlob(pattern),
-  tinyglobby: (pattern: string) => tinyglobby(pattern),
-  "node:fs": (pattern: string) => Promise.resolve(nodeGlobSync(pattern)),
-};
 
 async function setupFixtures(): Promise<void> {
   await rm(FIXTURE_DIR, { recursive: true, force: true });
@@ -78,25 +75,33 @@ async function runTests(): Promise<void> {
   try {
     for (const pattern of PATTERNS) {
       console.log(styleText("bold", `"${pattern}"`));
+      const p = `${FIXTURE_DIR}/${pattern}`;
 
-      for (const [libName, libFunc] of Object.entries(LIBS)) {
-        try {
-          const results = await libFunc(`${FIXTURE_DIR}/${pattern}`);
-          console.log(
-            `  ${libName} (${results.length}): ${styleText(
-              "gray",
-              results
-                .map((path) => normalizePath(path))
-                .sort()
-                .join(", "),
-            )}`,
-          );
-        } catch (error) {
-          console.log(
-            `  ${styleText("gray", libName)} (ERROR): ${String(error)}`,
-          );
-        }
+      {
+        const results = (await glob(p)).sort();
+        console.log(`  glob (${results.length}): ${styleText("gray", results.join(", "))}`);
       }
+      {
+        const results = (await fastGlob(p)).sort();
+        console.log(`  fast-glob (${results.length}): ${styleText("gray", results.join(", "))}`);
+      }
+      {
+        const results = (await globby(p)).sort();
+        console.log(`  globby (${results.length}): ${styleText("gray", results.join(", "))}`);
+      }
+      {
+        const results = (await tinyGlob(p)).sort();
+        console.log(`  tiny-glob (${results.length}): ${styleText("gray", results.join(", "))}`);
+      }
+      {
+        const results = (await tinyglobby(p)).sort();
+        console.log(`  tinyglobby (${results.length}): ${styleText("gray", results.join(", "))}`);
+      }
+      {
+        const results = nodeGlobSync(p).sort();
+        console.log(`  node:fs (${results.length}): ${styleText("gray", results.join(", "))}`);
+      }
+
       console.log("");
     }
   } finally {
