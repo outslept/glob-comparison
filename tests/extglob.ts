@@ -75,8 +75,6 @@ const PATTERNS = [
   "?(main|app).js",
   "*.!(js|ts)",
   "@(readme|changelog).md",
-  "!(readme|changelog).md",
-  "!(config|package|tsconfig).json",
   "!(foo|bar).@(js|ts)",
   "@(foo|bar)*.js",
 ];

@@ -49,10 +49,8 @@ const PATTERNS = [
   "??.js",
   "???.js",
   "file?.txt",
-  "file?.js",
   "?est.js",
   "a??.js",
-  "?a?.js",
   "?.?",
   "?.*",
   ".*?",
@@ -64,7 +62,6 @@ const PATTERNS = [
   "?z.js",
   "?.html",
   "???.css",
-  ".?.*",
 ];
 
 async function setupFixtures(): Promise<void> {

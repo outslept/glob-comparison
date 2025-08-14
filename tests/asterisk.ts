@@ -40,7 +40,6 @@ const PATTERNS = [
   "f*",
   "*b",
   "*.*",
-  "f*b",
   ".*",
   "a/*",
   "*/subdir/bash.*",

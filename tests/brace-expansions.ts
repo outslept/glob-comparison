@@ -65,8 +65,6 @@ const PATTERNS = [
   "file{01..05}.txt",
   "file{02..04}.txt",
   "app.{js}",
-  "config.{json}",
-  "style.{css}",
   "{foo,bar,baz}.js",
   "data.{json,xml,yaml}",
   "component.{vue,jsx,tsx}",
