@@ -30,11 +30,8 @@ importers:
         specifier: ^0.2.9
         version: 0.2.9
       tinyglobby:
-        specifier: ^0.2.14
-        version: 0.2.14
-      tinyglobby-pr:
-        specifier: https://pkg.pr.new/tinyglobby@151
-        version: tinyglobby@https://pkg.pr.new/tinyglobby@151
+        specifier: file:./tinyglobby
+        version: file:tinyglobby
     devDependencies:
       '@eslint/js':
         specifier: ^9.31.0
@@ -764,13 +761,8 @@ packages:
   tiny-glob@0.2.9:
     resolution: {integrity: sha512-g/55ssRPUjShh+xkfx9UPDXqhckHEsHr4Vd9zX55oSdGZc/MD0m3sferOkwWtp98bv+kcVfEHtRJgBVJzelrzg==}
 
-  tinyglobby@0.2.14:
-    resolution: {integrity: sha512-tX5e7OM1HnYr2+a2C/4V0htOcSQcoSTH9KgJnVvNm5zm/cyEWKJ7j7YutsH9CxMdtOkkLFy2AHrMci9IM8IPZQ==}
-    engines: {node: '>=12.0.0'}
-
-  tinyglobby@https://pkg.pr.new/tinyglobby@151:
-    resolution: {tarball: https://pkg.pr.new/tinyglobby@151}
-    version: 0.2.14
+  tinyglobby@file:tinyglobby:
+    resolution: {directory: tinyglobby, type: directory}
     engines: {node: '>=12.0.0'}
 
   to-regex-range@5.0.1:
@@ -1526,12 +1518,7 @@ snapshots:
       globalyzer: 0.1.0
       globrex: 0.1.2
 
-  tinyglobby@0.2.14:
-    dependencies:
-      fdir: 6.4.6(picomatch@4.0.3)
-      picomatch: 4.0.3
-
-  tinyglobby@https://pkg.pr.new/tinyglobby@151:
+  tinyglobby@file:tinyglobby:
     dependencies:
       fdir: 6.4.6(picomatch@4.0.3)
       picomatch: 4.0.3
