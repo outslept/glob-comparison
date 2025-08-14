@@ -2,45 +2,45 @@
 
 ## Feature Comparison Matrix
 
-| Feature / library                             | [`fast-glob`] | [`glob`] | [`globby`] | [`tiny-glob`] | [`tinyglobby`] | [`node:fs`] | Notes                                                                                                                                                                                          |
-| --------------------------------------------- | :-----------: | :------: | :--------: | :-----------: | :------------: | :---------: | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Feature / library                             | [`fast-glob`] | [`glob`] | [`globby`] | [`tiny-glob`] | [`tinyglobby`] | [`node:fs`] | Notes                                                                                                                                             |
+| --------------------------------------------- | :-----------: | :------: | :--------: | :-----------: | :------------: | :---------: | ------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Basic Patterns**                            |
-| Asterisk (`*`) - Files                        |      ✅       |    ✅    |     ✅     |      ✅       |       ✅       |     ✅      |                                                                                                                                                                                                |
-| Asterisk (`*`) - Directories                  |      ❌       |    ✅    |     ❌     |      ✅       |       ❌       |     ✅      | Directory inclusion differences [[1]](#1-directory-inclusion-differences)                                                                                                                      |
-| Asterisk (`*`) - Hidden files (`.hidden`)     |      ❌       |    ❌    |     ❌     |      ⚠️       |       ❌       |     ❌      | Dotfile handling inconsistencies [[2]](#2-dotfile-handling-inconsistencies)                                                                                                                    |
-| Asterisk (`*`) - Config files (`.config`)     |      ❌       |    ❌    |     ❌     |      ❌       |       ❌       |     ❌      | Dotfile handling inconsistencies [[2]](#2-dotfile-handling-inconsistencies)                                                                                                                    |
-| Result ordering                               |      ✅       |    ⚠️    |     ✅     |      ✅       |       ✅       |     ⚠️      | Indeterminate result ordering [[3]](#3-indeterminate-result-ordering)                                                                                                                          |
-| Question mark (`?`)                           |      ✅       |    ✅    |     ✅     |      ❌       |       ✅       |     ✅      | tiny-glob question mark limitation [[8]](#8-tiny-glob-question-mark-limitation)                                                                                                                |
+| Asterisk (`*`) - Files                        |      ✅       |    ✅    |     ✅     |      ✅       |       ✅       |     ✅      |                                                                                                                                                   |
+| Asterisk (`*`) - Directories                  |      ❌       |    ✅    |     ❌     |      ✅       |       ❌       |     ✅      | Directory inclusion differences [[1]](#1-directory-inclusion-differences)                                                                         |
+| Asterisk (`*`) - Hidden files (`.hidden`)     |      ❌       |    ❌    |     ❌     |      ⚠️       |       ❌       |     ❌      | Dotfile handling inconsistencies [[2]](#2-dotfile-handling-inconsistencies)                                                                       |
+| Asterisk (`*`) - Config files (`.config`)     |      ❌       |    ❌    |     ❌     |      ❌       |       ❌       |     ❌      | Dotfile handling inconsistencies [[2]](#2-dotfile-handling-inconsistencies)                                                                       |
+| Result ordering                               |      ✅       |    ⚠️    |     ✅     |      ✅       |       ✅       |     ⚠️      | Indeterminate result ordering [[3]](#3-indeterminate-result-ordering)                                                                             |
+| Question mark (`?`)                           |      ✅       |    ✅    |     ✅     |      ❌       |       ✅       |     ✅      | tiny-glob question mark limitation [[8]](#8-tiny-glob-question-mark-limitation)                                                                   |
 | **Character Classes**                         |
-| Basic character ranges (`[abc]`)              |      ✅       |    ✅    |     ✅     |      ✅       |       ✅       |     ✅      |                                                                                                                                                                                                |
-| Range character classes (`[a-z]`)             |      ✅       |    ✅    |     ✅     |      ✅       |       ✅       |     ✅      |                                                                                                                                                                                                |
-| Case-sensitive ranges (`[A-Z]`)               |      ✅       |    ⚠️    |     ✅     |      ✅       |       ✅       |     ⚠️      | Filesystem-dependent behavior for `glob`/`node:fs` [[6]](#6-platform-dependent-case-sensitivity)                                                                                               |
-| Mixed case ranges (`[a-zA-Z]`)                |      ✅       |    ✅    |     ✅     |      ✅       |       ✅       |     ✅      |                                                                                                                                                                                                |
-| Numeric ranges (`[0-9]`)                      |      ✅       |    ✅    |     ✅     |      ✅       |       ✅       |     ✅      |                                                                                                                                                                                                |
-| Negated ranges (`[!abc]`)                     |      ✅       |    ✅    |     ✅     |      ✅       |       ✅       |     ✅      | [[7]](#7-negation-handling-bugs)                                                                                                                                                               |
-| Caret negation (`[^abc]`)                     |      ✅       |    ✅    |     ✅     |      ❌       |       ✅       |     ✅      | tiny-glob caret-negation bug [[7]](#7-negation-handling-bugs)                                                                                                                                  |
-| Negated case-sensitive ranges (`[!A-Z]`)      |      ✅       |    ⚠️    |     ✅     |      ✅       |       ✅       |     ⚠️      | Case sensitivity + negation [[6]](#6-platform-dependent-case-sensitivity) • [[7]](#7-negation-handling-bugs)                                                                                    |
-| Empty negation classes (`[!]`, `[^]`)         |      ✅       |    ✅    |     ✅     |      ⚠️       |       ✅       |     ✅      | tiny-glob treats `[!]` as match-all [[7]](#7-negation-handling-bugs)                                                                                                                           |
+| Basic character ranges (`[abc]`)              |      ✅       |    ✅    |     ✅     |      ✅       |       ✅       |     ✅      |                                                                                                                                                   |
+| Range character classes (`[a-z]`)             |      ✅       |    ✅    |     ✅     |      ✅       |       ✅       |     ✅      |                                                                                                                                                   |
+| Case-sensitive ranges (`[A-Z]`)               |      ✅       |    ⚠️    |     ✅     |      ✅       |       ✅       |     ⚠️      | Filesystem-dependent behavior for `glob`/`node:fs` [[6]](#6-platform-dependent-case-sensitivity)                                                  |
+| Mixed case ranges (`[a-zA-Z]`)                |      ✅       |    ✅    |     ✅     |      ✅       |       ✅       |     ✅      |                                                                                                                                                   |
+| Numeric ranges (`[0-9]`)                      |      ✅       |    ✅    |     ✅     |      ✅       |       ✅       |     ✅      |                                                                                                                                                   |
+| Negated ranges (`[!abc]`)                     |      ✅       |    ✅    |     ✅     |      ✅       |       ✅       |     ✅      | [[7]](#7-negation-handling-bugs)                                                                                                                  |
+| Caret negation (`[^abc]`)                     |      ✅       |    ✅    |     ✅     |      ❌       |       ✅       |     ✅      | tiny-glob caret-negation bug [[7]](#7-negation-handling-bugs)                                                                                     |
+| Negated case-sensitive ranges (`[!A-Z]`)      |      ✅       |    ⚠️    |     ✅     |      ✅       |       ✅       |     ⚠️      | Case sensitivity + negation [[6]](#6-platform-dependent-case-sensitivity) • [[7]](#7-negation-handling-bugs)                                      |
+| Empty negation classes (`[!]`, `[^]`)         |      ✅       |    ✅    |     ✅     |      ⚠️       |       ✅       |     ✅      | tiny-glob treats `[!]` as match-all [[7]](#7-negation-handling-bugs)                                                                              |
 | **Brace Expansion**                           |
-| Basic expansion (`{js,ts}`)                   |      ✅       |    ✅    |     ✅     |      ✅       |       ✅       |     ✅      | [[9]](#9-brace-expansion-result-ordering)                                                                                                                                                      |
-| Nested expansion (`*.{spec,test}.js`)         |      ✅       |    ✅    |     ✅     |      ✅       |       ✅       |     ✅      | [[9]](#9-brace-expansion-result-ordering)                                                                                                                                                      |
-| Multiple expansion (`{app,config}.{js,json}`) |      ✅       |    ✅    |     ✅     |      ✅       |       ✅       |     ✅      | [[9]](#9-brace-expansion-result-ordering)                                                                                                                                                      |
-| Numeric ranges (`{1..3}`)                     |      ✅       |    ✅    |     ✅     |      ❌       |       ✅       |     ✅      | tiny-glob numeric range limitation [[10]](#10-tiny-glob-numeric-range-limitation)                                                                                                              |
-| Zero-padded ranges (`{01..03}`)               |      ✅       |    ✅    |     ✅     |      ❌       |       ❌       |     ✅      | tinyglobby zero-padded range limitation [[11]](#11-tinyglobby-zero-padded-range-limitation)                                                                                                     |
-| Single item braces (`{js}`)                   |    Literal    | Literal  |  Literal   |    Expands    |    Literal     |   Literal   | tiny-glob single-item expansion [[12]](#12-tiny-glob-single-item-brace-expansion)                                                                                                              |
+| Basic expansion (`{js,ts}`)                   |      ✅       |    ✅    |     ✅     |      ✅       |       ✅       |     ✅      | [[9]](#9-brace-expansion-result-ordering)                                                                                                         |
+| Nested expansion (`*.{spec,test}.js`)         |      ✅       |    ✅    |     ✅     |      ✅       |       ✅       |     ✅      | [[9]](#9-brace-expansion-result-ordering)                                                                                                         |
+| Multiple expansion (`{app,config}.{js,json}`) |      ✅       |    ✅    |     ✅     |      ✅       |       ✅       |     ✅      | [[9]](#9-brace-expansion-result-ordering)                                                                                                         |
+| Numeric ranges (`{1..3}`)                     |      ✅       |    ✅    |     ✅     |      ❌       |       ✅       |     ✅      | tiny-glob numeric range limitation [[10]](#10-tiny-glob-numeric-range-limitation)                                                                 |
+| Zero-padded ranges (`{01..03}`)               |      ✅       |    ✅    |     ✅     |      ❌       |       ❌       |     ✅      | tinyglobby zero-padded range limitation [[11]](#11-tinyglobby-zero-padded-range-limitation)                                                       |
+| Single item braces (`{js}`)                   |    Literal    | Literal  |  Literal   |    Expands    |    Literal     |   Literal   | tiny-glob single-item expansion [[12]](#12-tiny-glob-single-item-brace-expansion)                                                                 |
 | **Extended Globs (Extglobs)**                 |
-| Zero or more (`*(pattern)`)                   |      ✅       |    ⚠️    |     ✅     |      ✅       |       ✅       |     ✅      | [[3]](#3-indeterminate-result-ordering)                                                                                                                                                        |
-| One or more (`+(pattern)`)                    |      ✅       |    ⚠️    |     ✅     |      ✅       |       ✅       |     ✅      | [[3]](#3-indeterminate-result-ordering)                                                                                                                                                        |
-| Zero or one (`?(pattern)`)                    |      ✅       |    ⚠️    |     ✅     |      ✅       |       ✅       |     ✅      | [[3]](#3-indeterminate-result-ordering)                                                                                                                                                        |
-| Exactly one (`@(pattern)`)                    |      ✅       |    ⚠️    |     ✅     |      ✅       |       ✅       |     ✅      | [[3]](#3-indeterminate-result-ordering)                                                                                                                                                        |
-| Negated match (`!(pattern)`)                  |      ✅       |    ⚠️    |     ✅     |      ✅       |       ✅       |     ✅      | [[3]](#3-indeterminate-result-ordering)                                                                                                                                                        |
-| Negated extension (`*.!(js|ts)`)              |      ✅       |    ✅    |     ✅     |      ❌       |       ✅       |     ✅      | tiny-glob negated-extension mismatch [[14]](#14-tiny-glob-negated-extension-mismatch)                                                                                                          |
+| Zero or more (`*(pattern)`)                   |      ✅       |    ⚠️    |     ✅     |      ✅       |       ✅       |     ✅      | [[3]](#3-indeterminate-result-ordering)                                                                                                           |
+| One or more (`+(pattern)`)                    |      ✅       |    ⚠️    |     ✅     |      ✅       |       ✅       |     ✅      | [[3]](#3-indeterminate-result-ordering)                                                                                                           |
+| Zero or one (`?(pattern)`)                    |      ✅       |    ⚠️    |     ✅     |      ✅       |       ✅       |     ✅      | [[3]](#3-indeterminate-result-ordering)                                                                                                           |
+| Exactly one (`@(pattern)`)                    |      ✅       |    ⚠️    |     ✅     |      ✅       |       ✅       |     ✅      | [[3]](#3-indeterminate-result-ordering)                                                                                                           |
+| Negated match (`!(pattern)`)                  |      ✅       |    ⚠️    |     ✅     |      ✅       |       ✅       |     ✅      | [[3]](#3-indeterminate-result-ordering)                                                                                                           |
+| Negated extension (`*.!(js\|ts)`)             |      ✅       |    ✅    |     ✅     |      ❌       |       ✅       |     ✅      | tiny-glob negated-extension mismatch [[14]](#14-tiny-glob-negated-extension-mismatch)                                                             |
 | **Globstar**                                  |
-| Basic globstar (`**`)                         |      ✅       |    ⚠️    |     ✅     |      ✅       |       ✅       |     ⚠️      | Directory inclusion + ordering [[1]](#1-directory-inclusion-differences) • [[3]](#3-indeterminate-result-ordering)                                                                              |
-| Recursive globstar (`**/*`)                   |      ✅       |    ⚠️    |     ✅     |      ✅       |       ✅       |     ⚠️      | Directory inclusion + ordering [[1]](#1-directory-inclusion-differences) • [[3]](#3-indeterminate-result-ordering)                                                                              |
-| Nested globstar (`src/**/*.js`)               |      ✅       |    ⚠️    |     ✅     |      ✅       |       ✅       |     ⚠️      | [[3]](#3-indeterminate-result-ordering)                                                                                                                                                        |
-| Path-specific globstar (`src/**`)             |      ✅       |    ⚠️    |     ✅     |      ⚠️       |       ✅       |     ⚠️      | tiny-glob root directory exclusion [[13]](#13-tiny-glob-root-directory-exclusion) • directory inclusion [[1]](#1-directory-inclusion-differences)                                              |
-| Mixed globstar (`**/components/*.js`)         |      ✅       |    ⚠️    |     ✅     |      ✅       |       ✅       |     ⚠️      | [[3]](#3-indeterminate-result-ordering)                                                                                                                                                        |
+| Basic globstar (`**`)                         |      ✅       |    ⚠️    |     ✅     |      ✅       |       ✅       |     ⚠️      | Directory inclusion + ordering [[1]](#1-directory-inclusion-differences) • [[3]](#3-indeterminate-result-ordering)                                |
+| Recursive globstar (`**/*`)                   |      ✅       |    ⚠️    |     ✅     |      ✅       |       ✅       |     ⚠️      | Directory inclusion + ordering [[1]](#1-directory-inclusion-differences) • [[3]](#3-indeterminate-result-ordering)                                |
+| Nested globstar (`src/**/*.js`)               |      ✅       |    ⚠️    |     ✅     |      ✅       |       ✅       |     ⚠️      | [[3]](#3-indeterminate-result-ordering)                                                                                                           |
+| Path-specific globstar (`src/**`)             |      ✅       |    ⚠️    |     ✅     |      ⚠️       |       ✅       |     ⚠️      | tiny-glob root directory exclusion [[13]](#13-tiny-glob-root-directory-exclusion) • directory inclusion [[1]](#1-directory-inclusion-differences) |
+| Mixed globstar (`**/components/*.js`)         |      ✅       |    ⚠️    |     ✅     |      ✅       |       ✅       |     ⚠️      | [[3]](#3-indeterminate-result-ordering)                                                                                                           |
 
 ---
 
@@ -54,6 +54,7 @@ Include directories: `glob`, `tiny-glob`, `node:fs`
 Files only: `fast-glob`, `globby`, `tinyglobby`
 
 Configuration:
+
 - `fast-glob`, `globby`, `tinyglobby`: `onlyFiles: false`
 - `glob`: `nodir: true`
 - `tiny-glob`: `filesOnly: true`
@@ -79,6 +80,7 @@ const isHidden = /(^|[\\\/])\.[^\\\/\.]/g
 ```
 
 Observed:
+
 - `"*"` and `"*.*"` include `.hidden`
 - `".*"` returns only `.hidden`, missing `.config`
 
@@ -105,6 +107,7 @@ glob.sync("**/*", { cwd: "test-fixtures" }).sort((a, b) => a.localeCompare(b, "e
 ```
 
 References:
+
 - https://github.com/isaacs/node-glob/issues/576
 - https://github.com/isaacs/node-glob/blob/v8.1.0/common.js#L20
 - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/Collator/Collator#options
@@ -162,6 +165,7 @@ await fastGlob("[A-C].js", { cwd: "test-fixtures" }); // ['A.js','B.js','C.js']
 ```
 
 Toggles:
+
 - `glob`: `nocase: true/false`
 - `fast-glob`, `globby`, `tinyglobby`: `caseSensitiveMatch: false`
 
@@ -183,6 +187,7 @@ await tinyGlob("[!abc].js", { cwd: "test-fixtures" }); // ['A.js','B.js','C.js',
 ```
 
 Edge case:
+
 - `tiny-glob` treats `[!]` as match-all, whereas others return no matches.
 
 [↑ Back to top](#feature-comparison-matrix)
