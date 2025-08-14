@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "test:all": "mise exec -- node --import @oxc-node/core/register -e \"const fs = require('fs'); const files = fs.readdirSync('tests').filter(f => f.endsWith('.ts')); let i = 0; function runNext() { if (i < files.length) { console.log('Running:', files[i]); require('./tests/' + files[i]); i++; setTimeout(runNext, 1000); } } runNext();\"",
+    "test:no-mise": "node --import @oxc-node/core/register -e \"const fs = require('fs'); const files = fs.readdirSync('tests').filter(f => f.endsWith('.ts')); let i = 0; function runNext() { if (i < files.length) { console.log('Running:', files[i]); require('./tests/' + files[i]); i++; setTimeout(runNext, 1000); } } runNext();\"",
     "lint:fix": "eslint --cache --fix",
     "lint": "eslint --cache",
     "format:fix": "prettier --write .",
