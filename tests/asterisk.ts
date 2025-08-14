@@ -46,15 +46,6 @@ const PATTERNS = [
   "*/subdir/bash.*",
 ];
 
-const LIBS: Record<string, (pattern: string) => Promise<string[]>> = {
-  glob: (pattern: string) => glob(pattern),
-  "fast-glob": (pattern: string) => fastGlob(pattern),
-  globby: (pattern: string) => globby(pattern),
-  "tiny-glob": (pattern: string) => tinyGlob(pattern),
-  tinyglobby: (pattern: string) => tinyglobby(pattern),
-  "node:fs": (pattern: string) => Promise.resolve(nodeGlobSync(pattern)),
-};
-
 async function setupFixtures(): Promise<void> {
   await rm(FIXTURE_DIR, { recursive: true, force: true });
 
