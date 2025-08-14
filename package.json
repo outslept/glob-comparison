@@ -4,14 +4,11 @@
   "packageManager": "pnpm@10.10.0",
   "type": "module",
   "scripts": {
-    "prebuild": "node -e \"require('fs').promises.rm('dist', { recursive: true, force: true, maxRetries: process.platform === 'win32' ? 10 : 0 })\"",
-    "build": "tsc",
-    "execute": "mise exec -- node --version && mise exec -- node",
+    "test:all": "mise exec -- node --import @oxc-node/core/register -e \"require('fs').readdirSync('tests').filter(f => f.endsWith('.ts')).forEach(f => require('./tests/' + f))\"",
     "lint:fix": "eslint --cache --fix",
     "lint": "eslint --cache",
     "format:fix": "prettier --write .",
-    "format": "prettier --check .",
-    "typecheck": "tsc --noEmit"
+    "format": "prettier --check ."
   },
   "dependencies": {
     "fast-glob": "^3.3.3",
@@ -25,6 +22,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.31.0",
+    "@oxc-node/core": "^0.0.32",
     "@prettier/plugin-oxc": "^0.0.4",
     "@types/node": "^22.16.4",
     "eslint": "^9.31.0",
@@ -37,6 +35,8 @@
     "singleQuote": true,
     "trailingComma": "all",
     "printWidth": 100,
-    "plugins": ["@prettier/plugin-oxc"]
+    "plugins": [
+      "@prettier/plugin-oxc"
+    ]
   }
 }
