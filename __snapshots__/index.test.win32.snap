@@ -17,7 +17,7 @@ exports[`glob tests (win32) > *.js files > win32_js_files_fast_glob 1`] = `
   "az.js",
   "b.js",
   "bar.js",
-  "c.js",
+  "C.js",
   "café.js",
   "config.js",
   "d.js",
@@ -75,7 +75,7 @@ exports[`glob tests (win32) > *.js files > win32_js_files_globby 1`] = `
   "az.js",
   "b.js",
   "bar.js",
-  "c.js",
+  "C.js",
   "café.js",
   "config.js",
   "d.js",
@@ -133,7 +133,7 @@ exports[`glob tests (win32) > *.js files > win32_js_files_node_fs 1`] = `
   "az.js",
   "b.js",
   "bar.js",
-  "c.js",
+  "C.js",
   "café.js",
   "config.js",
   "d.js",
@@ -213,7 +213,7 @@ exports[`glob tests (win32) > *.js files > win32_js_files_npm_glob 1`] = `
   "d.js",
   "config.js",
   "café.js",
-  "c.js",
+  "C.js",
   "bar.js",
   "b.js",
   "az.js",
@@ -249,7 +249,7 @@ exports[`glob tests (win32) > *.js files > win32_js_files_tiny_glob 1`] = `
   "az.js",
   "b.js",
   "bar.js",
-  "c.js",
+  "C.js",
   "café.js",
   "config.js",
   "d.js",
@@ -307,7 +307,7 @@ exports[`glob tests (win32) > *.js files > win32_js_files_tinyglobby 1`] = `
   "az.js",
   "b.js",
   "bar.js",
-  "c.js",
+  "C.js",
   "café.js",
   "config.js",
   "d.js",
@@ -374,9 +374,9 @@ exports[`glob tests (win32) > brace expansion alpha > win32_brace_alpha_node_fs 
 
 exports[`glob tests (win32) > brace expansion alpha > win32_brace_alpha_npm_glob 1`] = `
 [
-  "a.js",
-  "b.js",
   "c.js",
+  "b.js",
+  "a.js",
 ]
 `;
 
@@ -386,7 +386,6 @@ exports[`glob tests (win32) > brace expansion alpha > win32_brace_alpha_tinyglob
 [
   "a.js",
   "b.js",
-  "c.js",
 ]
 `;
 
@@ -494,7 +493,7 @@ exports[`glob tests (win32) > braces pattern {js,ts} > win32_braces_js_ts_fast_g
   "az.js",
   "b.js",
   "bar.js",
-  "c.js",
+  "C.js",
   "café.js",
   "config.js",
   "d.js",
@@ -553,7 +552,7 @@ exports[`glob tests (win32) > braces pattern {js,ts} > win32_braces_js_ts_globby
   "az.js",
   "b.js",
   "bar.js",
-  "c.js",
+  "C.js",
   "café.js",
   "config.js",
   "d.js",
@@ -611,7 +610,7 @@ exports[`glob tests (win32) > braces pattern {js,ts} > win32_braces_js_ts_node_f
   "az.js",
   "b.js",
   "bar.js",
-  "c.js",
+  "C.js",
   "café.js",
   "config.js",
   "d.js",
@@ -692,7 +691,7 @@ exports[`glob tests (win32) > braces pattern {js,ts} > win32_braces_js_ts_npm_gl
   "d.js",
   "config.js",
   "café.js",
-  "c.js",
+  "C.js",
   "bar.js",
   "b.js",
   "az.js",
@@ -730,7 +729,7 @@ exports[`glob tests (win32) > braces pattern {js,ts} > win32_braces_js_ts_tiny_g
   "az.js",
   "b.js",
   "bar.js",
-  "c.js",
+  "C.js",
   "café.js",
   "config.js",
   "d.js",
@@ -789,7 +788,7 @@ exports[`glob tests (win32) > braces pattern {js,ts} > win32_braces_js_ts_tinygl
   "az.js",
   "b.js",
   "bar.js",
-  "c.js",
+  "C.js",
   "café.js",
   "config.js",
   "d.js",
@@ -847,7 +846,7 @@ exports[`glob tests (win32) > case insensitive matching > win32_case_insensitive
   "az.js",
   "b.js",
   "bar.js",
-  "c.js",
+  "C.js",
   "café.js",
   "config.js",
   "d.js",
@@ -905,7 +904,7 @@ exports[`glob tests (win32) > case insensitive matching > win32_case_insensitive
   "az.js",
   "b.js",
   "bar.js",
-  "c.js",
+  "C.js",
   "café.js",
   "config.js",
   "d.js",
@@ -963,7 +962,7 @@ exports[`glob tests (win32) > case insensitive matching > win32_case_insensitive
   "az.js",
   "b.js",
   "bar.js",
-  "c.js",
+  "C.js",
   "café.js",
   "config.js",
   "d.js",
@@ -1043,7 +1042,7 @@ exports[`glob tests (win32) > case insensitive matching > win32_case_insensitive
   "d.js",
   "config.js",
   "café.js",
-  "c.js",
+  "C.js",
   "bar.js",
   "b.js",
   "az.js",
@@ -1079,7 +1078,7 @@ exports[`glob tests (win32) > case insensitive matching > win32_case_insensitive
   "az.js",
   "b.js",
   "bar.js",
-  "c.js",
+  "C.js",
   "café.js",
   "config.js",
   "d.js",
@@ -1137,7 +1136,7 @@ exports[`glob tests (win32) > case insensitive matching > win32_case_insensitive
   "az.js",
   "b.js",
   "bar.js",
-  "c.js",
+  "C.js",
   "café.js",
   "config.js",
   "d.js",
@@ -1182,7 +1181,6 @@ exports[`glob tests (win32) > character class list > win32_charclass_list_fast_g
 [
   "a.js",
   "b.js",
-  "c.js",
 ]
 `;
 
@@ -1190,7 +1188,6 @@ exports[`glob tests (win32) > character class list > win32_charclass_list_globby
 [
   "a.js",
   "b.js",
-  "c.js",
 ]
 `;
 
@@ -1198,13 +1195,13 @@ exports[`glob tests (win32) > character class list > win32_charclass_list_node_f
 [
   "a.js",
   "b.js",
-  "c.js",
+  "C.js",
 ]
 `;
 
 exports[`glob tests (win32) > character class list > win32_charclass_list_npm_glob 1`] = `
 [
-  "c.js",
+  "C.js",
   "b.js",
   "a.js",
 ]
@@ -1214,7 +1211,6 @@ exports[`glob tests (win32) > character class list > win32_charclass_list_tiny_g
 [
   "a.js",
   "b.js",
-  "c.js",
 ]
 `;
 
@@ -1222,12 +1218,12 @@ exports[`glob tests (win32) > character class list > win32_charclass_list_tinygl
 [
   "a.js",
   "b.js",
-  "c.js",
 ]
 `;
 
 exports[`glob tests (win32) > character class negated > win32_charclass_negate_fast_glob 1`] = `
 [
+  "C.js",
   "d.js",
   "z.js",
 ]
@@ -1235,6 +1231,7 @@ exports[`glob tests (win32) > character class negated > win32_charclass_negate_f
 
 exports[`glob tests (win32) > character class negated > win32_charclass_negate_globby 1`] = `
 [
+  "C.js",
   "d.js",
   "z.js",
 ]
@@ -1256,6 +1253,7 @@ exports[`glob tests (win32) > character class negated > win32_charclass_negate_n
 
 exports[`glob tests (win32) > character class negated > win32_charclass_negate_tiny_glob 1`] = `
 [
+  "C.js",
   "d.js",
   "z.js",
 ]
@@ -1263,6 +1261,7 @@ exports[`glob tests (win32) > character class negated > win32_charclass_negate_t
 
 exports[`glob tests (win32) > character class negated > win32_charclass_negate_tinyglobby 1`] = `
 [
+  "C.js",
   "d.js",
   "z.js",
 ]
@@ -1272,7 +1271,6 @@ exports[`glob tests (win32) > character class range > win32_charclass_range_fast
 [
   "a.js",
   "b.js",
-  "c.js",
 ]
 `;
 
@@ -1280,7 +1278,6 @@ exports[`glob tests (win32) > character class range > win32_charclass_range_glob
 [
   "a.js",
   "b.js",
-  "c.js",
 ]
 `;
 
@@ -1288,13 +1285,13 @@ exports[`glob tests (win32) > character class range > win32_charclass_range_node
 [
   "a.js",
   "b.js",
-  "c.js",
+  "C.js",
 ]
 `;
 
 exports[`glob tests (win32) > character class range > win32_charclass_range_npm_glob 1`] = `
 [
-  "c.js",
+  "C.js",
   "b.js",
   "a.js",
 ]
@@ -1304,7 +1301,6 @@ exports[`glob tests (win32) > character class range > win32_charclass_range_tiny
 [
   "a.js",
   "b.js",
-  "c.js",
 ]
 `;
 
@@ -1312,7 +1308,6 @@ exports[`glob tests (win32) > character class range > win32_charclass_range_tiny
 [
   "a.js",
   "b.js",
-  "c.js",
 ]
 `;
 
@@ -1411,7 +1406,7 @@ exports[`glob tests (win32) > dot option enabled > win32_dot_enabled_fast_glob 1
   "b.js",
   "bar.js",
   "bb",
-  "c.js",
+  "C.js",
   "ca",
   "café.js",
   "changelog.md",
@@ -1525,7 +1520,7 @@ exports[`glob tests (win32) > dot option enabled > win32_dot_enabled_globby 1`] 
   "b.js",
   "bar.js",
   "bb",
-  "c.js",
+  "C.js",
   "ca",
   "café.js",
   "changelog.md",
@@ -1637,7 +1632,7 @@ exports[`glob tests (win32) > dot option enabled > win32_dot_enabled_node_fs 1`]
   "b.js",
   "bar.js",
   "bb",
-  "c.js",
+  "C.js",
   "ca",
   "café.js",
   "changelog.md",
@@ -1799,7 +1794,7 @@ exports[`glob tests (win32) > dot option enabled > win32_dot_enabled_npm_glob 1`
   "changelog.md",
   "café.js",
   "ca",
-  "c.js",
+  "C.js",
   "bb",
   "bar.js",
   "b.js",
@@ -1865,7 +1860,7 @@ exports[`glob tests (win32) > dot option enabled > win32_dot_enabled_tiny_glob 1
   "b.js",
   "bar.js",
   "bb",
-  "c.js",
+  "C.js",
   "ca",
   "café.js",
   "changelog.md",
@@ -1979,7 +1974,7 @@ exports[`glob tests (win32) > dot option enabled > win32_dot_enabled_tinyglobby 
   "b.js",
   "bar.js",
   "bb",
-  "c.js",
+  "C.js",
   "ca",
   "café.js",
   "changelog.md",
@@ -2155,7 +2150,7 @@ exports[`glob tests (win32) > extglob @(js|ts) > win32_extglob_at_fast_glob 1`] 
   "az.js",
   "b.js",
   "bar.js",
-  "c.js",
+  "C.js",
   "café.js",
   "config.js",
   "d.js",
@@ -2214,7 +2209,7 @@ exports[`glob tests (win32) > extglob @(js|ts) > win32_extglob_at_globby 1`] = `
   "az.js",
   "b.js",
   "bar.js",
-  "c.js",
+  "C.js",
   "café.js",
   "config.js",
   "d.js",
@@ -2273,7 +2268,7 @@ exports[`glob tests (win32) > extglob @(js|ts) > win32_extglob_at_node_fs 1`] = 
   "az.js",
   "b.js",
   "bar.js",
-  "c.js",
+  "C.js",
   "café.js",
   "config.js",
   "d.js",
@@ -2353,7 +2348,7 @@ exports[`glob tests (win32) > extglob @(js|ts) > win32_extglob_at_npm_glob 1`] =
   "d.js",
   "config.js",
   "café.js",
-  "c.js",
+  "C.js",
   "bar.js",
   "b.js",
   "az.js",
@@ -2391,7 +2386,7 @@ exports[`glob tests (win32) > extglob @(js|ts) > win32_extglob_at_tiny_glob 1`] 
   "az.js",
   "b.js",
   "bar.js",
-  "c.js",
+  "C.js",
   "café.js",
   "config.js",
   "d.js",
@@ -2450,7 +2445,7 @@ exports[`glob tests (win32) > extglob @(js|ts) > win32_extglob_at_tinyglobby 1`]
   "az.js",
   "b.js",
   "bar.js",
-  "c.js",
+  "C.js",
   "café.js",
   "config.js",
   "d.js",
@@ -2491,6 +2486,301 @@ exports[`glob tests (win32) > extglob @(js|ts) > win32_extglob_at_tinyglobby 1`]
 ]
 `;
 
+exports[`glob tests (win32) > extglob negated extension > win32_extglob_negated_ext_fast_glob 1`] = `
+[
+  "1.txt",
+  "2.txt",
+  "3.txt",
+  "4.txt",
+  "5.txt",
+  "9.txt",
+  "a.b",
+  "app.css",
+  "app.dev.js",
+  "app.jsx",
+  "app.min.js",
+  "app.prod.js",
+  "changelog.md",
+  "component.jsx",
+  "component.tsx",
+  "component.vue",
+  "config.json",
+  "config.yaml",
+  "data.json",
+  "data.xml",
+  "data.yaml",
+  "file.txt",
+  "file01.txt",
+  "file02.txt",
+  "file03.txt",
+  "file04.txt",
+  "file05.txt",
+  "file1.txt",
+  "file2.txt",
+  "file3.txt",
+  "file5.txt",
+  "main.min.js",
+  "main.spec.js",
+  "package.json",
+  "readme.md",
+  "style.css",
+  "style.min.css",
+  "style.scss",
+  "test.spec.js",
+  "test.unit.js",
+  "x.html",
+  "x.y",
+  "y.html",
+  "z.html",
+  "z.z",
+]
+`;
+
+exports[`glob tests (win32) > extglob negated extension > win32_extglob_negated_ext_globby 1`] = `
+[
+  "1.txt",
+  "2.txt",
+  "3.txt",
+  "4.txt",
+  "5.txt",
+  "9.txt",
+  "a.b",
+  "app.css",
+  "app.dev.js",
+  "app.jsx",
+  "app.min.js",
+  "app.prod.js",
+  "changelog.md",
+  "component.jsx",
+  "component.tsx",
+  "component.vue",
+  "config.json",
+  "config.yaml",
+  "data.json",
+  "data.xml",
+  "data.yaml",
+  "file.txt",
+  "file01.txt",
+  "file02.txt",
+  "file03.txt",
+  "file04.txt",
+  "file05.txt",
+  "file1.txt",
+  "file2.txt",
+  "file3.txt",
+  "file5.txt",
+  "main.min.js",
+  "main.spec.js",
+  "package.json",
+  "readme.md",
+  "style.css",
+  "style.min.css",
+  "style.scss",
+  "test.spec.js",
+  "test.unit.js",
+  "x.html",
+  "x.y",
+  "y.html",
+  "z.html",
+  "z.z",
+]
+`;
+
+exports[`glob tests (win32) > extglob negated extension > win32_extglob_negated_ext_node_fs 1`] = `
+[
+  "1.txt",
+  "2.txt",
+  "3.txt",
+  "4.txt",
+  "5.txt",
+  "9.txt",
+  "a.b",
+  "app.css",
+  "app.dev.js",
+  "app.jsx",
+  "app.min.js",
+  "app.prod.js",
+  "changelog.md",
+  "component.jsx",
+  "component.tsx",
+  "component.vue",
+  "config.json",
+  "config.yaml",
+  "data.json",
+  "data.xml",
+  "data.yaml",
+  "file.txt",
+  "file01.txt",
+  "file02.txt",
+  "file03.txt",
+  "file04.txt",
+  "file05.txt",
+  "file1.txt",
+  "file2.txt",
+  "file3.txt",
+  "file5.txt",
+  "main.min.js",
+  "main.spec.js",
+  "package.json",
+  "readme.md",
+  "style.css",
+  "style.min.css",
+  "style.scss",
+  "test.spec.js",
+  "test.unit.js",
+  "x.html",
+  "x.y",
+  "y.html",
+  "z.html",
+  "z.z",
+]
+`;
+
+exports[`glob tests (win32) > extglob negated extension > win32_extglob_negated_ext_npm_glob 1`] = `
+[
+  "z.z",
+  "z.html",
+  "y.html",
+  "x.y",
+  "x.html",
+  "test.unit.js",
+  "test.spec.js",
+  "style.scss",
+  "style.min.css",
+  "style.css",
+  "readme.md",
+  "package.json",
+  "main.spec.js",
+  "main.min.js",
+  "file5.txt",
+  "file3.txt",
+  "file2.txt",
+  "file1.txt",
+  "file05.txt",
+  "file04.txt",
+  "file03.txt",
+  "file02.txt",
+  "file01.txt",
+  "file.txt",
+  "data.yaml",
+  "data.xml",
+  "data.json",
+  "config.yaml",
+  "config.json",
+  "component.vue",
+  "component.tsx",
+  "component.jsx",
+  "changelog.md",
+  "app.prod.js",
+  "app.min.js",
+  "app.jsx",
+  "app.dev.js",
+  "app.css",
+  "a.b",
+  "9.txt",
+  "5.txt",
+  "4.txt",
+  "3.txt",
+  "2.txt",
+  "1.txt",
+]
+`;
+
+exports[`glob tests (win32) > extglob negated extension > win32_extglob_negated_ext_tiny_glob 1`] = `
+[
+  ".hidden",
+  "1.txt",
+  "2.txt",
+  "3.txt",
+  "4.txt",
+  "5.txt",
+  "9.txt",
+  "a.b",
+  "app.css",
+  "app.dev.js",
+  "app.min.js",
+  "app.prod.js",
+  "changelog.md",
+  "component.vue",
+  "config.yaml",
+  "data.xml",
+  "data.yaml",
+  "file.txt",
+  "file01.txt",
+  "file02.txt",
+  "file03.txt",
+  "file04.txt",
+  "file05.txt",
+  "file1.txt",
+  "file2.txt",
+  "file3.txt",
+  "file5.txt",
+  "main.min.js",
+  "main.spec.js",
+  "readme.md",
+  "style.css",
+  "style.min.css",
+  "style.scss",
+  "test.spec.js",
+  "test.unit.js",
+  "x.html",
+  "x.y",
+  "y.html",
+  "z.html",
+  "z.z",
+]
+`;
+
+exports[`glob tests (win32) > extglob negated extension > win32_extglob_negated_ext_tinyglobby 1`] = `
+[
+  "1.txt",
+  "2.txt",
+  "3.txt",
+  "4.txt",
+  "5.txt",
+  "9.txt",
+  "a.b",
+  "app.css",
+  "app.dev.js",
+  "app.jsx",
+  "app.min.js",
+  "app.prod.js",
+  "changelog.md",
+  "component.jsx",
+  "component.tsx",
+  "component.vue",
+  "config.json",
+  "config.yaml",
+  "data.json",
+  "data.xml",
+  "data.yaml",
+  "file.txt",
+  "file01.txt",
+  "file02.txt",
+  "file03.txt",
+  "file04.txt",
+  "file05.txt",
+  "file1.txt",
+  "file2.txt",
+  "file3.txt",
+  "file5.txt",
+  "main.min.js",
+  "main.spec.js",
+  "package.json",
+  "readme.md",
+  "style.css",
+  "style.min.css",
+  "style.scss",
+  "test.spec.js",
+  "test.unit.js",
+  "x.html",
+  "x.y",
+  "y.html",
+  "z.html",
+  "z.z",
+]
+`;
+
 exports[`glob tests (win32) > extglob negation > win32_extglob_not_fast_glob 1`] = `
 [
   "a.js",
@@ -2507,7 +2797,7 @@ exports[`glob tests (win32) > extglob negation > win32_extglob_not_fast_glob 1`]
   "app.prod.js",
   "az.js",
   "b.js",
-  "c.js",
+  "C.js",
   "café.js",
   "config.js",
   "d.js",
@@ -2564,7 +2854,7 @@ exports[`glob tests (win32) > extglob negation > win32_extglob_not_node_fs 1`] =
   "app.prod.js",
   "az.js",
   "b.js",
-  "c.js",
+  "C.js",
   "café.js",
   "config.js",
   "d.js",
@@ -2642,7 +2932,7 @@ exports[`glob tests (win32) > extglob negation > win32_extglob_not_npm_glob 1`] 
   "d.js",
   "config.js",
   "café.js",
-  "c.js",
+  "C.js",
   "b.js",
   "az.js",
   "app.prod.js",
@@ -2676,7 +2966,7 @@ exports[`glob tests (win32) > extglob negation > win32_extglob_not_tiny_glob 1`]
   "app.prod.js",
   "az.js",
   "b.js",
-  "c.js",
+  "C.js",
   "café.js",
   "config.js",
   "d.js",
@@ -2731,7 +3021,7 @@ exports[`glob tests (win32) > extglob negation > win32_extglob_not_tinyglobby 1`
   "app.prod.js",
   "az.js",
   "b.js",
-  "c.js",
+  "C.js",
   "café.js",
   "config.js",
   "d.js",
@@ -2767,6 +3057,162 @@ exports[`glob tests (win32) > extglob negation > win32_extglob_not_tinyglobby 1`
   "файл.js",
   "测试.js",
   "🚀emoji.js",
+]
+`;
+
+exports[`glob tests (win32) > extglob one or more > win32_extglob_plus_fast_glob 1`] = `
+[
+  "test1.js",
+  "test2.js",
+]
+`;
+
+exports[`glob tests (win32) > extglob one or more > win32_extglob_plus_globby 1`] = `
+[
+  "test1.js",
+  "test2.js",
+]
+`;
+
+exports[`glob tests (win32) > extglob one or more > win32_extglob_plus_node_fs 1`] = `
+[
+  "test1.js",
+  "test2.js",
+]
+`;
+
+exports[`glob tests (win32) > extglob one or more > win32_extglob_plus_npm_glob 1`] = `
+[
+  "test2.js",
+  "test1.js",
+]
+`;
+
+exports[`glob tests (win32) > extglob one or more > win32_extglob_plus_tiny_glob 1`] = `
+[
+  "test1.js",
+  "test2.js",
+]
+`;
+
+exports[`glob tests (win32) > extglob one or more > win32_extglob_plus_tinyglobby 1`] = `
+[
+  "test1.js",
+  "test2.js",
+]
+`;
+
+exports[`glob tests (win32) > extglob zero or more > win32_extglob_star_fast_glob 1`] = `
+[
+  "test.js",
+  "test.spec.js",
+  "test.unit.js",
+  "test1.js",
+  "test2.js",
+  "test9.js",
+  "test_1.js",
+]
+`;
+
+exports[`glob tests (win32) > extglob zero or more > win32_extglob_star_globby 1`] = `
+[
+  "test.js",
+  "test.spec.js",
+  "test.unit.js",
+  "test1.js",
+  "test2.js",
+  "test9.js",
+  "test_1.js",
+]
+`;
+
+exports[`glob tests (win32) > extglob zero or more > win32_extglob_star_node_fs 1`] = `
+[
+  "test.js",
+  "test.spec.js",
+  "test.unit.js",
+  "test1.js",
+  "test2.js",
+  "test9.js",
+  "test_1.js",
+]
+`;
+
+exports[`glob tests (win32) > extglob zero or more > win32_extglob_star_npm_glob 1`] = `
+[
+  "test_1.js",
+  "test9.js",
+  "test2.js",
+  "test1.js",
+  "test.unit.js",
+  "test.spec.js",
+  "test.js",
+]
+`;
+
+exports[`glob tests (win32) > extglob zero or more > win32_extglob_star_tiny_glob 1`] = `
+[
+  "test.js",
+  "test.spec.js",
+  "test.unit.js",
+  "test1.js",
+  "test2.js",
+  "test9.js",
+  "test_1.js",
+]
+`;
+
+exports[`glob tests (win32) > extglob zero or more > win32_extglob_star_tinyglobby 1`] = `
+[
+  "test.js",
+  "test.spec.js",
+  "test.unit.js",
+  "test1.js",
+  "test2.js",
+  "test9.js",
+  "test_1.js",
+]
+`;
+
+exports[`glob tests (win32) > extglob zero or one > win32_extglob_question_fast_glob 1`] = `
+[
+  "app.js",
+  "app.min.js",
+]
+`;
+
+exports[`glob tests (win32) > extglob zero or one > win32_extglob_question_globby 1`] = `
+[
+  "app.js",
+  "app.min.js",
+]
+`;
+
+exports[`glob tests (win32) > extglob zero or one > win32_extglob_question_node_fs 1`] = `
+[
+  "app.js",
+  "app.min.js",
+]
+`;
+
+exports[`glob tests (win32) > extglob zero or one > win32_extglob_question_npm_glob 1`] = `
+[
+  "app.min.js",
+  "app.js",
+]
+`;
+
+exports[`glob tests (win32) > extglob zero or one > win32_extglob_question_tiny_glob 1`] = `
+[
+  "app.js",
+  "app.min.js",
+]
+`;
+
+exports[`glob tests (win32) > extglob zero or one > win32_extglob_question_tinyglobby 1`] = `
+[
+  "app.js",
+  "app.min.js",
 ]
 `;
 
@@ -2955,7 +3401,7 @@ exports[`glob tests (win32) > first level directories > win32_dirs_first_level_t
   "b.js",
   "bar.js",
   "bb",
-  "c.js",
+  "C.js",
   "ca",
   "café.js",
   "changelog.md",
@@ -3066,7 +3512,7 @@ exports[`glob tests (win32) > globstar only > win32_globstar_only_fast_glob 1`] 
   "b.js",
   "bar.js",
   "bb",
-  "c.js",
+  "C.js",
   "ca",
   "café.js",
   "changelog.md",
@@ -3209,7 +3655,7 @@ exports[`glob tests (win32) > globstar only > win32_globstar_only_globby 1`] = `
   "b.js",
   "bar.js",
   "bb",
-  "c.js",
+  "C.js",
   "ca",
   "café.js",
   "changelog.md",
@@ -3305,8 +3751,8 @@ exports[`glob tests (win32) > globstar only > win32_globstar_only_globby 1`] = `
   "src-link/utils",
   "tests/integration",
   "tests/unit",
-  "node_modules/package/index.js",
   "lib/plugins/auth.js",
+  "node_modules/package/index.js",
   "src/components/Button.js",
   "src/components/Input.js",
   "src/utils/helper.js",
@@ -3353,7 +3799,7 @@ exports[`glob tests (win32) > globstar only > win32_globstar_only_node_fs 1`] = 
   "b.js",
   "bar.js",
   "bb",
-  "c.js",
+  "C.js",
   "ca",
   "café.js",
   "changelog.md",
@@ -3538,7 +3984,7 @@ exports[`glob tests (win32) > globstar only > win32_globstar_only_npm_glob 1`] =
   "changelog.md",
   "café.js",
   "ca",
-  "c.js",
+  "C.js",
   "bb",
   "bar.js",
   "b.js",
@@ -3623,7 +4069,7 @@ exports[`glob tests (win32) > globstar only > win32_globstar_only_tiny_glob 1`] 
   "b.js",
   "bar.js",
   "bb",
-  "c.js",
+  "C.js",
   "ca",
   "café.js",
   "changelog.md",
@@ -3757,7 +4203,7 @@ exports[`glob tests (win32) > globstar only > win32_globstar_only_tinyglobby 1`]
   "b.js",
   "bar.js",
   "bb",
-  "c.js",
+  "C.js",
   "ca",
   "café.js",
   "changelog.md",
@@ -3886,7 +4332,7 @@ exports[`glob tests (win32) > globstar recursive > win32_globstar_recursive_fast
   "az.js",
   "b.js",
   "bar.js",
-  "c.js",
+  "C.js",
   "café.js",
   "config.js",
   "d.js",
@@ -3962,7 +4408,7 @@ exports[`glob tests (win32) > globstar recursive > win32_globstar_recursive_glob
   "az.js",
   "b.js",
   "bar.js",
-  "c.js",
+  "C.js",
   "café.js",
   "config.js",
   "d.js",
@@ -4008,9 +4454,9 @@ exports[`glob tests (win32) > globstar recursive > win32_globstar_recursive_glob
   "src-link/main.js",
   "lib/plugins/auth.js",
   "node_modules/package/index.js",
+  "src/utils/helper.js",
   "src/components/Button.js",
   "src/components/Input.js",
-  "src/utils/helper.js",
   "src-link/components/Button.js",
   "src-link/components/Input.js",
   "src-link/utils/helper.js",
@@ -4038,7 +4484,7 @@ exports[`glob tests (win32) > globstar recursive > win32_globstar_recursive_node
   "az.js",
   "b.js",
   "bar.js",
-  "c.js",
+  "C.js",
   "café.js",
   "config.js",
   "d.js",
@@ -4130,7 +4576,7 @@ exports[`glob tests (win32) > globstar recursive > win32_globstar_recursive_npm_
   "d.js",
   "config.js",
   "café.js",
-  "c.js",
+  "C.js",
   "bar.js",
   "b.js",
   "az.js",
@@ -4178,7 +4624,7 @@ exports[`glob tests (win32) > globstar recursive > win32_globstar_recursive_tiny
   "az.js",
   "b.js",
   "bar.js",
-  "c.js",
+  "C.js",
   "café.js",
   "config.js",
   "d.js",
@@ -4248,7 +4694,7 @@ exports[`glob tests (win32) > globstar recursive > win32_globstar_recursive_tiny
   "az.js",
   "b.js",
   "bar.js",
-  "c.js",
+  "C.js",
   "café.js",
   "config.js",
   "d.js",
@@ -4390,7 +4836,7 @@ exports[`glob tests (win32) > ignore patterns > win32_ignore_patterns_fast_glob 
   "az.js",
   "b.js",
   "bar.js",
-  "c.js",
+  "C.js",
   "café.js",
   "config.js",
   "d.js",
@@ -4461,7 +4907,7 @@ exports[`glob tests (win32) > ignore patterns > win32_ignore_patterns_globby 1`]
   "az.js",
   "b.js",
   "bar.js",
-  "c.js",
+  "C.js",
   "café.js",
   "config.js",
   "d.js",
@@ -4501,15 +4947,15 @@ exports[`glob tests (win32) > ignore patterns > win32_ignore_patterns_globby 1`]
   "lib/core.js",
   "src/index.js",
   "src/main.js",
-  "lib/plugins/auth.js",
   "src-link/index.js",
   "src-link/main.js",
+  "lib/plugins/auth.js",
   "src/components/Button.js",
   "src/components/Input.js",
   "src/utils/helper.js",
+  "src-link/utils/helper.js",
   "src-link/components/Button.js",
   "src-link/components/Input.js",
-  "src-link/utils/helper.js",
   "src/utils/math/calc.js",
   "src-link/utils/math/calc.js",
 ]
@@ -4532,7 +4978,7 @@ exports[`glob tests (win32) > ignore patterns > win32_ignore_patterns_node_fs 1`
   "az.js",
   "b.js",
   "bar.js",
-  "c.js",
+  "C.js",
   "café.js",
   "config.js",
   "d.js",
@@ -4617,7 +5063,7 @@ exports[`glob tests (win32) > ignore patterns > win32_ignore_patterns_npm_glob 1
   "d.js",
   "config.js",
   "café.js",
-  "c.js",
+  "C.js",
   "bar.js",
   "b.js",
   "az.js",
@@ -4662,7 +5108,7 @@ exports[`glob tests (win32) > ignore patterns > win32_ignore_patterns_tiny_glob 
   "az.js",
   "b.js",
   "bar.js",
-  "c.js",
+  "C.js",
   "café.js",
   "config.js",
   "d.js",
@@ -4732,7 +5178,7 @@ exports[`glob tests (win32) > ignore patterns > win32_ignore_patterns_tinyglobby
   "az.js",
   "b.js",
   "bar.js",
-  "c.js",
+  "C.js",
   "café.js",
   "config.js",
   "d.js",
@@ -4773,10 +5219,10 @@ exports[`glob tests (win32) > ignore patterns > win32_ignore_patterns_tinyglobby
   "src/index.js",
   "src/main.js",
   "lib/plugins/auth.js",
-  "src/components/Button.js",
-  "src/components/Input.js",
   "src/utils/helper.js",
   "src/utils/math/calc.js",
+  "src/components/Button.js",
+  "src/components/Input.js",
   "src-link/index.js",
   "src-link/main.js",
   "src-link/components/Button.js",
@@ -4816,7 +5262,7 @@ exports[`glob tests (win32) > max depth 1 > win32_max_depth_1_fast_glob 1`] = `
   "b.js",
   "bar.js",
   "bb",
-  "c.js",
+  "C.js",
   "ca",
   "café.js",
   "changelog.md",
@@ -4928,7 +5374,7 @@ exports[`glob tests (win32) > max depth 1 > win32_max_depth_1_globby 1`] = `
   "b.js",
   "bar.js",
   "bb",
-  "c.js",
+  "C.js",
   "ca",
   "café.js",
   "changelog.md",
@@ -5041,7 +5487,7 @@ exports[`glob tests (win32) > max depth 1 > win32_max_depth_1_node_fs 1`] = `
   "b.js",
   "bar.js",
   "bb",
-  "c.js",
+  "C.js",
   "ca",
   "café.js",
   "changelog.md",
@@ -5226,7 +5672,7 @@ exports[`glob tests (win32) > max depth 1 > win32_max_depth_1_npm_glob 1`] = `
   "changelog.md",
   "café.js",
   "ca",
-  "c.js",
+  "C.js",
   "bb",
   "bar.js",
   "b.js",
@@ -5289,7 +5735,7 @@ exports[`glob tests (win32) > max depth 1 > win32_max_depth_1_tiny_glob 1`] = `
   "b.js",
   "bar.js",
   "bb",
-  "c.js",
+  "C.js",
   "ca",
   "café.js",
   "changelog.md",
@@ -5423,7 +5869,7 @@ exports[`glob tests (win32) > max depth 1 > win32_max_depth_1_tinyglobby 1`] = `
   "b.js",
   "bar.js",
   "bb",
-  "c.js",
+  "C.js",
   "ca",
   "café.js",
   "changelog.md",
@@ -5538,7 +5984,7 @@ exports[`glob tests (win32) > negation with arrays > win32_negation_arrays_fast_
   "az.js",
   "b.js",
   "bar.js",
-  "c.js",
+  "C.js",
   "café.js",
   "config.js",
   "d.js",
@@ -5609,7 +6055,7 @@ exports[`glob tests (win32) > negation with arrays > win32_negation_arrays_globb
   "az.js",
   "b.js",
   "bar.js",
-  "c.js",
+  "C.js",
   "café.js",
   "config.js",
   "d.js",
@@ -5680,7 +6126,7 @@ exports[`glob tests (win32) > negation with arrays > win32_negation_arrays_node_
   "az.js",
   "b.js",
   "bar.js",
-  "c.js",
+  "C.js",
   "café.js",
   "config.js",
   "d.js",
@@ -5772,7 +6218,7 @@ exports[`glob tests (win32) > negation with arrays > win32_negation_arrays_npm_g
   "d.js",
   "config.js",
   "café.js",
-  "c.js",
+  "C.js",
   "bar.js",
   "b.js",
   "az.js",
@@ -5792,8 +6238,8 @@ exports[`glob tests (win32) > negation with arrays > win32_negation_arrays_npm_g
   "src\\index.js",
   "lib\\core.js",
   "dist\\bundle.js",
-  "tests\\unit\\app.test.js",
   "tests\\integration\\api.test.js",
+  "tests\\unit\\app.test.js",
   "src\\utils\\helper.js",
   "src\\components\\Input.js",
   "src\\components\\Button.js",
@@ -5820,7 +6266,7 @@ exports[`glob tests (win32) > negation with arrays > win32_negation_arrays_tiny_
   "az.js",
   "b.js",
   "bar.js",
-  "c.js",
+  "C.js",
   "café.js",
   "config.js",
   "d.js",
@@ -5890,7 +6336,7 @@ exports[`glob tests (win32) > negation with arrays > win32_negation_arrays_tinyg
   "az.js",
   "b.js",
   "bar.js",
-  "c.js",
+  "C.js",
   "café.js",
   "config.js",
   "d.js",
@@ -6061,7 +6507,7 @@ exports[`glob tests (win32) > only directories pattern > win32_only_directories_
   "b.js",
   "bar.js",
   "bb",
-  "c.js",
+  "C.js",
   "ca",
   "café.js",
   "changelog.md",
@@ -6195,7 +6641,7 @@ exports[`glob tests (win32) > only directories pattern > win32_only_directories_
   "b.js",
   "bar.js",
   "bb",
-  "c.js",
+  "C.js",
   "ca",
   "café.js",
   "changelog.md",
@@ -6337,7 +6783,7 @@ exports[`glob tests (win32) > only files filter > win32_only_files_fast_glob 1`]
   "b.js",
   "bar.js",
   "bb",
-  "c.js",
+  "C.js",
   "ca",
   "café.js",
   "changelog.md",
@@ -6425,8 +6871,8 @@ exports[`glob tests (win32) > only files filter > win32_only_files_fast_glob 1`]
   "src-link/components/Button.js",
   "src-link/components/Input.js",
   "src-link/utils/helper.js",
-  "tests/integration/api.test.js",
   "tests/unit/app.test.js",
+  "tests/integration/api.test.js",
   "src/utils/math/calc.js",
   "src-link/utils/math/calc.js",
 ]
@@ -6462,7 +6908,7 @@ exports[`glob tests (win32) > only files filter > win32_only_files_globby 1`] = 
   "b.js",
   "bar.js",
   "bb",
-  "c.js",
+  "C.js",
   "ca",
   "café.js",
   "changelog.md",
@@ -6588,7 +7034,7 @@ exports[`glob tests (win32) > only files filter > win32_only_files_node_fs 1`] =
   "b.js",
   "bar.js",
   "bb",
-  "c.js",
+  "C.js",
   "ca",
   "café.js",
   "changelog.md",
@@ -6765,7 +7211,7 @@ exports[`glob tests (win32) > only files filter > win32_only_files_npm_glob 1`] 
   "changelog.md",
   "café.js",
   "ca",
-  "c.js",
+  "C.js",
   "bb",
   "bar.js",
   "b.js",
@@ -6807,8 +7253,8 @@ exports[`glob tests (win32) > only files filter > win32_only_files_npm_glob 1`] 
   "src\\components\\Input.js",
   "src\\components\\Button.js",
   "node_modules\\package\\index.js",
-  "lib\\plugins\\auth.js",
   "src\\utils\\math\\calc.js",
+  "lib\\plugins\\auth.js",
 ]
 `;
 
@@ -6843,7 +7289,7 @@ exports[`glob tests (win32) > only files filter > win32_only_files_tiny_glob 1`]
   "b.js",
   "bar.js",
   "bb",
-  "c.js",
+  "C.js",
   "ca",
   "café.js",
   "changelog.md",
@@ -6963,7 +7409,7 @@ exports[`glob tests (win32) > only files filter > win32_only_files_tinyglobby 1`
   "b.js",
   "bar.js",
   "bb",
-  "c.js",
+  "C.js",
   "ca",
   "café.js",
   "changelog.md",
@@ -7075,7 +7521,7 @@ exports[`glob tests (win32) > posix alpha character class > win32_posix_alpha_fa
   "az.js",
   "b.js",
   "bar.js",
-  "c.js",
+  "C.js",
   "café.js",
   "config.js",
   "d.js",
@@ -7130,7 +7576,7 @@ exports[`glob tests (win32) > posix alpha character class > win32_posix_alpha_gl
   "az.js",
   "b.js",
   "bar.js",
-  "c.js",
+  "C.js",
   "café.js",
   "config.js",
   "d.js",
@@ -7185,7 +7631,7 @@ exports[`glob tests (win32) > posix alpha character class > win32_posix_alpha_no
   "az.js",
   "b.js",
   "bar.js",
-  "c.js",
+  "C.js",
   "café.js",
   "config.js",
   "d.js",
@@ -7263,7 +7709,7 @@ exports[`glob tests (win32) > posix alpha character class > win32_posix_alpha_np
   "d.js",
   "config.js",
   "café.js",
-  "c.js",
+  "C.js",
   "bar.js",
   "b.js",
   "az.js",
@@ -7301,7 +7747,7 @@ exports[`glob tests (win32) > posix alpha character class > win32_posix_alpha_ti
   "az.js",
   "b.js",
   "bar.js",
-  "c.js",
+  "C.js",
   "café.js",
   "config.js",
   "d.js",
@@ -7421,7 +7867,7 @@ exports[`glob tests (win32) > question mark single char > win32_qmark_single_fas
 [
   "a.js",
   "b.js",
-  "c.js",
+  "C.js",
   "d.js",
   "z.js",
 ]
@@ -7431,7 +7877,7 @@ exports[`glob tests (win32) > question mark single char > win32_qmark_single_glo
 [
   "a.js",
   "b.js",
-  "c.js",
+  "C.js",
   "d.js",
   "z.js",
 ]
@@ -7441,7 +7887,7 @@ exports[`glob tests (win32) > question mark single char > win32_qmark_single_nod
 [
   "a.js",
   "b.js",
-  "c.js",
+  "C.js",
   "d.js",
   "z.js",
 ]
@@ -7451,7 +7897,7 @@ exports[`glob tests (win32) > question mark single char > win32_qmark_single_npm
 [
   "z.js",
   "d.js",
-  "c.js",
+  "C.js",
   "b.js",
   "a.js",
 ]
@@ -7463,7 +7909,7 @@ exports[`glob tests (win32) > question mark single char > win32_qmark_single_tin
 [
   "a.js",
   "b.js",
-  "c.js",
+  "C.js",
   "d.js",
   "z.js",
 ]
@@ -7506,9 +7952,9 @@ exports[`glob tests (win32) > symlink dir recursive > win32_symlink_dir_npm_glob
 [
   "src-link\\main.js",
   "src-link\\index.js",
+  "src-link\\utils\\helper.js",
   "src-link\\components\\Input.js",
   "src-link\\components\\Button.js",
-  "src-link\\utils\\helper.js",
   "src-link\\utils\\math\\calc.js",
 ]
 `;
@@ -7552,7 +7998,7 @@ exports[`glob tests (win32) > unicode filenames > win32_unicode_files_fast_glob 
   "az.js",
   "b.js",
   "bar.js",
-  "c.js",
+  "C.js",
   "café.js",
   "config.js",
   "d.js",
@@ -7610,7 +8056,7 @@ exports[`glob tests (win32) > unicode filenames > win32_unicode_files_globby 1`]
   "az.js",
   "b.js",
   "bar.js",
-  "c.js",
+  "C.js",
   "café.js",
   "config.js",
   "d.js",
@@ -7668,7 +8114,7 @@ exports[`glob tests (win32) > unicode filenames > win32_unicode_files_node_fs 1`
   "az.js",
   "b.js",
   "bar.js",
-  "c.js",
+  "C.js",
   "café.js",
   "config.js",
   "d.js",
@@ -7748,7 +8194,7 @@ exports[`glob tests (win32) > unicode filenames > win32_unicode_files_npm_glob 1
   "d.js",
   "config.js",
   "café.js",
-  "c.js",
+  "C.js",
   "bar.js",
   "b.js",
   "az.js",
@@ -7784,7 +8230,7 @@ exports[`glob tests (win32) > unicode filenames > win32_unicode_files_tiny_glob 
   "az.js",
   "b.js",
   "bar.js",
-  "c.js",
+  "C.js",
   "café.js",
   "config.js",
   "d.js",
@@ -7842,7 +8288,7 @@ exports[`glob tests (win32) > unicode filenames > win32_unicode_files_tinyglobby
   "az.js",
   "b.js",
   "bar.js",
-  "c.js",
+  "C.js",
   "café.js",
   "config.js",
   "d.js",
@@ -7913,7 +8359,7 @@ exports[`glob tests (win32) > wildcard * > win32_wildcard_star_fast_glob 1`] = `
   "b.js",
   "bar.js",
   "bb",
-  "c.js",
+  "C.js",
   "ca",
   "café.js",
   "changelog.md",
@@ -8025,7 +8471,7 @@ exports[`glob tests (win32) > wildcard * > win32_wildcard_star_globby 1`] = `
   "b.js",
   "bar.js",
   "bb",
-  "c.js",
+  "C.js",
   "ca",
   "café.js",
   "changelog.md",
@@ -8137,7 +8583,7 @@ exports[`glob tests (win32) > wildcard * > win32_wildcard_star_node_fs 1`] = `
   "b.js",
   "bar.js",
   "bb",
-  "c.js",
+  "C.js",
   "ca",
   "café.js",
   "changelog.md",
@@ -8299,7 +8745,7 @@ exports[`glob tests (win32) > wildcard * > win32_wildcard_star_npm_glob 1`] = `
   "changelog.md",
   "café.js",
   "ca",
-  "c.js",
+  "C.js",
   "bb",
   "bar.js",
   "b.js",
@@ -8362,7 +8808,7 @@ exports[`glob tests (win32) > wildcard * > win32_wildcard_star_tiny_glob 1`] = `
   "b.js",
   "bar.js",
   "bb",
-  "c.js",
+  "C.js",
   "ca",
   "café.js",
   "changelog.md",
@@ -8474,7 +8920,7 @@ exports[`glob tests (win32) > wildcard * > win32_wildcard_star_tinyglobby 1`] = 
   "b.js",
   "bar.js",
   "bb",
-  "c.js",
+  "C.js",
   "ca",
   "café.js",
   "changelog.md",
