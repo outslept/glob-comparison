@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "fast-glob": "^3.3.3",
+    "fdir": "^6.5.0",
     "glob": "^11.0.3",
     "globalyzer": "^0.1.4",
     "globby": "^14.1.0",

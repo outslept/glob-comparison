@@ -11,6 +11,9 @@ importers:
       fast-glob:
         specifier: ^3.3.3
         version: 3.3.3
+      fdir:
+        specifier: ^6.5.0
+        version: 6.5.0(picomatch@4.0.3)
       glob:
         specifier: ^11.0.3
         version: 11.0.3
