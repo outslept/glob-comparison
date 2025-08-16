@@ -1,11 +1,11 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import { createFixture } from 'fs-fixture';
-import { Glob, glob as npmGlob } from 'glob';
+import { glob as npmGlob } from 'glob';
 import fastGlob from 'fast-glob';
 import { globby } from 'globby';
 import tinyGlob from 'tiny-glob';
 import { glob as tinyglobby } from 'tinyglobby';
-import * as fs from 'node:fs/promises';
+import { promises as fsp, globSync } from 'node:fs';
 import path from 'node:path';
 
 const FIXTURE_STRUCTURE = {
@@ -78,13 +78,13 @@ describe(`glob tests (${isWindows ? 'win32' : 'linux'})`, () => {
   beforeAll(async () => {
     testFixture = await createFixture(FIXTURE_STRUCTURE);
 
-    await fs.symlink(
+    await fsp.symlink(
       path.join(testFixture.path, 'src'),
       path.join(testFixture.path, 'src-link')
     ).catch(() => { });
 
     if (!isWindows) {
-      await fs.symlink(
+      await fsp.symlink(
         path.join(testFixture.path, 'main.js'),
         path.join(testFixture.path, 'main-link.js')
       ).catch(() => { });
@@ -131,7 +131,7 @@ describe(`glob tests (${isWindows ? 'win32' : 'linux'})`, () => {
     });
     expect(tinyglobbyResults).toMatchSnapshot(`${snapshotPrefix}_tinyglobby`);
 
-    const nodeFsResults = fs.glob(pattern, { cwd: workingDirectory });
+    const nodeFsResults = globSync(pattern, { cwd: workingDirectory });
     expect(nodeFsResults).toMatchSnapshot(`${snapshotPrefix}_node_fs`);
   });
 
@@ -169,7 +169,7 @@ describe(`glob tests (${isWindows ? 'win32' : 'linux'})`, () => {
     });
     expect(tinyglobbyResults).toMatchSnapshot(`${snapshotPrefix}_tinyglobby`);
 
-    const nodeFsResults = fs.glob(pattern, { cwd: workingDirectory });
+    const nodeFsResults = globSync(pattern, { cwd: workingDirectory });
     expect(nodeFsResults).toMatchSnapshot(`${snapshotPrefix}_node_fs`);
   });
 
@@ -207,7 +207,7 @@ describe(`glob tests (${isWindows ? 'win32' : 'linux'})`, () => {
     });
     expect(tinyglobbyResults).toMatchSnapshot(`${snapshotPrefix}_tinyglobby`);
 
-    const nodeFsResults = fs.glob(pattern, { cwd: workingDirectory });
+    const nodeFsResults = globSync(pattern, { cwd: workingDirectory });
     expect(nodeFsResults).toMatchSnapshot(`${snapshotPrefix}_node_fs`);
   });
 
@@ -245,7 +245,7 @@ describe(`glob tests (${isWindows ? 'win32' : 'linux'})`, () => {
     });
     expect(tinyglobbyResults).toMatchSnapshot(`${snapshotPrefix}_tinyglobby`);
 
-    const nodeFsResults = fs.glob(pattern, { cwd: workingDirectory });
+    const nodeFsResults = globSync(pattern, { cwd: workingDirectory });
     expect(nodeFsResults).toMatchSnapshot(`${snapshotPrefix}_node_fs`);
   });
 
@@ -283,7 +283,7 @@ describe(`glob tests (${isWindows ? 'win32' : 'linux'})`, () => {
     });
     expect(tinyglobbyResults).toMatchSnapshot(`${snapshotPrefix}_tinyglobby`);
 
-    const nodeFsResults = fs.glob(pattern, { cwd: workingDirectory });
+    const nodeFsResults = globSync(pattern, { cwd: workingDirectory });
     expect(nodeFsResults).toMatchSnapshot(`${snapshotPrefix}_node_fs`);
   });
 
@@ -321,7 +321,7 @@ describe(`glob tests (${isWindows ? 'win32' : 'linux'})`, () => {
     });
     expect(tinyglobbyResults).toMatchSnapshot(`${snapshotPrefix}_tinyglobby`);
 
-    const nodeFsResults = fs.glob(pattern, { cwd: workingDirectory });
+    const nodeFsResults = globSync(pattern, { cwd: workingDirectory });
     expect(nodeFsResults).toMatchSnapshot(`${snapshotPrefix}_node_fs`);
   });
 
@@ -359,7 +359,7 @@ describe(`glob tests (${isWindows ? 'win32' : 'linux'})`, () => {
     });
     expect(tinyglobbyResults).toMatchSnapshot(`${snapshotPrefix}_tinyglobby`);
 
-    const nodeFsResults = fs.glob(pattern, { cwd: workingDirectory });
+    const nodeFsResults = globSync(pattern, { cwd: workingDirectory });
     expect(nodeFsResults).toMatchSnapshot(`${snapshotPrefix}_node_fs`);
   });
 
@@ -397,7 +397,7 @@ describe(`glob tests (${isWindows ? 'win32' : 'linux'})`, () => {
     });
     expect(tinyglobbyResults).toMatchSnapshot(`${snapshotPrefix}_tinyglobby`);
 
-    const nodeFsResults = fs.glob(pattern, { cwd: workingDirectory });
+    const nodeFsResults = globSync(pattern, { cwd: workingDirectory });
     expect(nodeFsResults).toMatchSnapshot(`${snapshotPrefix}_node_fs`);
   });
 
@@ -435,7 +435,7 @@ describe(`glob tests (${isWindows ? 'win32' : 'linux'})`, () => {
     });
     expect(tinyglobbyResults).toMatchSnapshot(`${snapshotPrefix}_tinyglobby`);
 
-    const nodeFsResults = fs.glob(pattern, { cwd: workingDirectory });
+    const nodeFsResults = globSync(pattern, { cwd: workingDirectory });
     expect(nodeFsResults).toMatchSnapshot(`${snapshotPrefix}_node_fs`);
   });
 
@@ -473,7 +473,7 @@ describe(`glob tests (${isWindows ? 'win32' : 'linux'})`, () => {
     });
     expect(tinyglobbyResults).toMatchSnapshot(`${snapshotPrefix}_tinyglobby`);
 
-    const nodeFsResults = fs.glob(pattern, { cwd: workingDirectory });
+    const nodeFsResults = globSync(pattern, { cwd: workingDirectory });
     expect(nodeFsResults).toMatchSnapshot(`${snapshotPrefix}_node_fs`);
   });
 
@@ -511,7 +511,7 @@ describe(`glob tests (${isWindows ? 'win32' : 'linux'})`, () => {
     });
     expect(tinyglobbyResults).toMatchSnapshot(`${snapshotPrefix}_tinyglobby`);
 
-    const nodeFsResults = fs.glob(pattern, { cwd: workingDirectory });
+    const nodeFsResults = globSync(pattern, { cwd: workingDirectory });
     expect(nodeFsResults).toMatchSnapshot(`${snapshotPrefix}_node_fs`);
   });
 
@@ -549,7 +549,7 @@ describe(`glob tests (${isWindows ? 'win32' : 'linux'})`, () => {
     });
     expect(tinyglobbyResults).toMatchSnapshot(`${snapshotPrefix}_tinyglobby`);
 
-    const nodeFsResults = fs.glob(pattern, { cwd: workingDirectory });
+    const nodeFsResults = globSync(pattern, { cwd: workingDirectory });
     expect(nodeFsResults).toMatchSnapshot(`${snapshotPrefix}_node_fs`);
   });
 
@@ -587,7 +587,7 @@ describe(`glob tests (${isWindows ? 'win32' : 'linux'})`, () => {
     });
     expect(tinyglobbyResults).toMatchSnapshot(`${snapshotPrefix}_tinyglobby`);
 
-    const nodeFsResults = fs.glob(pattern, { cwd: workingDirectory });
+    const nodeFsResults = globSync(pattern, { cwd: workingDirectory });
     expect(nodeFsResults).toMatchSnapshot(`${snapshotPrefix}_node_fs`);
   });
 
@@ -625,7 +625,7 @@ describe(`glob tests (${isWindows ? 'win32' : 'linux'})`, () => {
     });
     expect(tinyglobbyResults).toMatchSnapshot(`${snapshotPrefix}_tinyglobby`);
 
-    const nodeFsResults = fs.glob(pattern, { cwd: workingDirectory });
+    const nodeFsResults = globSync(pattern, { cwd: workingDirectory });
     expect(nodeFsResults).toMatchSnapshot(`${snapshotPrefix}_node_fs`);
   });
 
@@ -663,7 +663,7 @@ describe(`glob tests (${isWindows ? 'win32' : 'linux'})`, () => {
     });
     expect(tinyglobbyResults).toMatchSnapshot(`${snapshotPrefix}_tinyglobby`);
 
-    const nodeFsResults = fs.glob(pattern, { cwd: workingDirectory });
+    const nodeFsResults = globSync(pattern, { cwd: workingDirectory });
     expect(nodeFsResults).toMatchSnapshot(`${snapshotPrefix}_node_fs`);
   });
 
@@ -701,7 +701,7 @@ describe(`glob tests (${isWindows ? 'win32' : 'linux'})`, () => {
     });
     expect(tinyglobbyResults).toMatchSnapshot(`${snapshotPrefix}_tinyglobby`);
 
-    const nodeFsResults = fs.glob(pattern, { cwd: workingDirectory });
+    const nodeFsResults = globSync(pattern, { cwd: workingDirectory });
     expect(nodeFsResults).toMatchSnapshot(`${snapshotPrefix}_node_fs`);
   });
 
@@ -739,7 +739,7 @@ describe(`glob tests (${isWindows ? 'win32' : 'linux'})`, () => {
     });
     expect(tinyglobbyResults).toMatchSnapshot(`${snapshotPrefix}_tinyglobby`);
 
-    const nodeFsResults = fs.glob(pattern, { cwd: workingDirectory });
+    const nodeFsResults = globSync(pattern, { cwd: workingDirectory });
     expect(nodeFsResults).toMatchSnapshot(`${snapshotPrefix}_node_fs`);
   });
 
@@ -777,7 +777,7 @@ describe(`glob tests (${isWindows ? 'win32' : 'linux'})`, () => {
     });
     expect(tinyglobbyResults).toMatchSnapshot(`${snapshotPrefix}_tinyglobby`);
 
-    const nodeFsResults = fs.glob(pattern, { cwd: workingDirectory });
+    const nodeFsResults = globSync(pattern, { cwd: workingDirectory });
     expect(nodeFsResults).toMatchSnapshot(`${snapshotPrefix}_node_fs`);
   });
 
@@ -815,7 +815,7 @@ describe(`glob tests (${isWindows ? 'win32' : 'linux'})`, () => {
     });
     expect(tinyglobbyResults).toMatchSnapshot(`${snapshotPrefix}_tinyglobby`);
 
-    const nodeFsResults = fs.glob(pattern, { cwd: workingDirectory });
+    const nodeFsResults = globSync(pattern, { cwd: workingDirectory });
     expect(nodeFsResults).toMatchSnapshot(`${snapshotPrefix}_node_fs`);
   });
 
@@ -854,7 +854,7 @@ describe(`glob tests (${isWindows ? 'win32' : 'linux'})`, () => {
     });
     expect(tinyglobbyResults).toMatchSnapshot(`${snapshotPrefix}_tinyglobby`);
 
-    const nodeFsResults = fs.glob(patterns, { cwd: workingDirectory });
+    const nodeFsResults = globSync(patterns, { cwd: workingDirectory });
     expect(nodeFsResults).toMatchSnapshot(`${snapshotPrefix}_node_fs`);
   });
 
@@ -899,7 +899,7 @@ describe(`glob tests (${isWindows ? 'win32' : 'linux'})`, () => {
     });
     expect(tinyglobbyResults).toMatchSnapshot(`${snapshotPrefix}_tinyglobby`);
 
-    const nodeFsResults = fs.glob(pattern, {
+    const nodeFsResults = globSync(pattern, {
       cwd: workingDirectory,
       // no alternative unfortunately
     });
@@ -944,7 +944,7 @@ describe(`glob tests (${isWindows ? 'win32' : 'linux'})`, () => {
     });
     expect(tinyglobbyResults).toMatchSnapshot(`${snapshotPrefix}_tinyglobby`);
 
-    const nodeFsResults = fs.glob(pattern, {
+    const nodeFsResults = globSync(pattern, {
       cwd: workingDirectory
     });
     expect(nodeFsResults).toMatchSnapshot(`${snapshotPrefix}_node_fs`);
@@ -987,7 +987,7 @@ describe(`glob tests (${isWindows ? 'win32' : 'linux'})`, () => {
     });
     expect(tinyglobbyResults).toMatchSnapshot(`${snapshotPrefix}_tinyglobby`);
 
-    const nodeFsResults = fs.glob(pattern, {
+    const nodeFsResults = globSync(pattern, {
       cwd: workingDirectory
     });
     expect(nodeFsResults).toMatchSnapshot(`${snapshotPrefix}_node_fs`);
@@ -1033,7 +1033,7 @@ describe(`glob tests (${isWindows ? 'win32' : 'linux'})`, () => {
     });
     expect(tinyglobbyResults).toMatchSnapshot(`${snapshotPrefix}_tinyglobby`);
 
-    const nodeFsResults = fs.glob(pattern, {
+    const nodeFsResults = globSync(pattern, {
       cwd: workingDirectory,
       // no alternative unfortunately
     });
@@ -1080,7 +1080,7 @@ describe(`glob tests (${isWindows ? 'win32' : 'linux'})`, () => {
     });
     expect(tinyglobbyResults).toMatchSnapshot(`${snapshotPrefix}_tinyglobby`);
 
-    const nodeFsResults = fs.glob(pattern, {
+    const nodeFsResults = globSync(pattern, {
       cwd: workingDirectory
     });
     expect(nodeFsResults).toMatchSnapshot(`${snapshotPrefix}_node_fs`);
@@ -1127,7 +1127,7 @@ describe(`glob tests (${isWindows ? 'win32' : 'linux'})`, () => {
     });
     expect(tinyglobbyResults).toMatchSnapshot(`${snapshotPrefix}_tinyglobby`);
 
-    const nodeFsResults = fs.glob(pattern, {
+    const nodeFsResults = globSync(pattern, {
       cwd: workingDirectory,
       exclude: ignorePatterns
     });
@@ -1168,7 +1168,7 @@ describe(`glob tests (${isWindows ? 'win32' : 'linux'})`, () => {
     });
     expect(tinyglobbyResults).toMatchSnapshot(`${snapshotPrefix}_tinyglobby`);
 
-    const nodeFsResults = fs.glob(pattern, { cwd: workingDirectory });
+    const nodeFsResults = globSync(pattern, { cwd: workingDirectory });
     expect(nodeFsResults).toMatchSnapshot(`${snapshotPrefix}_node_fs`);
   });
 
@@ -1206,7 +1206,7 @@ describe(`glob tests (${isWindows ? 'win32' : 'linux'})`, () => {
     });
     expect(tinyglobbyResults).toMatchSnapshot(`${snapshotPrefix}_tinyglobby`);
 
-    const nodeFsResults = fs.glob(pattern, { cwd: workingDirectory });
+    const nodeFsResults = globSync(pattern, { cwd: workingDirectory });
     expect(nodeFsResults).toMatchSnapshot(`${snapshotPrefix}_node_fs`);
   });
 
@@ -1244,7 +1244,7 @@ describe(`glob tests (${isWindows ? 'win32' : 'linux'})`, () => {
     });
     expect(tinyglobbyResults).toMatchSnapshot(`${snapshotPrefix}_tinyglobby`);
 
-    const nodeFsResults = fs.glob(pattern, { cwd: workingDirectory });
+    const nodeFsResults = globSync(pattern, { cwd: workingDirectory });
     expect(nodeFsResults).toMatchSnapshot(`${snapshotPrefix}_node_fs`);
   });
 
@@ -1282,7 +1282,7 @@ describe(`glob tests (${isWindows ? 'win32' : 'linux'})`, () => {
     });
     expect(tinyglobbyResults).toMatchSnapshot(`${snapshotPrefix}_tinyglobby`);
 
-    const nodeFsResults = fs.glob(pattern, { cwd: workingDirectory });
+    const nodeFsResults = globSync(pattern, { cwd: workingDirectory });
     expect(nodeFsResults).toMatchSnapshot(`${snapshotPrefix}_node_fs`);
   });
 
@@ -1320,7 +1320,7 @@ describe(`glob tests (${isWindows ? 'win32' : 'linux'})`, () => {
     });
     expect(tinyglobbyResults).toMatchSnapshot(`${snapshotPrefix}_tinyglobby`);
 
-    const nodeFsResults = fs.glob(pattern, { cwd: workingDirectory });
+    const nodeFsResults = globSync(pattern, { cwd: workingDirectory });
     expect(nodeFsResults).toMatchSnapshot(`${snapshotPrefix}_node_fs`);
   });
 
@@ -1359,7 +1359,7 @@ describe(`glob tests (${isWindows ? 'win32' : 'linux'})`, () => {
       });
       expect(tinyglobbyResults).toMatchSnapshot(`${snapshotPrefix}_tinyglobby`);
 
-      const nodeFsResults = fs.glob(pattern, { cwd: workingDirectory });
+      const nodeFsResults = globSync(pattern, { cwd: workingDirectory });
       expect(nodeFsResults).toMatchSnapshot(`${snapshotPrefix}_node_fs`);
     });
 
@@ -1397,7 +1397,7 @@ describe(`glob tests (${isWindows ? 'win32' : 'linux'})`, () => {
       });
       expect(tinyglobbyResults).toMatchSnapshot(`${snapshotPrefix}_tinyglobby`);
 
-      const nodeFsResults = fs.glob(pattern, { cwd: workingDirectory });
+      const nodeFsResults = globSync(pattern, { cwd: workingDirectory });
       expect(nodeFsResults).toMatchSnapshot(`${snapshotPrefix}_node_fs`);
     });
 
@@ -1435,7 +1435,7 @@ describe(`glob tests (${isWindows ? 'win32' : 'linux'})`, () => {
       });
       expect(tinyglobbyResults).toMatchSnapshot(`${snapshotPrefix}_tinyglobby`);
 
-      const nodeFsResults = fs.glob(pattern, { cwd: workingDirectory });
+      const nodeFsResults = globSync(pattern, { cwd: workingDirectory });
       expect(nodeFsResults).toMatchSnapshot(`${snapshotPrefix}_node_fs`);
     });
   }
