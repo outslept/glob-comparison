@@ -2833,6 +2833,307 @@ exports[`glob tests (linux) > extglob @(js|ts) > linux_extglob_at_tinyglobby 1`]
 ]
 `;
 
+exports[`glob tests (linux) > extglob negated extension > linux_extglob_negated_ext_fast_glob 1`] = `
+[
+  "1.txt",
+  "2.txt",
+  "3.txt",
+  "4.txt",
+  "5.txt",
+  "9.txt",
+  "FOO.JS",
+  "a.b",
+  "app.css",
+  "app.dev.js",
+  "app.jsx",
+  "app.min.js",
+  "app.prod.js",
+  "changelog.md",
+  "component.jsx",
+  "component.tsx",
+  "component.vue",
+  "config.json",
+  "config.yaml",
+  "data.json",
+  "data.xml",
+  "data.yaml",
+  "file.txt",
+  "file01.txt",
+  "file02.txt",
+  "file03.txt",
+  "file04.txt",
+  "file05.txt",
+  "file1.txt",
+  "file2.txt",
+  "file3.txt",
+  "file5.txt",
+  "main.min.js",
+  "main.spec.js",
+  "package.json",
+  "readme.md",
+  "style.css",
+  "style.min.css",
+  "style.scss",
+  "test.spec.js",
+  "test.unit.js",
+  "x.html",
+  "x.y",
+  "y.html",
+  "z.html",
+  "z.z",
+]
+`;
+
+exports[`glob tests (linux) > extglob negated extension > linux_extglob_negated_ext_globby 1`] = `
+[
+  "1.txt",
+  "2.txt",
+  "3.txt",
+  "4.txt",
+  "5.txt",
+  "9.txt",
+  "FOO.JS",
+  "a.b",
+  "app.css",
+  "app.dev.js",
+  "app.jsx",
+  "app.min.js",
+  "app.prod.js",
+  "changelog.md",
+  "component.jsx",
+  "component.tsx",
+  "component.vue",
+  "config.json",
+  "config.yaml",
+  "data.json",
+  "data.xml",
+  "data.yaml",
+  "file.txt",
+  "file01.txt",
+  "file02.txt",
+  "file03.txt",
+  "file04.txt",
+  "file05.txt",
+  "file1.txt",
+  "file2.txt",
+  "file3.txt",
+  "file5.txt",
+  "main.min.js",
+  "main.spec.js",
+  "package.json",
+  "readme.md",
+  "style.css",
+  "style.min.css",
+  "style.scss",
+  "test.spec.js",
+  "test.unit.js",
+  "x.html",
+  "x.y",
+  "y.html",
+  "z.html",
+  "z.z",
+]
+`;
+
+exports[`glob tests (linux) > extglob negated extension > linux_extglob_negated_ext_node_fs 1`] = `
+[
+  "1.txt",
+  "2.txt",
+  "3.txt",
+  "4.txt",
+  "5.txt",
+  "9.txt",
+  "FOO.JS",
+  "a.b",
+  "app.css",
+  "app.dev.js",
+  "app.jsx",
+  "app.min.js",
+  "app.prod.js",
+  "changelog.md",
+  "component.jsx",
+  "component.tsx",
+  "component.vue",
+  "config.json",
+  "config.yaml",
+  "data.json",
+  "data.xml",
+  "data.yaml",
+  "file.txt",
+  "file01.txt",
+  "file02.txt",
+  "file03.txt",
+  "file04.txt",
+  "file05.txt",
+  "file1.txt",
+  "file2.txt",
+  "file3.txt",
+  "file5.txt",
+  "main.min.js",
+  "main.spec.js",
+  "package.json",
+  "readme.md",
+  "style.css",
+  "style.min.css",
+  "style.scss",
+  "test.spec.js",
+  "test.unit.js",
+  "x.html",
+  "x.y",
+  "y.html",
+  "z.html",
+  "z.z",
+]
+`;
+
+exports[`glob tests (linux) > extglob negated extension > linux_extglob_negated_ext_npm_glob 1`] = `
+[
+  "z.z",
+  "z.html",
+  "y.html",
+  "x.y",
+  "x.html",
+  "test.unit.js",
+  "test.spec.js",
+  "style.scss",
+  "style.min.css",
+  "style.css",
+  "readme.md",
+  "package.json",
+  "main.spec.js",
+  "main.min.js",
+  "file5.txt",
+  "file3.txt",
+  "file2.txt",
+  "file1.txt",
+  "file05.txt",
+  "file04.txt",
+  "file03.txt",
+  "file02.txt",
+  "file01.txt",
+  "file.txt",
+  "data.yaml",
+  "data.xml",
+  "data.json",
+  "config.yaml",
+  "config.json",
+  "component.vue",
+  "component.tsx",
+  "component.jsx",
+  "changelog.md",
+  "app.prod.js",
+  "app.min.js",
+  "app.jsx",
+  "app.dev.js",
+  "app.css",
+  "a.b",
+  "FOO.JS",
+  "9.txt",
+  "5.txt",
+  "4.txt",
+  "3.txt",
+  "2.txt",
+  "1.txt",
+]
+`;
+
+exports[`glob tests (linux) > extglob negated extension > linux_extglob_negated_ext_tiny_glob 1`] = `
+[
+  ".hidden",
+  "1.txt",
+  "2.txt",
+  "3.txt",
+  "4.txt",
+  "5.txt",
+  "9.txt",
+  "FOO.JS",
+  "a.b",
+  "app.css",
+  "app.dev.js",
+  "app.min.js",
+  "app.prod.js",
+  "changelog.md",
+  "component.vue",
+  "config.yaml",
+  "data.xml",
+  "data.yaml",
+  "file.txt",
+  "file01.txt",
+  "file02.txt",
+  "file03.txt",
+  "file04.txt",
+  "file05.txt",
+  "file1.txt",
+  "file2.txt",
+  "file3.txt",
+  "file5.txt",
+  "main.min.js",
+  "main.spec.js",
+  "readme.md",
+  "style.css",
+  "style.min.css",
+  "style.scss",
+  "test.spec.js",
+  "test.unit.js",
+  "x.html",
+  "x.y",
+  "y.html",
+  "z.html",
+  "z.z",
+]
+`;
+
+exports[`glob tests (linux) > extglob negated extension > linux_extglob_negated_ext_tinyglobby 1`] = `
+[
+  "1.txt",
+  "2.txt",
+  "3.txt",
+  "4.txt",
+  "5.txt",
+  "9.txt",
+  "FOO.JS",
+  "a.b",
+  "app.css",
+  "app.dev.js",
+  "app.jsx",
+  "app.min.js",
+  "app.prod.js",
+  "changelog.md",
+  "component.jsx",
+  "component.tsx",
+  "component.vue",
+  "config.json",
+  "config.yaml",
+  "data.json",
+  "data.xml",
+  "data.yaml",
+  "file.txt",
+  "file01.txt",
+  "file02.txt",
+  "file03.txt",
+  "file04.txt",
+  "file05.txt",
+  "file1.txt",
+  "file2.txt",
+  "file3.txt",
+  "file5.txt",
+  "main.min.js",
+  "main.spec.js",
+  "package.json",
+  "readme.md",
+  "style.css",
+  "style.min.css",
+  "style.scss",
+  "test.spec.js",
+  "test.unit.js",
+  "x.html",
+  "x.y",
+  "y.html",
+  "z.html",
+  "z.z",
+]
+`;
+
 exports[`glob tests (linux) > extglob negation > linux_extglob_not_fast_glob 1`] = `
 [
   "*.js",
@@ -3149,6 +3450,162 @@ exports[`glob tests (linux) > extglob negation > linux_extglob_not_tinyglobby 1`
   "测试.js",
   "🚀emoji.js",
   "main-link.js",
+]
+`;
+
+exports[`glob tests (linux) > extglob one or more > linux_extglob_plus_fast_glob 1`] = `
+[
+  "test1.js",
+  "test2.js",
+]
+`;
+
+exports[`glob tests (linux) > extglob one or more > linux_extglob_plus_globby 1`] = `
+[
+  "test1.js",
+  "test2.js",
+]
+`;
+
+exports[`glob tests (linux) > extglob one or more > linux_extglob_plus_node_fs 1`] = `
+[
+  "test1.js",
+  "test2.js",
+]
+`;
+
+exports[`glob tests (linux) > extglob one or more > linux_extglob_plus_npm_glob 1`] = `
+[
+  "test2.js",
+  "test1.js",
+]
+`;
+
+exports[`glob tests (linux) > extglob one or more > linux_extglob_plus_tiny_glob 1`] = `
+[
+  "test1.js",
+  "test2.js",
+]
+`;
+
+exports[`glob tests (linux) > extglob one or more > linux_extglob_plus_tinyglobby 1`] = `
+[
+  "test1.js",
+  "test2.js",
+]
+`;
+
+exports[`glob tests (linux) > extglob zero or more > linux_extglob_star_fast_glob 1`] = `
+[
+  "test.js",
+  "test.spec.js",
+  "test.unit.js",
+  "test1.js",
+  "test2.js",
+  "test9.js",
+  "test_1.js",
+]
+`;
+
+exports[`glob tests (linux) > extglob zero or more > linux_extglob_star_globby 1`] = `
+[
+  "test.js",
+  "test.spec.js",
+  "test.unit.js",
+  "test1.js",
+  "test2.js",
+  "test9.js",
+  "test_1.js",
+]
+`;
+
+exports[`glob tests (linux) > extglob zero or more > linux_extglob_star_node_fs 1`] = `
+[
+  "test.js",
+  "test.spec.js",
+  "test.unit.js",
+  "test1.js",
+  "test2.js",
+  "test9.js",
+  "test_1.js",
+]
+`;
+
+exports[`glob tests (linux) > extglob zero or more > linux_extglob_star_npm_glob 1`] = `
+[
+  "test_1.js",
+  "test9.js",
+  "test2.js",
+  "test1.js",
+  "test.unit.js",
+  "test.spec.js",
+  "test.js",
+]
+`;
+
+exports[`glob tests (linux) > extglob zero or more > linux_extglob_star_tiny_glob 1`] = `
+[
+  "test.js",
+  "test.spec.js",
+  "test.unit.js",
+  "test1.js",
+  "test2.js",
+  "test9.js",
+  "test_1.js",
+]
+`;
+
+exports[`glob tests (linux) > extglob zero or more > linux_extglob_star_tinyglobby 1`] = `
+[
+  "test.js",
+  "test.spec.js",
+  "test.unit.js",
+  "test1.js",
+  "test2.js",
+  "test9.js",
+  "test_1.js",
+]
+`;
+
+exports[`glob tests (linux) > extglob zero or one > linux_extglob_question_fast_glob 1`] = `
+[
+  "app.js",
+  "app.min.js",
+]
+`;
+
+exports[`glob tests (linux) > extglob zero or one > linux_extglob_question_globby 1`] = `
+[
+  "app.js",
+  "app.min.js",
+]
+`;
+
+exports[`glob tests (linux) > extglob zero or one > linux_extglob_question_node_fs 1`] = `
+[
+  "app.js",
+  "app.min.js",
+]
+`;
+
+exports[`glob tests (linux) > extglob zero or one > linux_extglob_question_npm_glob 1`] = `
+[
+  "app.min.js",
+  "app.js",
+]
+`;
+
+exports[`glob tests (linux) > extglob zero or one > linux_extglob_question_tiny_glob 1`] = `
+[
+  "app.js",
+  "app.min.js",
+]
+`;
+
+exports[`glob tests (linux) > extglob zero or one > linux_extglob_question_tinyglobby 1`] = `
+[
+  "app.js",
+  "app.min.js",
 ]
 `;
 
@@ -4002,10 +4459,10 @@ exports[`glob tests (linux) > globstar only > linux_globstar_only_npm_glob 1`] =
   "src/index.js",
   "src/components",
   "node_modules/package",
-  "lib/plugins",
-  "lib/core.js",
   "docs/readme.md",
   "dist/bundle.js",
+  "lib/plugins",
+  "lib/core.js",
   "config/prod.json",
   "config/dev.json",
   "tests/unit/app.test.js",
@@ -5163,9 +5620,9 @@ exports[`glob tests (linux) > ignore patterns > linux_ignore_patterns_npm_glob 1
   "src/index.js",
   "lib/core.js",
   "dist/bundle.js",
-  "src/utils/helper.js",
   "src/components/Input.js",
   "src/components/Button.js",
+  "src/utils/helper.js",
   "lib/plugins/auth.js",
   "src/utils/math/calc.js",
 ]
@@ -6623,14 +7080,14 @@ exports[`glob tests (linux) > only directories pattern > linux_only_directories_
   "tests",
   "lib/plugins",
   "node_modules/package",
-  "src/components",
-  "src/utils",
   "src-link/components",
   "src-link/utils",
+  "src/components",
+  "src/utils",
   "tests/integration",
   "tests/unit",
-  "src/utils/math",
   "src-link/utils/math",
+  "src/utils/math",
 ]
 `;
 
