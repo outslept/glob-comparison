@@ -16,7 +16,7 @@
 | Asterisk (`*`) - **Result ordering**            |                           ✅                            |                      ⚠️                      |                        ✅                         |                           ✅                            |                            ✅                             |                     ⚠️                      | Indeterminate result ordering [[3]](#3-indeterminate-result-ordering)                                                                             |
 | Asterisk (`*`) - **Symlinks**                   |                           ✅                            |                      ✅                       |                        ✅                         |                           ✅                            |                            ✅                             |                      ✅                      |                                                                                                                                                   |
 | Asterisk (`*`) - Special chars (`*.js`, `?.js`) |                           ✅                            |                      ✅                       |                        ✅                         |                           ✅                            |                            ✅                             |                      ✅                      | Linux only (Windows doesn't allow **`*`** and **`?`** in filenames)                                                                               |
-| Question mark (`?`)                             |                           ✅                            |                      ✅                       |                        ✅                         |                           ❌                            |                            ✅                             |                      ✅                      | tiny-glob question mark limitation [[8]](#8-tiny-glob-question-mark-limitation)                                                                   |
+| Question mark (`?`)                             |                           ✅                            |                      ✅                       |                        ✅                         |                           ❌                            |                            ✅                             |                      ✅                      | tiny-glob question mark limitation [[4]]                                                                                                          |
 | **Character Classes**                           |                                                        |                                              |                                                  |                                                        |                                                          |                                             |                                                                                                                                                   |
 | Basic character ranges (`[abc]`)                |                           ✅                            |                      ✅                       |                        ✅                         |                           ✅                            |                            ✅                             |                      ✅                      |                                                                                                                                                   |
 | Range character classes (`[a-z]`)               |                           ✅                            |                      ✅                       |                        ✅                         |                           ✅                            |                            ✅                             |                      ✅                      |                                                                                                                                                   |
@@ -124,6 +124,28 @@ References:
 
 ---
 
+### [4] tiny-glob Question Mark limitation
+
+`tiny-glob` fails to detect simple question mark patterns as globs due to its glob detection regex. The pattern falls back to literal file matching instead of wildcard behavior.
+
+The issue occurs in the `isglob` function within `globalyzer`. The STRICT regex pattern used by default does not properly match standalone `?` characters, causing patterns like `?.js` to be treated as literal filenames rather than glob expressions.
+
+```js
+// These patterns fail (not detected as globs):
+await tinyGlob("?.js", { cwd: "test-fixtures" }); // [] ❌
+await tinyGlob("??.js", { cwd: "test-fixtures" }); // [] ❌
+await tinyGlob("file?.txt", { cwd: "test-fixtures" }); // [] ❌
+await tinyGlob("?", { cwd: "test-fixtures" }); // [] ❌
+
+// These work (more complex patterns detected as globs):
+await tinyGlob("?.?", { cwd: "test-fixtures" }); // ['a.b','x.y','z.z'] ✅
+await tinyGlob("?.*", { cwd: "test-fixtures" }); // ['a.js','b.js',...] ✅
+```
+
+[↑ Back to top](#feature-comparison-matrix)
+
+---
+
 ### [4] tiny-glob invalid character range handling
 
 Invalid character classes (e.g., `[9-1]`) produce a runtime error via `globrex` with `extended: true`, while other libraries return no matches.
@@ -197,26 +219,6 @@ await tinyGlob("[!abc].js", { cwd: "test-fixtures" }); // ['A.js','B.js','C.js',
 Edge case:
 
 - `tiny-glob` treats `[!]` as match-all, whereas others return no matches.
-
-[↑ Back to top](#feature-comparison-matrix)
-
----
-
-### [8] tiny-glob question mark limitation
-
-Most single-segment `?` patterns are not recognized as globs by `tiny-glob` due to its glob detection. Patterns with dots sometimes work; plain `?` forms often fall back to literal matching.
-
-Reproduction:
-
-```javascript
-await tinyGlob("?.js",     { cwd: "test-fixtures" }); // []
-await tinyGlob("??.js",    { cwd: "test-fixtures" }); // []
-await tinyGlob("file?.txt",{ cwd: "test-fixtures" }); // []
-await tinyGlob("?",        { cwd: "test-fixtures" }); // []
-
-await tinyGlob("?.?", { cwd: "test-fixtures" }); // ['a.b','x.y','z.z']
-await tinyGlob("?.*", { cwd: "test-fixtures" }); // ['a.b','a.js','b.js',...]
-```
 
 [↑ Back to top](#feature-comparison-matrix)
 
@@ -330,3 +332,4 @@ await tinyglobby("file{1..5..2}.txt", { cwd: "test-fixtures" });
 ```
 
 [↑ Back to top](#feature-comparison-matrix)
+
