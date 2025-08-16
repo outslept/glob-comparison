@@ -43,7 +43,31 @@ const FIXTURE_STRUCTURE = {
   'docs': { 'readme.md': '' },
   'config': { 'dev.json': '', 'prod.json': '' },
   'dist': { 'bundle.js': '' },
-  'node_modules': { 'package': { 'index.js': '' } }
+  'node_modules': { 'package': { 'index.js': '' } },
+  'file name.js': '',
+  'file@domain.js': '',
+  'file#hash.js': '',
+  'file$.js': '',
+  'file&test.js': '',
+  'file+plus.js': '',
+  'file(paren).js': '',
+  'file[bracket].js': '',
+  'файл.js': '',
+  '测试.js': '',
+  '🚀emoji.js': '',
+  'café.js': '',
+  'naïve.js': '',
+  'señor.js': '',
+  'alpha.js': '',
+  'ALPHA.js': '',
+  'digit1.js': '',
+  'digit9.js': '',
+  'alnum1.js': '',
+  'ALNUM9.js': '',
+  ...(process.platform !== 'win32' ? {
+    '*.js': '', // literal asterisk - not valid filename on Windows
+    '?.js': '', // literal question mark - not valid filename on Windows
+  } : {}),
 };
 
 const isWindows = process.platform === 'win32';
@@ -68,7 +92,9 @@ describe(`glob tests (${isWindows ? 'win32' : 'linux'})`, () => {
   });
 
   afterAll(async () => {
-    await testFixture.rm();
+    if (testFixture) {
+      await testFixture.rm();
+    }
   });
 
   it('wildcard *', async () => {
@@ -1298,87 +1324,87 @@ describe(`glob tests (${isWindows ? 'win32' : 'linux'})`, () => {
     expect(nodeFsResults).toMatchSnapshot(`${snapshotPrefix}_node_fs`);
   });
 
-  it('escaped asterisk literal', async () => {
-    const pattern = '\\*.js';
-    const workingDirectory = testFixture.path;
-    const snapshotPrefix = `${isWindows ? 'win32' : 'linux'}_escaped_asterisk`;
-
-    const npmGlobResults = await npmGlob(pattern, { cwd: workingDirectory });
-    expect(npmGlobResults).toMatchSnapshot(`${snapshotPrefix}_npm_glob`);
-
-    const fastGlobResults = await fastGlob(pattern, {
-      cwd: workingDirectory,
-      onlyFiles: false,
-      objectMode: false
-    });
-    expect(fastGlobResults).toMatchSnapshot(`${snapshotPrefix}_fast_glob`);
-
-    const globbyResults = await globby(pattern, {
-      cwd: workingDirectory,
-      onlyFiles: false,
-      expandDirectories: false
-    });
-    expect(globbyResults).toMatchSnapshot(`${snapshotPrefix}_globby`);
-
-    const tinyGlobResults = await tinyGlob(pattern, {
-      cwd: workingDirectory
-    });
-    expect(tinyGlobResults).toMatchSnapshot(`${snapshotPrefix}_tiny_glob`);
-
-    const tinyglobbyResults = await tinyglobby(pattern, {
-      cwd: workingDirectory,
-      expandDirectories: false,
-      onlyFiles: false
-    });
-    expect(tinyglobbyResults).toMatchSnapshot(`${snapshotPrefix}_tinyglobby`);
-
-    const nodeFsResults = nodeGlob(pattern, { cwd: workingDirectory });
-    expect(nodeFsResults).toMatchSnapshot(`${snapshotPrefix}_node_fs`);
-  });
-
-  it('escaped question mark literal', async () => {
-    const pattern = '\\?.js';
-    const workingDirectory = testFixture.path;
-    const snapshotPrefix = `${isWindows ? 'win32' : 'linux'}_escaped_question`;
-
-    const npmGlobResults = await npmGlob(pattern, { cwd: workingDirectory });
-    expect(npmGlobResults).toMatchSnapshot(`${snapshotPrefix}_npm_glob`);
-
-    const fastGlobResults = await fastGlob(pattern, {
-      cwd: workingDirectory,
-      onlyFiles: false,
-      objectMode: false
-    });
-    expect(fastGlobResults).toMatchSnapshot(`${snapshotPrefix}_fast_glob`);
-
-    const globbyResults = await globby(pattern, {
-      cwd: workingDirectory,
-      onlyFiles: false,
-      expandDirectories: false
-    });
-    expect(globbyResults).toMatchSnapshot(`${snapshotPrefix}_globby`);
-
-    const tinyGlobResults = await tinyGlob(pattern, {
-      cwd: workingDirectory
-    });
-    expect(tinyGlobResults).toMatchSnapshot(`${snapshotPrefix}_tiny_glob`);
-
-    const tinyglobbyResults = await tinyglobby(pattern, {
-      cwd: workingDirectory,
-      expandDirectories: false,
-      onlyFiles: false
-    });
-    expect(tinyglobbyResults).toMatchSnapshot(`${snapshotPrefix}_tinyglobby`);
-
-    const nodeFsResults = nodeGlob(pattern, { cwd: workingDirectory });
-    expect(nodeFsResults).toMatchSnapshot(`${snapshotPrefix}_node_fs`);
-  });
-
   if (!isWindows) {
     it('symlink file literal', async () => {
       const pattern = 'main-link.js';
       const workingDirectory = testFixture.path;
       const snapshotPrefix = `${isWindows ? 'win32' : 'linux'}_symlink_file`;
+
+      const npmGlobResults = await npmGlob(pattern, { cwd: workingDirectory });
+      expect(npmGlobResults).toMatchSnapshot(`${snapshotPrefix}_npm_glob`);
+
+      const fastGlobResults = await fastGlob(pattern, {
+        cwd: workingDirectory,
+        onlyFiles: false,
+        objectMode: false
+      });
+      expect(fastGlobResults).toMatchSnapshot(`${snapshotPrefix}_fast_glob`);
+
+      const globbyResults = await globby(pattern, {
+        cwd: workingDirectory,
+        onlyFiles: false,
+        expandDirectories: false
+      });
+      expect(globbyResults).toMatchSnapshot(`${snapshotPrefix}_globby`);
+
+      const tinyGlobResults = await tinyGlob(pattern, {
+        cwd: workingDirectory
+      });
+      expect(tinyGlobResults).toMatchSnapshot(`${snapshotPrefix}_tiny_glob`);
+
+      const tinyglobbyResults = await tinyglobby(pattern, {
+        cwd: workingDirectory,
+        expandDirectories: false,
+        onlyFiles: false
+      });
+      expect(tinyglobbyResults).toMatchSnapshot(`${snapshotPrefix}_tinyglobby`);
+
+      const nodeFsResults = nodeGlob(pattern, { cwd: workingDirectory });
+      expect(nodeFsResults).toMatchSnapshot(`${snapshotPrefix}_node_fs`);
+    });
+
+    it('escaped asterisk literal', async () => {
+      const pattern = '\\*.js';
+      const workingDirectory = testFixture.path;
+      const snapshotPrefix = `${isWindows ? 'win32' : 'linux'}_escaped_asterisk`;
+
+      const npmGlobResults = await npmGlob(pattern, { cwd: workingDirectory });
+      expect(npmGlobResults).toMatchSnapshot(`${snapshotPrefix}_npm_glob`);
+
+      const fastGlobResults = await fastGlob(pattern, {
+        cwd: workingDirectory,
+        onlyFiles: false,
+        objectMode: false
+      });
+      expect(fastGlobResults).toMatchSnapshot(`${snapshotPrefix}_fast_glob`);
+
+      const globbyResults = await globby(pattern, {
+        cwd: workingDirectory,
+        onlyFiles: false,
+        expandDirectories: false
+      });
+      expect(globbyResults).toMatchSnapshot(`${snapshotPrefix}_globby`);
+
+      const tinyGlobResults = await tinyGlob(pattern, {
+        cwd: workingDirectory
+      });
+      expect(tinyGlobResults).toMatchSnapshot(`${snapshotPrefix}_tiny_glob`);
+
+      const tinyglobbyResults = await tinyglobby(pattern, {
+        cwd: workingDirectory,
+        expandDirectories: false,
+        onlyFiles: false
+      });
+      expect(tinyglobbyResults).toMatchSnapshot(`${snapshotPrefix}_tinyglobby`);
+
+      const nodeFsResults = nodeGlob(pattern, { cwd: workingDirectory });
+      expect(nodeFsResults).toMatchSnapshot(`${snapshotPrefix}_node_fs`);
+    });
+
+    it('escaped question mark literal', async () => {
+      const pattern = '\\?.js';
+      const workingDirectory = testFixture.path;
+      const snapshotPrefix = `${isWindows ? 'win32' : 'linux'}_escaped_question`;
 
       const npmGlobResults = await npmGlob(pattern, { cwd: workingDirectory });
       expect(npmGlobResults).toMatchSnapshot(`${snapshotPrefix}_npm_glob`);
