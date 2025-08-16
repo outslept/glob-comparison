@@ -41,12 +41,12 @@
 | Zero-padded ranges (`{01..03}`)                   |                           ✅                            |                      ✅                       |                        ✅                         |                           ❌                            |                            ❌                             |                      ✅                      | tinyglobby brace expansion limitations [9]                                                                                                        |
 | Single item braces (`{js}`)                       |                        Literal                         |                   Literal                    |                     Literal                      |                        Expands                         |                         Literal                          |                   Literal                   | tiny-glob single-item expansion [[10]](#10-tiny-glob-single-item-brace-expansion)                                                                 |
 | **Extended Globs (Extglobs)**                     |                                                        |                                              |                                                  |                                                        |                                                          |                                             |                                                                                                                                                   |
-| Zero or more (`*(pattern)`)                       |                           ✅                            |                      ⚠️                      |                        ✅                         |                           ✅                            |                            ✅                             |                      ✅                      | [[3]](#3-indeterminate-result-ordering)                                                                                                           |
-| One or more (`+(pattern)`)                        |                           ✅                            |                      ⚠️                      |                        ✅                         |                           ✅                            |                            ✅                             |                      ✅                      | [[3]](#3-indeterminate-result-ordering)                                                                                                           |
-| Zero or one (`?(pattern)`)                        |                           ✅                            |                      ⚠️                      |                        ✅                         |                           ✅                            |                            ✅                             |                      ✅                      | [[3]](#3-indeterminate-result-ordering)                                                                                                           |
-| Exactly one (`@(pattern)`)                        |                           ✅                            |                      ⚠️                      |                        ✅                         |                           ✅                            |                            ✅                             |                      ✅                      | [[3]](#3-indeterminate-result-ordering)                                                                                                           |
-| Negated match (`!(pattern)`)                      |                           ✅                            |                      ⚠️                      |                        ✅                         |                           ✅                            |                            ✅                             |                      ✅                      | [[3]](#3-indeterminate-result-ordering)                                                                                                           |
-| Negated extension (`*.!(js\|ts)`)                 |                           ✅                            |                      ✅                       |                        ✅                         |                           ❌                            |                            ✅                             |                      ✅                      | tiny-glob negated-extension mismatch [[14]](#14-tiny-glob-negated-extension-mismatch)                                                             |
+| Zero or more (`*(pattern)`)                       |                           ✅                            |                      ✅                       |                        ✅                         |                           ✅                            |                            ✅                             |                      ✅                      |                                                                                                                                                   |
+| One or more (`+(pattern)`)                        |                           ✅                            |                      ✅                       |                        ✅                         |                           ✅                            |                            ✅                             |                      ✅                      |                                                                                                                                                   |
+| Zero or one (`?(pattern)`)                        |                           ✅                            |                      ✅                       |                        ✅                         |                           ✅                            |                            ✅                             |                      ✅                      |                                                                                                                                                   |
+| Exactly one (`@(pattern)`)                        |                           ✅                            |                      ✅                       |                        ✅                         |                           ✅                            |                            ✅                             |                      ✅                      |                                                                                                                                                   |
+| Negated match (`!(pattern)`)                      |                           ✅                            |                      ✅                       |                        ❌                         |                           ✅                            |                            ✅                             |                      ✅                      | globby extglob negation failure [[11]]                                                                                                            |
+| Negated extension (`*.!(js\|ts)`)                 |                           ✅                            |                      ✅                       |                        ✅                         |                           ⚠️                           |                            ✅                             |                      ✅                      | tiny-glob negated extension mismatch [[12]]                                                                                                       |
 | **Globstar**                                      |                                                        |                                              |                                                  |                                                        |                                                          |                                             |                                                                                                                                                   |
 | Basic globstar (`**`)                             |                           ✅                            |                      ⚠️                      |                        ✅                         |                           ✅                            |                            ✅                             |                     ⚠️                      | Directory inclusion + ordering [[1]](#1-directory-inclusion-differences) • [[3]](#3-indeterminate-result-ordering)                                |
 | Recursive globstar (`**/*`)                       |                           ✅                            |                      ⚠️                      |                        ✅                         |                           ✅                            |                            ✅                             |                     ⚠️                      | Directory inclusion + ordering [[1]](#1-directory-inclusion-differences) • [[3]](#3-indeterminate-result-ordering)                                |
@@ -308,51 +308,38 @@ await fastGlob("foo.{js}", { cwd: "test-fixtures" }); // [] unless literal 'foo.
 
 ---
 
-### [13] tiny-glob root directory exclusion
+### [11] globby extglob negation failure
 
-`tiny-glob` excludes the root directory in path-specific globstar patterns like `src/**`, while including subdirectories and files.
+`globby` fails to match any files when using negated extglob patterns (`!(pattern)`), returning an empty array instead of the expected results.
 
-Reproduction:
+Testing with pattern `!(foo|bar).js` in a directory containing 11 `.js` files revealed that `globby` returns zero matches, while other libraries (primarily `fast-glob`) correctly return 9 files (excluding only `foo.js` and `bar.js`). Positive extglob patterns like `*.@(js|ts)` work correctly in `globby`, indicating the issue is specific to negation.
 
-```javascript
-await tinyGlob("src/**", { cwd: "test-fixtures" }); // no 'src' entry
-await glob("src/**",     { cwd: "test-fixtures" }); // includes 'src'
+This failure appears to be isolated to negated extglob patterns specifically.
+
+```js
+import { globby } from 'globby';
+import fastGlob from 'fast-glob';
+
+// Directory contains: foo.js, bar.js, app.js, test.js, main.js, etc.
+await globby('!(foo|bar).js'); // [] ❌ (should find 9 files)
+await fastGlob('!(foo|bar).js'); // ['app.js', 'test.js', ...] ✅ (9 files)
+
+// Positive extglobs work fine in globby:
+await globby('*.@(js|ts)'); // [all 11 files] ✅
 ```
 
 [↑ Back to top](#feature-comparison-matrix)
 
 ---
 
-### [14] tiny-glob negated extension mismatch
+### [12] tiny-glob negated extension mismatch
 
-`*.!(js|ts)` returns an incomplete set in `tiny-glob` compared to others (extensions like `.jsx`/`.tsx` are missing).
+`tiny-glob` includes additional files in negated extension patterns that other libraries correctly exclude, specifically hidden files starting with a dot.
 
-Reproduction:
-
-```javascript
-await fastGlob("*.!(js|ts)", { cwd: "test-fixtures" }); // more matches
-await tinyGlob("*.!(js|ts)", { cwd: "test-fixtures" }); // fewer matches
-```
-
-[↑ Back to top](#feature-comparison-matrix)
-
----
-
-### [15] tinyglobby step range inconsistency (Windows)
-
-`picomatch` does not expand braces. `tinyglobby` performs pre-expansion. On Windows, stepped ranges may expand incorrectly.
-
-Reproduction:
-
-```javascript
-// Windows
-await tinyglobby("file{1..5..2}.txt", { cwd: "test-fixtures" });
-// Expected: ['file1.txt','file3.txt','file5.txt']
-// Observed: ['file1.txt','file2.txt','file5.txt']
-
-// Linux
-await tinyglobby("file{1..5..2}.txt", { cwd: "test-fixtures" });
-// ['file1.txt','file3.txt','file5.txt']
+```js
+// tiny-glob includes more files in negated extensions
+await tinyGlob('*.!(js|ts)'); // includes '.hidden' + correct results
+await fastGlob('*.!(js|ts)'); // only correct results
 ```
 
 [↑ Back to top](#feature-comparison-matrix)
