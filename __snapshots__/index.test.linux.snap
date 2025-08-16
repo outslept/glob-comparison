@@ -30,6 +30,7 @@ exports[`glob tests (linux) > *.js files > linux_js_files_fast_glob 1`] = `
   "d.js",
   "digit1.js",
   "digit9.js",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -96,6 +97,7 @@ exports[`glob tests (linux) > *.js files > linux_js_files_globby 1`] = `
   "d.js",
   "digit1.js",
   "digit9.js",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -162,6 +164,7 @@ exports[`glob tests (linux) > *.js files > linux_js_files_node_fs 1`] = `
   "d.js",
   "digit1.js",
   "digit9.js",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -233,6 +236,7 @@ exports[`glob tests (linux) > *.js files > linux_js_files_npm_glob 1`] = `
   "file#hash.js",
   "file name.js",
   "est.js",
+  "e.js",
   "digit9.js",
   "digit1.js",
   "d.js",
@@ -294,6 +298,7 @@ exports[`glob tests (linux) > *.js files > linux_js_files_tiny_glob 1`] = `
   "d.js",
   "digit1.js",
   "digit9.js",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -360,6 +365,7 @@ exports[`glob tests (linux) > *.js files > linux_js_files_tinyglobby 1`] = `
   "d.js",
   "digit1.js",
   "digit9.js",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -480,6 +486,178 @@ exports[`glob tests (linux) > brace expansion numeric > linux_brace_numeric_tiny
 ]
 `;
 
+exports[`glob tests (linux) > brace expansion reverse alpha > linux_brace_reverse_alpha_fast_glob 1`] = `
+[
+  "c.js",
+  "b.js",
+  "a.js",
+]
+`;
+
+exports[`glob tests (linux) > brace expansion reverse alpha > linux_brace_reverse_alpha_globby 1`] = `
+[
+  "c.js",
+  "b.js",
+  "a.js",
+]
+`;
+
+exports[`glob tests (linux) > brace expansion reverse alpha > linux_brace_reverse_alpha_node_fs 1`] = `
+[
+  "c.js",
+  "b.js",
+  "a.js",
+]
+`;
+
+exports[`glob tests (linux) > brace expansion reverse alpha > linux_brace_reverse_alpha_npm_glob 1`] = `
+[
+  "c.js",
+  "b.js",
+  "a.js",
+]
+`;
+
+exports[`glob tests (linux) > brace expansion reverse alpha > linux_brace_reverse_alpha_tiny_glob 1`] = `[]`;
+
+exports[`glob tests (linux) > brace expansion reverse alpha > linux_brace_reverse_alpha_tinyglobby 1`] = `
+[
+  "a.js",
+  "b.js",
+  "c.js",
+]
+`;
+
+exports[`glob tests (linux) > brace expansion reverse numeric > linux_brace_reverse_numeric_fast_glob 1`] = `
+[
+  "file3.txt",
+  "file2.txt",
+  "file1.txt",
+]
+`;
+
+exports[`glob tests (linux) > brace expansion reverse numeric > linux_brace_reverse_numeric_globby 1`] = `
+[
+  "file3.txt",
+  "file2.txt",
+  "file1.txt",
+]
+`;
+
+exports[`glob tests (linux) > brace expansion reverse numeric > linux_brace_reverse_numeric_node_fs 1`] = `
+[
+  "file3.txt",
+  "file2.txt",
+  "file1.txt",
+]
+`;
+
+exports[`glob tests (linux) > brace expansion reverse numeric > linux_brace_reverse_numeric_npm_glob 1`] = `
+[
+  "file3.txt",
+  "file2.txt",
+  "file1.txt",
+]
+`;
+
+exports[`glob tests (linux) > brace expansion reverse numeric > linux_brace_reverse_numeric_tiny_glob 1`] = `[]`;
+
+exports[`glob tests (linux) > brace expansion reverse numeric > linux_brace_reverse_numeric_tinyglobby 1`] = `
+[
+  "file1.txt",
+  "file2.txt",
+  "file3.txt",
+]
+`;
+
+exports[`glob tests (linux) > brace expansion step alpha > linux_brace_step_alpha_fast_glob 1`] = `
+[
+  "a.js",
+  "c.js",
+  "e.js",
+]
+`;
+
+exports[`glob tests (linux) > brace expansion step alpha > linux_brace_step_alpha_globby 1`] = `
+[
+  "a.js",
+  "c.js",
+  "e.js",
+]
+`;
+
+exports[`glob tests (linux) > brace expansion step alpha > linux_brace_step_alpha_node_fs 1`] = `
+[
+  "a.js",
+  "c.js",
+  "e.js",
+]
+`;
+
+exports[`glob tests (linux) > brace expansion step alpha > linux_brace_step_alpha_npm_glob 1`] = `
+[
+  "a.js",
+  "c.js",
+  "e.js",
+]
+`;
+
+exports[`glob tests (linux) > brace expansion step alpha > linux_brace_step_alpha_tiny_glob 1`] = `[]`;
+
+exports[`glob tests (linux) > brace expansion step alpha > linux_brace_step_alpha_tinyglobby 1`] = `
+[
+  "?.js",
+  "A.js",
+  "B.js",
+  "C.js",
+  "Z.js",
+  "a.js",
+  "e.js",
+]
+`;
+
+exports[`glob tests (linux) > brace expansion step numeric > linux_brace_step_numeric_fast_glob 1`] = `
+[
+  "file1.txt",
+  "file3.txt",
+  "file5.txt",
+]
+`;
+
+exports[`glob tests (linux) > brace expansion step numeric > linux_brace_step_numeric_globby 1`] = `
+[
+  "file1.txt",
+  "file3.txt",
+  "file5.txt",
+]
+`;
+
+exports[`glob tests (linux) > brace expansion step numeric > linux_brace_step_numeric_node_fs 1`] = `
+[
+  "file1.txt",
+  "file3.txt",
+  "file5.txt",
+]
+`;
+
+exports[`glob tests (linux) > brace expansion step numeric > linux_brace_step_numeric_npm_glob 1`] = `
+[
+  "file1.txt",
+  "file3.txt",
+  "file5.txt",
+]
+`;
+
+exports[`glob tests (linux) > brace expansion step numeric > linux_brace_step_numeric_tiny_glob 1`] = `[]`;
+
+exports[`glob tests (linux) > brace expansion step numeric > linux_brace_step_numeric_tinyglobby 1`] = `
+[
+  "file1.txt",
+  "file2.txt",
+  "file5.txt",
+]
+`;
+
 exports[`glob tests (linux) > brace expansion zero padded > linux_brace_zero_pad_fast_glob 1`] = `
 [
   "file01.txt",
@@ -555,6 +733,7 @@ exports[`glob tests (linux) > braces pattern {js,ts} > linux_braces_js_ts_fast_g
   "d.js",
   "digit1.js",
   "digit9.js",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -622,6 +801,7 @@ exports[`glob tests (linux) > braces pattern {js,ts} > linux_braces_js_ts_globby
   "d.js",
   "digit1.js",
   "digit9.js",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -688,6 +868,7 @@ exports[`glob tests (linux) > braces pattern {js,ts} > linux_braces_js_ts_node_f
   "d.js",
   "digit1.js",
   "digit9.js",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -760,6 +941,7 @@ exports[`glob tests (linux) > braces pattern {js,ts} > linux_braces_js_ts_npm_gl
   "file#hash.js",
   "file name.js",
   "est.js",
+  "e.js",
   "digit9.js",
   "digit1.js",
   "d.js",
@@ -823,6 +1005,7 @@ exports[`glob tests (linux) > braces pattern {js,ts} > linux_braces_js_ts_tiny_g
   "d.js",
   "digit1.js",
   "digit9.js",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -890,6 +1073,7 @@ exports[`glob tests (linux) > braces pattern {js,ts} > linux_braces_js_ts_tinygl
   "d.js",
   "digit1.js",
   "digit9.js",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -957,6 +1141,7 @@ exports[`glob tests (linux) > case insensitive matching > linux_case_insensitive
   "d.js",
   "digit1.js",
   "digit9.js",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -1024,6 +1209,7 @@ exports[`glob tests (linux) > case insensitive matching > linux_case_insensitive
   "d.js",
   "digit1.js",
   "digit9.js",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -1090,6 +1276,7 @@ exports[`glob tests (linux) > case insensitive matching > linux_case_insensitive
   "d.js",
   "digit1.js",
   "digit9.js",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -1161,6 +1348,7 @@ exports[`glob tests (linux) > case insensitive matching > linux_case_insensitive
   "file#hash.js",
   "file name.js",
   "est.js",
+  "e.js",
   "digit9.js",
   "digit1.js",
   "d.js",
@@ -1223,6 +1411,7 @@ exports[`glob tests (linux) > case insensitive matching > linux_case_insensitive
   "d.js",
   "digit1.js",
   "digit9.js",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -1290,6 +1479,7 @@ exports[`glob tests (linux) > case insensitive matching > linux_case_insensitive
   "d.js",
   "digit1.js",
   "digit9.js",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -1325,6 +1515,57 @@ exports[`glob tests (linux) > case insensitive matching > linux_case_insensitive
   "main-link.js",
 ]
 `;
+
+exports[`glob tests (linux) > character class caret negation > linux_charclass_caret_negate_fast_glob 1`] = `[]`;
+
+exports[`glob tests (linux) > character class caret negation > linux_charclass_caret_negate_globby 1`] = `[]`;
+
+exports[`glob tests (linux) > character class caret negation > linux_charclass_caret_negate_node_fs 1`] = `[]`;
+
+exports[`glob tests (linux) > character class caret negation > linux_charclass_caret_negate_npm_glob 1`] = `[]`;
+
+exports[`glob tests (linux) > character class caret negation > linux_charclass_caret_negate_tiny_glob 1`] = `[]`;
+
+exports[`glob tests (linux) > character class caret negation > linux_charclass_caret_negate_tinyglobby 1`] = `[]`;
+
+exports[`glob tests (linux) > character class empty negation > linux_charclass_empty_negate_fast_glob 1`] = `[]`;
+
+exports[`glob tests (linux) > character class empty negation > linux_charclass_empty_negate_globby 1`] = `[]`;
+
+exports[`glob tests (linux) > character class empty negation > linux_charclass_empty_negate_node_fs 1`] = `[]`;
+
+exports[`glob tests (linux) > character class empty negation > linux_charclass_empty_negate_npm_glob 1`] = `[]`;
+
+exports[`glob tests (linux) > character class empty negation > linux_charclass_empty_negate_tiny_glob 1`] = `
+[
+  "*.js",
+  "?.js",
+  "A.js",
+  "B.js",
+  "C.js",
+  "Z.js",
+  "a.js",
+  "b.js",
+  "c.js",
+  "d.js",
+  "e.js",
+  "z.js",
+]
+`;
+
+exports[`glob tests (linux) > character class empty negation > linux_charclass_empty_negate_tinyglobby 1`] = `[]`;
+
+exports[`glob tests (linux) > character class invalid range > linux_charclass_invalid_range_fast_glob 1`] = `[]`;
+
+exports[`glob tests (linux) > character class invalid range > linux_charclass_invalid_range_globby 1`] = `[]`;
+
+exports[`glob tests (linux) > character class invalid range > linux_charclass_invalid_range_node_fs 1`] = `[]`;
+
+exports[`glob tests (linux) > character class invalid range > linux_charclass_invalid_range_npm_glob 1`] = `[]`;
+
+exports[`glob tests (linux) > character class invalid range > linux_charclass_invalid_range_tiny_glob_error 1`] = `"Invalid regular expression: /^[9-1]\\.js$/: Range out of order in character class"`;
+
+exports[`glob tests (linux) > character class invalid range > linux_charclass_invalid_range_tinyglobby 1`] = `[]`;
 
 exports[`glob tests (linux) > character class list > linux_charclass_list_fast_glob 1`] = `
 [
@@ -1383,6 +1624,7 @@ exports[`glob tests (linux) > character class negated > linux_charclass_negate_f
   "C.js",
   "Z.js",
   "d.js",
+  "e.js",
   "z.js",
 ]
 `;
@@ -1396,6 +1638,7 @@ exports[`glob tests (linux) > character class negated > linux_charclass_negate_g
   "C.js",
   "Z.js",
   "d.js",
+  "e.js",
   "z.js",
 ]
 `;
@@ -1409,6 +1652,7 @@ exports[`glob tests (linux) > character class negated > linux_charclass_negate_n
   "C.js",
   "Z.js",
   "d.js",
+  "e.js",
   "z.js",
 ]
 `;
@@ -1416,6 +1660,7 @@ exports[`glob tests (linux) > character class negated > linux_charclass_negate_n
 exports[`glob tests (linux) > character class negated > linux_charclass_negate_npm_glob 1`] = `
 [
   "z.js",
+  "e.js",
   "d.js",
   "Z.js",
   "C.js",
@@ -1435,6 +1680,7 @@ exports[`glob tests (linux) > character class negated > linux_charclass_negate_t
   "C.js",
   "Z.js",
   "d.js",
+  "e.js",
   "z.js",
 ]
 `;
@@ -1448,6 +1694,7 @@ exports[`glob tests (linux) > character class negated > linux_charclass_negate_t
   "C.js",
   "Z.js",
   "d.js",
+  "e.js",
   "z.js",
 ]
 `;
@@ -1623,6 +1870,7 @@ exports[`glob tests (linux) > dot option enabled > linux_dot_enabled_fast_glob 1
   "digit9.js",
   "dist",
   "docs",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -1746,6 +1994,7 @@ exports[`glob tests (linux) > dot option enabled > linux_dot_enabled_globby 1`] 
   "digit9.js",
   "dist",
   "docs",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -1867,6 +2116,7 @@ exports[`glob tests (linux) > dot option enabled > linux_dot_enabled_node_fs 1`]
   "digit9.js",
   "dist",
   "docs",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -1992,6 +2242,7 @@ exports[`glob tests (linux) > dot option enabled > linux_dot_enabled_npm_glob 1`
   "file#hash.js",
   "file name.js",
   "est.js",
+  "e.js",
   "docs",
   "dist",
   "digit9.js",
@@ -2113,6 +2364,7 @@ exports[`glob tests (linux) > dot option enabled > linux_dot_enabled_tiny_glob 1
   "digit9.js",
   "dist",
   "docs",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -2236,6 +2488,7 @@ exports[`glob tests (linux) > dot option enabled > linux_dot_enabled_tinyglobby 
   "digit9.js",
   "dist/",
   "docs/",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -2462,6 +2715,7 @@ exports[`glob tests (linux) > extglob @(js|ts) > linux_extglob_at_fast_glob 1`] 
   "d.js",
   "digit1.js",
   "digit9.js",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -2529,6 +2783,7 @@ exports[`glob tests (linux) > extglob @(js|ts) > linux_extglob_at_globby 1`] = `
   "d.js",
   "digit1.js",
   "digit9.js",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -2596,6 +2851,7 @@ exports[`glob tests (linux) > extglob @(js|ts) > linux_extglob_at_node_fs 1`] = 
   "d.js",
   "digit1.js",
   "digit9.js",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -2667,6 +2923,7 @@ exports[`glob tests (linux) > extglob @(js|ts) > linux_extglob_at_npm_glob 1`] =
   "file#hash.js",
   "file name.js",
   "est.js",
+  "e.js",
   "digit9.js",
   "digit1.js",
   "d.js",
@@ -2730,6 +2987,7 @@ exports[`glob tests (linux) > extglob @(js|ts) > linux_extglob_at_tiny_glob 1`] 
   "d.js",
   "digit1.js",
   "digit9.js",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -2797,6 +3055,7 @@ exports[`glob tests (linux) > extglob @(js|ts) > linux_extglob_at_tinyglobby 1`]
   "d.js",
   "digit1.js",
   "digit9.js",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -3163,6 +3422,7 @@ exports[`glob tests (linux) > extglob negation > linux_extglob_not_fast_glob 1`]
   "d.js",
   "digit1.js",
   "digit9.js",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -3228,6 +3488,7 @@ exports[`glob tests (linux) > extglob negation > linux_extglob_not_node_fs 1`] =
   "d.js",
   "digit1.js",
   "digit9.js",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -3297,6 +3558,7 @@ exports[`glob tests (linux) > extglob negation > linux_extglob_not_npm_glob 1`] 
   "file#hash.js",
   "file name.js",
   "est.js",
+  "e.js",
   "digit9.js",
   "digit1.js",
   "d.js",
@@ -3356,6 +3618,7 @@ exports[`glob tests (linux) > extglob negation > linux_extglob_not_tiny_glob 1`]
   "d.js",
   "digit1.js",
   "digit9.js",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -3419,6 +3682,7 @@ exports[`glob tests (linux) > extglob negation > linux_extglob_not_tinyglobby 1`
   "d.js",
   "digit1.js",
   "digit9.js",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -3823,6 +4087,7 @@ exports[`glob tests (linux) > first level directories > linux_dirs_first_level_t
   "digit9.js",
   "dist/",
   "docs/",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -3943,6 +4208,7 @@ exports[`glob tests (linux) > globstar only > linux_globstar_only_fast_glob 1`] 
   "digit9.js",
   "dist",
   "docs",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -4095,6 +4361,7 @@ exports[`glob tests (linux) > globstar only > linux_globstar_only_globby 1`] = `
   "digit9.js",
   "dist",
   "docs",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -4245,6 +4512,7 @@ exports[`glob tests (linux) > globstar only > linux_globstar_only_node_fs 1`] = 
   "dd",
   "digit1.js",
   "digit9.js",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -4396,6 +4664,7 @@ exports[`glob tests (linux) > globstar only > linux_globstar_only_npm_glob 1`] =
   "file#hash.js",
   "file name.js",
   "est.js",
+  "e.js",
   "docs",
   "dist",
   "digit9.js",
@@ -4459,10 +4728,10 @@ exports[`glob tests (linux) > globstar only > linux_globstar_only_npm_glob 1`] =
   "src/index.js",
   "src/components",
   "node_modules/package",
-  "docs/readme.md",
-  "dist/bundle.js",
   "lib/plugins",
   "lib/core.js",
+  "docs/readme.md",
+  "dist/bundle.js",
   "config/prod.json",
   "config/dev.json",
   "tests/unit/app.test.js",
@@ -4540,6 +4809,7 @@ exports[`glob tests (linux) > globstar only > linux_globstar_only_tiny_glob 1`] 
   "dist/bundle.js",
   "docs",
   "docs/readme.md",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -4679,6 +4949,7 @@ exports[`glob tests (linux) > globstar only > linux_globstar_only_tinyglobby 1`]
   "digit9.js",
   "dist/",
   "docs/",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -4754,10 +5025,10 @@ exports[`glob tests (linux) > globstar only > linux_globstar_only_tinyglobby 1`]
   "node_modules/package/index.js",
   "src/components/Button.js",
   "src/components/Input.js",
-  "src/utils/helper.js",
-  "src/utils/math/",
   "tests/integration/api.test.js",
   "tests/unit/app.test.js",
+  "src/utils/helper.js",
+  "src/utils/math/",
   "src/utils/math/calc.js",
   "main-link.js",
   "src-link/components/",
@@ -4802,6 +5073,7 @@ exports[`glob tests (linux) > globstar recursive > linux_globstar_recursive_fast
   "d.js",
   "digit1.js",
   "digit9.js",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -4886,6 +5158,7 @@ exports[`glob tests (linux) > globstar recursive > linux_globstar_recursive_glob
   "d.js",
   "digit1.js",
   "digit9.js",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -4970,6 +5243,7 @@ exports[`glob tests (linux) > globstar recursive > linux_globstar_recursive_node
   "d.js",
   "digit1.js",
   "digit9.js",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -5053,6 +5327,7 @@ exports[`glob tests (linux) > globstar recursive > linux_globstar_recursive_npm_
   "file#hash.js",
   "file name.js",
   "est.js",
+  "e.js",
   "digit9.js",
   "digit1.js",
   "d.js",
@@ -5127,6 +5402,7 @@ exports[`glob tests (linux) > globstar recursive > linux_globstar_recursive_tiny
   "digit1.js",
   "digit9.js",
   "dist/bundle.js",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -5204,6 +5480,7 @@ exports[`glob tests (linux) > globstar recursive > linux_globstar_recursive_tiny
   "d.js",
   "digit1.js",
   "digit9.js",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -5324,6 +5601,68 @@ exports[`glob tests (linux) > globstar src/**/*.js > linux_globstar_src_tinyglob
 ]
 `;
 
+exports[`glob tests (linux) > globstar vs single star > linux_globstar_vs_star_fast_glob 1`] = `
+[
+  "dist/bundle.js",
+  "lib/core.js",
+  "src/index.js",
+  "src/main.js",
+  "src-link/index.js",
+  "src-link/main.js",
+]
+`;
+
+exports[`glob tests (linux) > globstar vs single star > linux_globstar_vs_star_globby 1`] = `
+[
+  "dist/bundle.js",
+  "lib/core.js",
+  "src/index.js",
+  "src/main.js",
+  "src-link/index.js",
+  "src-link/main.js",
+]
+`;
+
+exports[`glob tests (linux) > globstar vs single star > linux_globstar_vs_star_node_fs 1`] = `
+[
+  "src/index.js",
+  "src/main.js",
+  "lib/core.js",
+  "dist/bundle.js",
+]
+`;
+
+exports[`glob tests (linux) > globstar vs single star > linux_globstar_vs_star_npm_glob 1`] = `
+[
+  "src/main.js",
+  "src/index.js",
+  "src-link/main.js",
+  "src-link/index.js",
+  "lib/core.js",
+  "dist/bundle.js",
+]
+`;
+
+exports[`glob tests (linux) > globstar vs single star > linux_globstar_vs_star_tiny_glob 1`] = `
+[
+  "dist/bundle.js",
+  "lib/core.js",
+  "src/index.js",
+  "src/main.js",
+]
+`;
+
+exports[`glob tests (linux) > globstar vs single star > linux_globstar_vs_star_tinyglobby 1`] = `
+[
+  "dist/bundle.js",
+  "lib/core.js",
+  "src/index.js",
+  "src/main.js",
+  "src-link/index.js",
+  "src-link/main.js",
+]
+`;
+
 exports[`glob tests (linux) > ignore patterns > linux_ignore_patterns_fast_glob 1`] = `
 [
   "*.js",
@@ -5354,6 +5693,7 @@ exports[`glob tests (linux) > ignore patterns > linux_ignore_patterns_fast_glob 
   "d.js",
   "digit1.js",
   "digit9.js",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -5433,6 +5773,7 @@ exports[`glob tests (linux) > ignore patterns > linux_ignore_patterns_globby 1`]
   "d.js",
   "digit1.js",
   "digit9.js",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -5512,6 +5853,7 @@ exports[`glob tests (linux) > ignore patterns > linux_ignore_patterns_node_fs 1`
   "d.js",
   "digit1.js",
   "digit9.js",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -5588,6 +5930,7 @@ exports[`glob tests (linux) > ignore patterns > linux_ignore_patterns_npm_glob 1
   "file#hash.js",
   "file name.js",
   "est.js",
+  "e.js",
   "digit9.js",
   "digit1.js",
   "d.js",
@@ -5620,9 +5963,9 @@ exports[`glob tests (linux) > ignore patterns > linux_ignore_patterns_npm_glob 1
   "src/index.js",
   "lib/core.js",
   "dist/bundle.js",
+  "src/utils/helper.js",
   "src/components/Input.js",
   "src/components/Button.js",
-  "src/utils/helper.js",
   "lib/plugins/auth.js",
   "src/utils/math/calc.js",
 ]
@@ -5659,6 +6002,7 @@ exports[`glob tests (linux) > ignore patterns > linux_ignore_patterns_tiny_glob 
   "digit1.js",
   "digit9.js",
   "dist/bundle.js",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -5736,6 +6080,7 @@ exports[`glob tests (linux) > ignore patterns > linux_ignore_patterns_tinyglobby
   "d.js",
   "digit1.js",
   "digit9.js",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -5784,6 +6129,118 @@ exports[`glob tests (linux) > ignore patterns > linux_ignore_patterns_tinyglobby
   "src-link/utils/math/calc.js",
 ]
 `;
+
+exports[`glob tests (linux) > literal parentheses > linux_literal_parens_fast_glob 1`] = `[]`;
+
+exports[`glob tests (linux) > literal parentheses > linux_literal_parens_globby 1`] = `[]`;
+
+exports[`glob tests (linux) > literal parentheses > linux_literal_parens_node_fs 1`] = `
+[
+  "file(paren).js",
+]
+`;
+
+exports[`glob tests (linux) > literal parentheses > linux_literal_parens_npm_glob 1`] = `
+[
+  "file(paren).js",
+]
+`;
+
+exports[`glob tests (linux) > literal parentheses > linux_literal_parens_tiny_glob 1`] = `
+[
+  "file(paren).js",
+]
+`;
+
+exports[`glob tests (linux) > literal parentheses > linux_literal_parens_tinyglobby 1`] = `
+[
+  "file(paren).js",
+]
+`;
+
+exports[`glob tests (linux) > literal plus sign > linux_literal_plus_fast_glob 1`] = `
+[
+  "file+plus.js",
+]
+`;
+
+exports[`glob tests (linux) > literal plus sign > linux_literal_plus_globby 1`] = `
+[
+  "file+plus.js",
+]
+`;
+
+exports[`glob tests (linux) > literal plus sign > linux_literal_plus_node_fs 1`] = `
+[
+  "file+plus.js",
+]
+`;
+
+exports[`glob tests (linux) > literal plus sign > linux_literal_plus_npm_glob 1`] = `
+[
+  "file+plus.js",
+]
+`;
+
+exports[`glob tests (linux) > literal plus sign > linux_literal_plus_tiny_glob 1`] = `
+[
+  "file+plus.js",
+]
+`;
+
+exports[`glob tests (linux) > literal plus sign > linux_literal_plus_tinyglobby 1`] = `
+[
+  "file+plus.js",
+]
+`;
+
+exports[`glob tests (linux) > literal square brackets bracketed > linux_literal_brackets_bracketed_fast_glob 1`] = `
+[
+  "foo[bar].js",
+]
+`;
+
+exports[`glob tests (linux) > literal square brackets bracketed > linux_literal_brackets_bracketed_globby 1`] = `
+[
+  "foo[bar].js",
+]
+`;
+
+exports[`glob tests (linux) > literal square brackets bracketed > linux_literal_brackets_bracketed_node_fs 1`] = `
+[
+  "foo[bar].js",
+]
+`;
+
+exports[`glob tests (linux) > literal square brackets bracketed > linux_literal_brackets_bracketed_npm_glob 1`] = `
+[
+  "foo[bar].js",
+]
+`;
+
+exports[`glob tests (linux) > literal square brackets bracketed > linux_literal_brackets_bracketed_tiny_glob 1`] = `
+[
+  "foo[bar].js",
+]
+`;
+
+exports[`glob tests (linux) > literal square brackets bracketed > linux_literal_brackets_bracketed_tinyglobby 1`] = `
+[
+  "foo[bar].js",
+]
+`;
+
+exports[`glob tests (linux) > literal square brackets escaped > linux_literal_brackets_escaped_fast_glob 1`] = `[]`;
+
+exports[`glob tests (linux) > literal square brackets escaped > linux_literal_brackets_escaped_globby 1`] = `[]`;
+
+exports[`glob tests (linux) > literal square brackets escaped > linux_literal_brackets_escaped_node_fs 1`] = `[]`;
+
+exports[`glob tests (linux) > literal square brackets escaped > linux_literal_brackets_escaped_npm_glob 1`] = `[]`;
+
+exports[`glob tests (linux) > literal square brackets escaped > linux_literal_brackets_escaped_tiny_glob 1`] = `[]`;
+
+exports[`glob tests (linux) > literal square brackets escaped > linux_literal_brackets_escaped_tinyglobby 1`] = `[]`;
 
 exports[`glob tests (linux) > max depth 1 > linux_max_depth_1_fast_glob 1`] = `
 [
@@ -5843,6 +6300,7 @@ exports[`glob tests (linux) > max depth 1 > linux_max_depth_1_fast_glob 1`] = `
   "digit9.js",
   "dist",
   "docs",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -5964,6 +6422,7 @@ exports[`glob tests (linux) > max depth 1 > linux_max_depth_1_globby 1`] = `
   "digit9.js",
   "dist",
   "docs",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -6083,6 +6542,7 @@ exports[`glob tests (linux) > max depth 1 > linux_max_depth_1_node_fs 1`] = `
   "dd",
   "digit1.js",
   "digit9.js",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -6234,6 +6694,7 @@ exports[`glob tests (linux) > max depth 1 > linux_max_depth_1_npm_glob 1`] = `
   "file#hash.js",
   "file name.js",
   "est.js",
+  "e.js",
   "docs",
   "dist",
   "digit9.js",
@@ -6356,6 +6817,7 @@ exports[`glob tests (linux) > max depth 1 > linux_max_depth_1_tiny_glob 1`] = `
   "dist/bundle.js",
   "docs",
   "docs/readme.md",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -6495,6 +6957,7 @@ exports[`glob tests (linux) > max depth 1 > linux_max_depth_1_tinyglobby 1`] = `
   "digit9.js",
   "dist/",
   "docs/",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -6553,12 +7016,10 @@ exports[`glob tests (linux) > max depth 1 > linux_max_depth_1_tinyglobby 1`] = `
   "файл.js",
   "测试.js",
   "🚀emoji.js",
-  "config/dev.json",
-  "config/prod.json",
   "dist/bundle.js",
-  "docs/readme.md",
   "lib/core.js",
   "lib/plugins/",
+  "docs/readme.md",
   "node_modules/package/",
   "src/components/",
   "src/index.js",
@@ -6566,6 +7027,8 @@ exports[`glob tests (linux) > max depth 1 > linux_max_depth_1_tinyglobby 1`] = `
   "src/utils/",
   "tests/integration/",
   "tests/unit/",
+  "config/dev.json",
+  "config/prod.json",
   "main-link.js",
   "src-link/components/",
   "src-link/index.js",
@@ -6573,6 +7036,649 @@ exports[`glob tests (linux) > max depth 1 > linux_max_depth_1_tinyglobby 1`] = `
   "src-link/utils/",
 ]
 `;
+
+exports[`glob tests (linux) > negation first in order > linux_negation_first_fast_glob 1`] = `
+[
+  "*.js",
+  "?.js",
+  "A.js",
+  "ALNUM9.js",
+  "ALPHA.js",
+  "B.js",
+  "C.js",
+  "Z.js",
+  "a.js",
+  "aa.js",
+  "aaa.js",
+  "ab.js",
+  "ac.js",
+  "alnum1.js",
+  "alpha.js",
+  "app.dev.js",
+  "app.js",
+  "app.min.js",
+  "app.prod.js",
+  "az.js",
+  "b.js",
+  "bar.js",
+  "c.js",
+  "café.js",
+  "config.js",
+  "d.js",
+  "digit1.js",
+  "digit9.js",
+  "e.js",
+  "est.js",
+  "file name.js",
+  "file#hash.js",
+  "file$.js",
+  "file&test.js",
+  "file(paren).js",
+  "file+plus.js",
+  "file-a.js",
+  "file-b.js",
+  "file-d.js",
+  "file-z.js",
+  "file@domain.js",
+  "file[bracket].js",
+  "foo.js",
+  "foo[bar].js",
+  "main-link.js",
+  "main.js",
+  "main.min.js",
+  "naïve.js",
+  "señor.js",
+  "test.js",
+  "test.unit.js",
+  "test1.js",
+  "test2.js",
+  "test9.js",
+  "test_1.js",
+  "xyz.js",
+  "z.js",
+  "файл.js",
+  "测试.js",
+  "🚀emoji.js",
+  "dist/bundle.js",
+  "lib/core.js",
+  "src/index.js",
+  "src/main.js",
+  "src-link/index.js",
+  "src-link/main.js",
+  "lib/plugins/auth.js",
+  "node_modules/package/index.js",
+  "src/components/Button.js",
+  "src/components/Input.js",
+  "src/utils/helper.js",
+  "src-link/components/Button.js",
+  "src-link/components/Input.js",
+  "src-link/utils/helper.js",
+  "tests/integration/api.test.js",
+  "tests/unit/app.test.js",
+  "src/utils/math/calc.js",
+  "src-link/utils/math/calc.js",
+]
+`;
+
+exports[`glob tests (linux) > negation first in order > linux_negation_first_globby 1`] = `
+[
+  "*.js",
+  "?.js",
+  "A.js",
+  "ALNUM9.js",
+  "ALPHA.js",
+  "B.js",
+  "C.js",
+  "Z.js",
+  "a.js",
+  "aa.js",
+  "aaa.js",
+  "ab.js",
+  "ac.js",
+  "alnum1.js",
+  "alpha.js",
+  "app.dev.js",
+  "app.js",
+  "app.min.js",
+  "app.prod.js",
+  "az.js",
+  "b.js",
+  "bar.js",
+  "c.js",
+  "café.js",
+  "config.js",
+  "d.js",
+  "digit1.js",
+  "digit9.js",
+  "e.js",
+  "est.js",
+  "file name.js",
+  "file#hash.js",
+  "file$.js",
+  "file&test.js",
+  "file(paren).js",
+  "file+plus.js",
+  "file-a.js",
+  "file-b.js",
+  "file-d.js",
+  "file-z.js",
+  "file@domain.js",
+  "file[bracket].js",
+  "foo.js",
+  "foo[bar].js",
+  "main-link.js",
+  "main.js",
+  "main.min.js",
+  "main.spec.js",
+  "naïve.js",
+  "señor.js",
+  "test.js",
+  "test.spec.js",
+  "test.unit.js",
+  "test1.js",
+  "test2.js",
+  "test9.js",
+  "test_1.js",
+  "xyz.js",
+  "z.js",
+  "файл.js",
+  "测试.js",
+  "🚀emoji.js",
+  "dist/bundle.js",
+  "lib/core.js",
+  "src/index.js",
+  "src/main.js",
+  "lib/plugins/auth.js",
+  "src-link/index.js",
+  "src-link/main.js",
+  "node_modules/package/index.js",
+  "src/components/Button.js",
+  "src/components/Input.js",
+  "src/utils/helper.js",
+  "tests/integration/api.test.js",
+  "tests/unit/app.test.js",
+  "src-link/components/Button.js",
+  "src-link/components/Input.js",
+  "src-link/utils/helper.js",
+  "src/utils/math/calc.js",
+  "src-link/utils/math/calc.js",
+]
+`;
+
+exports[`glob tests (linux) > negation first in order > linux_negation_first_node_fs 1`] = `
+[
+  "*.js",
+  "?.js",
+  "A.js",
+  "ALNUM9.js",
+  "ALPHA.js",
+  "B.js",
+  "C.js",
+  "Z.js",
+  "a.js",
+  "aa.js",
+  "aaa.js",
+  "ab.js",
+  "ac.js",
+  "alnum1.js",
+  "alpha.js",
+  "app.dev.js",
+  "app.js",
+  "app.min.js",
+  "app.prod.js",
+  "az.js",
+  "b.js",
+  "bar.js",
+  "c.js",
+  "café.js",
+  "config.js",
+  "d.js",
+  "digit1.js",
+  "digit9.js",
+  "e.js",
+  "est.js",
+  "file name.js",
+  "file#hash.js",
+  "file$.js",
+  "file&test.js",
+  "file(paren).js",
+  "file+plus.js",
+  "file-a.js",
+  "file-b.js",
+  "file-d.js",
+  "file-z.js",
+  "file@domain.js",
+  "file[bracket].js",
+  "foo.js",
+  "foo[bar].js",
+  "main-link.js",
+  "main.js",
+  "main.min.js",
+  "main.spec.js",
+  "naïve.js",
+  "señor.js",
+  "test.js",
+  "test.spec.js",
+  "test.unit.js",
+  "test1.js",
+  "test2.js",
+  "test9.js",
+  "test_1.js",
+  "xyz.js",
+  "z.js",
+  "файл.js",
+  "测试.js",
+  "🚀emoji.js",
+  "tests/unit/app.test.js",
+  "tests/integration/api.test.js",
+  "src/index.js",
+  "src/main.js",
+  "src/utils/helper.js",
+  "src/utils/math/calc.js",
+  "src/components/Button.js",
+  "src/components/Input.js",
+  "node_modules/package/index.js",
+  "lib/core.js",
+  "lib/plugins/auth.js",
+  "dist/bundle.js",
+]
+`;
+
+exports[`glob tests (linux) > negation first in order > linux_negation_first_npm_glob 1`] = `
+[
+  "🚀emoji.js",
+  "测试.js",
+  "файл.js",
+  "z.js",
+  "xyz.js",
+  "test_1.js",
+  "test9.js",
+  "test2.js",
+  "test1.js",
+  "test.unit.js",
+  "test.spec.js",
+  "test.js",
+  "señor.js",
+  "naïve.js",
+  "main.spec.js",
+  "main.min.js",
+  "main.js",
+  "main-link.js",
+  "foo[bar].js",
+  "foo.js",
+  "file[bracket].js",
+  "file@domain.js",
+  "file-z.js",
+  "file-d.js",
+  "file-b.js",
+  "file-a.js",
+  "file+plus.js",
+  "file(paren).js",
+  "file&test.js",
+  "file$.js",
+  "file#hash.js",
+  "file name.js",
+  "est.js",
+  "e.js",
+  "digit9.js",
+  "digit1.js",
+  "d.js",
+  "config.js",
+  "café.js",
+  "c.js",
+  "bar.js",
+  "b.js",
+  "az.js",
+  "app.prod.js",
+  "app.min.js",
+  "app.js",
+  "app.dev.js",
+  "alpha.js",
+  "alnum1.js",
+  "ac.js",
+  "ab.js",
+  "aaa.js",
+  "aa.js",
+  "a.js",
+  "Z.js",
+  "C.js",
+  "B.js",
+  "ALPHA.js",
+  "ALNUM9.js",
+  "A.js",
+  "?.js",
+  "*.js",
+  "src/main.js",
+  "src/index.js",
+  "lib/core.js",
+  "dist/bundle.js",
+  "tests/unit/app.test.js",
+  "tests/integration/api.test.js",
+  "src/utils/helper.js",
+  "src/components/Input.js",
+  "src/components/Button.js",
+  "node_modules/package/index.js",
+  "lib/plugins/auth.js",
+  "src/utils/math/calc.js",
+]
+`;
+
+exports[`glob tests (linux) > negation first in order > linux_negation_first_tiny_glob 1`] = `
+[
+  "*.js",
+  "?.js",
+  "A.js",
+  "ALNUM9.js",
+  "ALPHA.js",
+  "B.js",
+  "C.js",
+  "Z.js",
+  "a.js",
+  "aa.js",
+  "aaa.js",
+  "ab.js",
+  "ac.js",
+  "alnum1.js",
+  "alpha.js",
+  "app.dev.js",
+  "app.js",
+  "app.min.js",
+  "app.prod.js",
+  "az.js",
+  "b.js",
+  "bar.js",
+  "c.js",
+  "café.js",
+  "config.js",
+  "d.js",
+  "digit1.js",
+  "digit9.js",
+  "dist/bundle.js",
+  "e.js",
+  "est.js",
+  "file name.js",
+  "file#hash.js",
+  "file$.js",
+  "file&test.js",
+  "file(paren).js",
+  "file+plus.js",
+  "file-a.js",
+  "file-b.js",
+  "file-d.js",
+  "file-z.js",
+  "file@domain.js",
+  "file[bracket].js",
+  "foo.js",
+  "foo[bar].js",
+  "lib/core.js",
+  "lib/plugins/auth.js",
+  "main-link.js",
+  "main.js",
+  "main.min.js",
+  "main.spec.js",
+  "naïve.js",
+  "node_modules/package/index.js",
+  "señor.js",
+  "src/components/Button.js",
+  "src/components/Input.js",
+  "src/index.js",
+  "src/main.js",
+  "src/utils/helper.js",
+  "src/utils/math/calc.js",
+  "test.js",
+  "test.spec.js",
+  "test.unit.js",
+  "test1.js",
+  "test2.js",
+  "test9.js",
+  "test_1.js",
+  "tests/integration/api.test.js",
+  "tests/unit/app.test.js",
+  "xyz.js",
+  "z.js",
+  "файл.js",
+  "测试.js",
+  "🚀emoji.js",
+]
+`;
+
+exports[`glob tests (linux) > negation first in order > linux_negation_first_tinyglobby 1`] = `
+[
+  "*.js",
+  "?.js",
+  "A.js",
+  "ALNUM9.js",
+  "ALPHA.js",
+  "B.js",
+  "C.js",
+  "Z.js",
+  "a.js",
+  "aa.js",
+  "aaa.js",
+  "ab.js",
+  "ac.js",
+  "alnum1.js",
+  "alpha.js",
+  "app.dev.js",
+  "app.js",
+  "app.min.js",
+  "app.prod.js",
+  "az.js",
+  "b.js",
+  "bar.js",
+  "c.js",
+  "café.js",
+  "config.js",
+  "d.js",
+  "digit1.js",
+  "digit9.js",
+  "e.js",
+  "est.js",
+  "file name.js",
+  "file#hash.js",
+  "file$.js",
+  "file&test.js",
+  "file(paren).js",
+  "file+plus.js",
+  "file-a.js",
+  "file-b.js",
+  "file-d.js",
+  "file-z.js",
+  "file@domain.js",
+  "file[bracket].js",
+  "foo.js",
+  "foo[bar].js",
+  "main.js",
+  "main.min.js",
+  "naïve.js",
+  "señor.js",
+  "test.js",
+  "test.unit.js",
+  "test1.js",
+  "test2.js",
+  "test9.js",
+  "test_1.js",
+  "xyz.js",
+  "z.js",
+  "файл.js",
+  "测试.js",
+  "🚀emoji.js",
+  "dist/bundle.js",
+  "lib/core.js",
+  "src/index.js",
+  "src/main.js",
+  "lib/plugins/auth.js",
+  "node_modules/package/index.js",
+  "src/components/Button.js",
+  "src/components/Input.js",
+  "src/utils/helper.js",
+  "tests/integration/api.test.js",
+  "tests/unit/app.test.js",
+  "src/utils/math/calc.js",
+  "main-link.js",
+  "src-link/index.js",
+  "src-link/main.js",
+  "src-link/components/Button.js",
+  "src-link/components/Input.js",
+  "src-link/utils/helper.js",
+  "src-link/utils/math/calc.js",
+]
+`;
+
+exports[`glob tests (linux) > negation only patterns > linux_negation_only_fast_glob 1`] = `[]`;
+
+exports[`glob tests (linux) > negation only patterns > linux_negation_only_globby 1`] = `[]`;
+
+exports[`glob tests (linux) > negation only patterns > linux_negation_only_node_fs 1`] = `[]`;
+
+exports[`glob tests (linux) > negation only patterns > linux_negation_only_npm_glob 1`] = `[]`;
+
+exports[`glob tests (linux) > negation only patterns > linux_negation_only_tiny_glob 1`] = `
+[
+  "*.js",
+  ".hidden",
+  "1.txt",
+  "2.txt",
+  "3.txt",
+  "4.txt",
+  "5.txt",
+  "9.txt",
+  "?.js",
+  "A.js",
+  "ALNUM9.js",
+  "ALPHA.js",
+  "B.js",
+  "C.js",
+  "FOO.JS",
+  "Z.js",
+  "a.b",
+  "a.js",
+  "aa.js",
+  "aaa.js",
+  "ab.js",
+  "abc",
+  "abd",
+  "ac.js",
+  "alnum1.js",
+  "alpha.js",
+  "app.css",
+  "app.dev.js",
+  "app.js",
+  "app.jsx",
+  "app.min.js",
+  "app.prod.js",
+  "app.ts",
+  "az.js",
+  "b.js",
+  "bar.js",
+  "bb",
+  "c.js",
+  "ca",
+  "café.js",
+  "changelog.md",
+  "component.jsx",
+  "component.tsx",
+  "component.vue",
+  "config",
+  "config/dev.json",
+  "config/prod.json",
+  "config.js",
+  "config.json",
+  "config.yaml",
+  "d.js",
+  "data.json",
+  "data.xml",
+  "data.yaml",
+  "dd",
+  "digit1.js",
+  "digit9.js",
+  "dist",
+  "dist/bundle.js",
+  "docs",
+  "docs/readme.md",
+  "e.js",
+  "est.js",
+  "file name.js",
+  "file#hash.js",
+  "file$.js",
+  "file&test.js",
+  "file(paren).js",
+  "file+plus.js",
+  "file-a.js",
+  "file-b.js",
+  "file-d.js",
+  "file-z.js",
+  "file.txt",
+  "file01.txt",
+  "file02.txt",
+  "file03.txt",
+  "file04.txt",
+  "file05.txt",
+  "file1.txt",
+  "file2.txt",
+  "file3.txt",
+  "file5.txt",
+  "file@domain.js",
+  "file[bracket].js",
+  "foo.js",
+  "foo[bar].js",
+  "letter-a",
+  "letter-c",
+  "lib",
+  "lib/core.js",
+  "lib/plugins",
+  "lib/plugins/auth.js",
+  "main-link.js",
+  "main.js",
+  "main.min.js",
+  "main.spec.js",
+  "naïve.js",
+  "node_modules",
+  "node_modules/package",
+  "node_modules/package/index.js",
+  "package.json",
+  "readme.md",
+  "señor.js",
+  "src",
+  "src/components",
+  "src/components/Button.js",
+  "src/components/Input.js",
+  "src/index.js",
+  "src/main.js",
+  "src/utils",
+  "src/utils/helper.js",
+  "src/utils/math",
+  "src/utils/math/calc.js",
+  "src-link",
+  "style.css",
+  "style.min.css",
+  "style.scss",
+  "test.js",
+  "test.spec.js",
+  "test.unit.js",
+  "test1.js",
+  "test2.js",
+  "test9.js",
+  "test_1.js",
+  "tests",
+  "tests/integration",
+  "tests/integration/api.test.js",
+  "tests/unit",
+  "tests/unit/app.test.js",
+  "x.html",
+  "x.y",
+  "xyz.js",
+  "y.html",
+  "z.html",
+  "z.js",
+  "z.z",
+  "файл.js",
+  "测试.js",
+  "🚀emoji.js",
+]
+`;
+
+exports[`glob tests (linux) > negation only patterns > linux_negation_only_tinyglobby 1`] = `[]`;
 
 exports[`glob tests (linux) > negation with arrays > linux_negation_arrays_fast_glob 1`] = `
 [
@@ -6604,6 +7710,7 @@ exports[`glob tests (linux) > negation with arrays > linux_negation_arrays_fast_
   "d.js",
   "digit1.js",
   "digit9.js",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -6683,6 +7790,7 @@ exports[`glob tests (linux) > negation with arrays > linux_negation_arrays_globb
   "d.js",
   "digit1.js",
   "digit9.js",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -6762,6 +7870,7 @@ exports[`glob tests (linux) > negation with arrays > linux_negation_arrays_node_
   "d.js",
   "digit1.js",
   "digit9.js",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -6845,6 +7954,7 @@ exports[`glob tests (linux) > negation with arrays > linux_negation_arrays_npm_g
   "file#hash.js",
   "file name.js",
   "est.js",
+  "e.js",
   "digit9.js",
   "digit1.js",
   "d.js",
@@ -6919,6 +8029,7 @@ exports[`glob tests (linux) > negation with arrays > linux_negation_arrays_tiny_
   "digit1.js",
   "digit9.js",
   "dist/bundle.js",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -6996,6 +8107,7 @@ exports[`glob tests (linux) > negation with arrays > linux_negation_arrays_tinyg
   "d.js",
   "digit1.js",
   "digit9.js",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -7041,387 +8153,6 @@ exports[`glob tests (linux) > negation with arrays > linux_negation_arrays_tinyg
   "src-link/components/Button.js",
   "src-link/components/Input.js",
   "src-link/utils/helper.js",
-  "src-link/utils/math/calc.js",
-]
-`;
-
-exports[`glob tests (linux) > only directories pattern > linux_only_directories_fast_glob 1`] = `
-[
-  "config",
-  "dist",
-  "docs",
-  "lib",
-  "node_modules",
-  "src",
-  "src-link",
-  "tests",
-  "lib/plugins",
-  "node_modules/package",
-  "src/components",
-  "src/utils",
-  "src-link/components",
-  "src-link/utils",
-  "tests/integration",
-  "tests/unit",
-  "src/utils/math",
-  "src-link/utils/math",
-]
-`;
-
-exports[`glob tests (linux) > only directories pattern > linux_only_directories_globby 1`] = `
-[
-  "config",
-  "dist",
-  "docs",
-  "lib",
-  "node_modules",
-  "src",
-  "src-link",
-  "tests",
-  "lib/plugins",
-  "node_modules/package",
-  "src-link/components",
-  "src-link/utils",
-  "src/components",
-  "src/utils",
-  "tests/integration",
-  "tests/unit",
-  "src-link/utils/math",
-  "src/utils/math",
-]
-`;
-
-exports[`glob tests (linux) > only directories pattern > linux_only_directories_node_fs 1`] = `
-[
-  ".",
-  "tests",
-  "tests/unit",
-  "tests/integration",
-  "src",
-  "src/utils",
-  "src/utils/math",
-  "src/components",
-  "node_modules",
-  "node_modules/package",
-  "lib",
-  "lib/plugins",
-  "docs",
-  "dist",
-  "config",
-]
-`;
-
-exports[`glob tests (linux) > only directories pattern > linux_only_directories_npm_glob 1`] = `
-[
-  ".",
-  "tests",
-  "src",
-  "node_modules",
-  "lib",
-  "docs",
-  "dist",
-  "config",
-  "tests/unit",
-  "tests/integration",
-  "src/utils",
-  "src/components",
-  "node_modules/package",
-  "lib/plugins",
-  "src/utils/math",
-]
-`;
-
-exports[`glob tests (linux) > only directories pattern > linux_only_directories_tiny_glob 1`] = `
-[
-  "*.js",
-  ".hidden",
-  "1.txt",
-  "2.txt",
-  "3.txt",
-  "4.txt",
-  "5.txt",
-  "9.txt",
-  "?.js",
-  "A.js",
-  "ALNUM9.js",
-  "ALPHA.js",
-  "B.js",
-  "C.js",
-  "FOO.JS",
-  "Z.js",
-  "a.b",
-  "a.js",
-  "aa.js",
-  "aaa.js",
-  "ab.js",
-  "abc",
-  "abd",
-  "ac.js",
-  "alnum1.js",
-  "alpha.js",
-  "app.css",
-  "app.dev.js",
-  "app.js",
-  "app.jsx",
-  "app.min.js",
-  "app.prod.js",
-  "app.ts",
-  "az.js",
-  "b.js",
-  "bar.js",
-  "bb",
-  "c.js",
-  "ca",
-  "café.js",
-  "changelog.md",
-  "component.jsx",
-  "component.tsx",
-  "component.vue",
-  "config",
-  "config/dev.json",
-  "config/prod.json",
-  "config.js",
-  "config.json",
-  "config.yaml",
-  "d.js",
-  "data.json",
-  "data.xml",
-  "data.yaml",
-  "dd",
-  "digit1.js",
-  "digit9.js",
-  "dist",
-  "dist/bundle.js",
-  "docs",
-  "docs/readme.md",
-  "est.js",
-  "file name.js",
-  "file#hash.js",
-  "file$.js",
-  "file&test.js",
-  "file(paren).js",
-  "file+plus.js",
-  "file-a.js",
-  "file-b.js",
-  "file-d.js",
-  "file-z.js",
-  "file.txt",
-  "file01.txt",
-  "file02.txt",
-  "file03.txt",
-  "file04.txt",
-  "file05.txt",
-  "file1.txt",
-  "file2.txt",
-  "file3.txt",
-  "file5.txt",
-  "file@domain.js",
-  "file[bracket].js",
-  "foo.js",
-  "foo[bar].js",
-  "letter-a",
-  "letter-c",
-  "lib",
-  "lib/core.js",
-  "lib/plugins",
-  "lib/plugins/auth.js",
-  "main-link.js",
-  "main.js",
-  "main.min.js",
-  "main.spec.js",
-  "naïve.js",
-  "node_modules",
-  "node_modules/package",
-  "node_modules/package/index.js",
-  "package.json",
-  "readme.md",
-  "señor.js",
-  "src",
-  "src/components",
-  "src/components/Button.js",
-  "src/components/Input.js",
-  "src/index.js",
-  "src/main.js",
-  "src/utils",
-  "src/utils/helper.js",
-  "src/utils/math",
-  "src/utils/math/calc.js",
-  "src-link",
-  "style.css",
-  "style.min.css",
-  "style.scss",
-  "test.js",
-  "test.spec.js",
-  "test.unit.js",
-  "test1.js",
-  "test2.js",
-  "test9.js",
-  "test_1.js",
-  "tests",
-  "tests/integration",
-  "tests/integration/api.test.js",
-  "tests/unit",
-  "tests/unit/app.test.js",
-  "x.html",
-  "x.y",
-  "xyz.js",
-  "y.html",
-  "z.html",
-  "z.js",
-  "z.z",
-  "файл.js",
-  "测试.js",
-  "🚀emoji.js",
-]
-`;
-
-exports[`glob tests (linux) > only directories pattern > linux_only_directories_tinyglobby 1`] = `
-[
-  "*.js",
-  "1.txt",
-  "2.txt",
-  "3.txt",
-  "4.txt",
-  "5.txt",
-  "9.txt",
-  "?.js",
-  "A.js",
-  "ALNUM9.js",
-  "ALPHA.js",
-  "B.js",
-  "C.js",
-  "FOO.JS",
-  "Z.js",
-  "a.b",
-  "a.js",
-  "aa.js",
-  "aaa.js",
-  "ab.js",
-  "abc",
-  "abd",
-  "ac.js",
-  "alnum1.js",
-  "alpha.js",
-  "app.css",
-  "app.dev.js",
-  "app.js",
-  "app.jsx",
-  "app.min.js",
-  "app.prod.js",
-  "app.ts",
-  "az.js",
-  "b.js",
-  "bar.js",
-  "bb",
-  "c.js",
-  "ca",
-  "café.js",
-  "changelog.md",
-  "component.jsx",
-  "component.tsx",
-  "component.vue",
-  "config/",
-  "config.js",
-  "config.json",
-  "config.yaml",
-  "d.js",
-  "data.json",
-  "data.xml",
-  "data.yaml",
-  "dd",
-  "digit1.js",
-  "digit9.js",
-  "dist/",
-  "docs/",
-  "est.js",
-  "file name.js",
-  "file#hash.js",
-  "file$.js",
-  "file&test.js",
-  "file(paren).js",
-  "file+plus.js",
-  "file-a.js",
-  "file-b.js",
-  "file-d.js",
-  "file-z.js",
-  "file.txt",
-  "file01.txt",
-  "file02.txt",
-  "file03.txt",
-  "file04.txt",
-  "file05.txt",
-  "file1.txt",
-  "file2.txt",
-  "file3.txt",
-  "file5.txt",
-  "file@domain.js",
-  "file[bracket].js",
-  "foo.js",
-  "foo[bar].js",
-  "letter-a",
-  "letter-c",
-  "lib/",
-  "main.js",
-  "main.min.js",
-  "main.spec.js",
-  "naïve.js",
-  "node_modules/",
-  "package.json",
-  "readme.md",
-  "señor.js",
-  "src/",
-  "style.css",
-  "style.min.css",
-  "style.scss",
-  "test.js",
-  "test.spec.js",
-  "test.unit.js",
-  "test1.js",
-  "test2.js",
-  "test9.js",
-  "test_1.js",
-  "tests/",
-  "x.html",
-  "x.y",
-  "xyz.js",
-  "y.html",
-  "z.html",
-  "z.js",
-  "z.z",
-  "файл.js",
-  "测试.js",
-  "🚀emoji.js",
-  "config/dev.json",
-  "config/prod.json",
-  "dist/bundle.js",
-  "docs/readme.md",
-  "lib/core.js",
-  "lib/plugins/",
-  "node_modules/package/",
-  "src/components/",
-  "src/index.js",
-  "src/main.js",
-  "src/utils/",
-  "tests/integration/",
-  "tests/unit/",
-  "lib/plugins/auth.js",
-  "node_modules/package/index.js",
-  "src/components/Button.js",
-  "src/components/Input.js",
-  "src/utils/helper.js",
-  "src/utils/math/",
-  "tests/integration/api.test.js",
-  "tests/unit/app.test.js",
-  "src/utils/math/calc.js",
-  "main-link.js",
-  "src-link/components/",
-  "src-link/index.js",
-  "src-link/main.js",
-  "src-link/utils/",
-  "src-link/components/Button.js",
-  "src-link/components/Input.js",
-  "src-link/utils/helper.js",
-  "src-link/utils/math/",
   "src-link/utils/math/calc.js",
 ]
 `;
@@ -7481,6 +8212,7 @@ exports[`glob tests (linux) > only files filter > linux_only_files_fast_glob 1`]
   "dd",
   "digit1.js",
   "digit9.js",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -7615,6 +8347,7 @@ exports[`glob tests (linux) > only files filter > linux_only_files_globby 1`] = 
   "dd",
   "digit1.js",
   "digit9.js",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -7750,6 +8483,7 @@ exports[`glob tests (linux) > only files filter > linux_only_files_node_fs 1`] =
   "dd",
   "digit1.js",
   "digit9.js",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -7896,6 +8630,7 @@ exports[`glob tests (linux) > only files filter > linux_only_files_npm_glob 1`] 
   "file#hash.js",
   "file name.js",
   "est.js",
+  "e.js",
   "digit9.js",
   "digit1.js",
   "dd",
@@ -8027,6 +8762,7 @@ exports[`glob tests (linux) > only files filter > linux_only_files_tiny_glob 1`]
   "digit9.js",
   "dist/bundle.js",
   "docs/readme.md",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -8152,6 +8888,7 @@ exports[`glob tests (linux) > only files filter > linux_only_files_tinyglobby 1`
   "dd",
   "digit1.js",
   "digit9.js",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -8231,6 +8968,93 @@ exports[`glob tests (linux) > only files filter > linux_only_files_tinyglobby 1`
 ]
 `;
 
+exports[`glob tests (linux) > path specific globstar > linux_globstar_path_specific_fast_glob 1`] = `
+[
+  "src/components",
+  "src/index.js",
+  "src/main.js",
+  "src/utils",
+  "src/components/Button.js",
+  "src/components/Input.js",
+  "src/utils/helper.js",
+  "src/utils/math",
+  "src/utils/math/calc.js",
+]
+`;
+
+exports[`glob tests (linux) > path specific globstar > linux_globstar_path_specific_globby 1`] = `
+[
+  "src/components",
+  "src/index.js",
+  "src/main.js",
+  "src/utils",
+  "src/components/Button.js",
+  "src/components/Input.js",
+  "src/utils/helper.js",
+  "src/utils/math",
+  "src/utils/math/calc.js",
+]
+`;
+
+exports[`glob tests (linux) > path specific globstar > linux_globstar_path_specific_node_fs 1`] = `
+[
+  "src",
+  "src/index.js",
+  "src/main.js",
+  "src/utils",
+  "src/utils/helper.js",
+  "src/utils/math",
+  "src/utils/math/calc.js",
+  "src/components",
+  "src/components/Button.js",
+  "src/components/Input.js",
+]
+`;
+
+exports[`glob tests (linux) > path specific globstar > linux_globstar_path_specific_npm_glob 1`] = `
+[
+  "src",
+  "src/utils",
+  "src/main.js",
+  "src/index.js",
+  "src/components",
+  "src/utils/math",
+  "src/utils/helper.js",
+  "src/components/Input.js",
+  "src/components/Button.js",
+  "src/utils/math/calc.js",
+]
+`;
+
+exports[`glob tests (linux) > path specific globstar > linux_globstar_path_specific_tiny_glob 1`] = `
+[
+  "src/components",
+  "src/components/Button.js",
+  "src/components/Input.js",
+  "src/index.js",
+  "src/main.js",
+  "src/utils",
+  "src/utils/helper.js",
+  "src/utils/math",
+  "src/utils/math/calc.js",
+]
+`;
+
+exports[`glob tests (linux) > path specific globstar > linux_globstar_path_specific_tinyglobby 1`] = `
+[
+  "src/",
+  "src/components/",
+  "src/index.js",
+  "src/main.js",
+  "src/utils/",
+  "src/components/Button.js",
+  "src/components/Input.js",
+  "src/utils/helper.js",
+  "src/utils/math/",
+  "src/utils/math/calc.js",
+]
+`;
+
 exports[`glob tests (linux) > posix alpha character class > linux_posix_alpha_fast_glob 1`] = `
 [
   "A.js",
@@ -8259,6 +9083,7 @@ exports[`glob tests (linux) > posix alpha character class > linux_posix_alpha_fa
   "d.js",
   "digit1.js",
   "digit9.js",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -8320,6 +9145,7 @@ exports[`glob tests (linux) > posix alpha character class > linux_posix_alpha_gl
   "d.js",
   "digit1.js",
   "digit9.js",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -8381,6 +9207,7 @@ exports[`glob tests (linux) > posix alpha character class > linux_posix_alpha_no
   "d.js",
   "digit1.js",
   "digit9.js",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -8450,6 +9277,7 @@ exports[`glob tests (linux) > posix alpha character class > linux_posix_alpha_np
   "file#hash.js",
   "file name.js",
   "est.js",
+  "e.js",
   "digit9.js",
   "digit1.js",
   "d.js",
@@ -8509,6 +9337,7 @@ exports[`glob tests (linux) > posix alpha character class > linux_posix_alpha_ti
   "d.js",
   "digit1.js",
   "digit9.js",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -8632,6 +9461,7 @@ exports[`glob tests (linux) > question mark single char > linux_qmark_single_fas
   "b.js",
   "c.js",
   "d.js",
+  "e.js",
   "z.js",
 ]
 `;
@@ -8648,6 +9478,7 @@ exports[`glob tests (linux) > question mark single char > linux_qmark_single_glo
   "b.js",
   "c.js",
   "d.js",
+  "e.js",
   "z.js",
 ]
 `;
@@ -8664,6 +9495,7 @@ exports[`glob tests (linux) > question mark single char > linux_qmark_single_nod
   "b.js",
   "c.js",
   "d.js",
+  "e.js",
   "z.js",
 ]
 `;
@@ -8671,6 +9503,7 @@ exports[`glob tests (linux) > question mark single char > linux_qmark_single_nod
 exports[`glob tests (linux) > question mark single char > linux_qmark_single_npm_glob 1`] = `
 [
   "z.js",
+  "e.js",
   "d.js",
   "c.js",
   "b.js",
@@ -8702,6 +9535,7 @@ exports[`glob tests (linux) > question mark single char > linux_qmark_single_tin
   "b.js",
   "c.js",
   "d.js",
+  "e.js",
   "z.js",
 ]
 `;
@@ -8838,6 +9672,7 @@ exports[`glob tests (linux) > unicode filenames > linux_unicode_files_fast_glob 
   "d.js",
   "digit1.js",
   "digit9.js",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -8904,6 +9739,7 @@ exports[`glob tests (linux) > unicode filenames > linux_unicode_files_globby 1`]
   "d.js",
   "digit1.js",
   "digit9.js",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -8970,6 +9806,7 @@ exports[`glob tests (linux) > unicode filenames > linux_unicode_files_node_fs 1`
   "d.js",
   "digit1.js",
   "digit9.js",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -9041,6 +9878,7 @@ exports[`glob tests (linux) > unicode filenames > linux_unicode_files_npm_glob 1
   "file#hash.js",
   "file name.js",
   "est.js",
+  "e.js",
   "digit9.js",
   "digit1.js",
   "d.js",
@@ -9102,6 +9940,7 @@ exports[`glob tests (linux) > unicode filenames > linux_unicode_files_tiny_glob 
   "d.js",
   "digit1.js",
   "digit9.js",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -9168,6 +10007,7 @@ exports[`glob tests (linux) > unicode filenames > linux_unicode_files_tinyglobby
   "d.js",
   "digit1.js",
   "digit9.js",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -9262,6 +10102,7 @@ exports[`glob tests (linux) > wildcard * > linux_wildcard_star_fast_glob 1`] = `
   "digit9.js",
   "dist",
   "docs",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -9383,6 +10224,7 @@ exports[`glob tests (linux) > wildcard * > linux_wildcard_star_globby 1`] = `
   "digit9.js",
   "dist",
   "docs",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -9504,6 +10346,7 @@ exports[`glob tests (linux) > wildcard * > linux_wildcard_star_node_fs 1`] = `
   "digit9.js",
   "dist",
   "docs",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -9629,6 +10472,7 @@ exports[`glob tests (linux) > wildcard * > linux_wildcard_star_npm_glob 1`] = `
   "file#hash.js",
   "file name.js",
   "est.js",
+  "e.js",
   "docs",
   "dist",
   "digit9.js",
@@ -9747,6 +10591,7 @@ exports[`glob tests (linux) > wildcard * > linux_wildcard_star_tiny_glob 1`] = `
   "digit9.js",
   "dist",
   "docs",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
@@ -9868,6 +10713,7 @@ exports[`glob tests (linux) > wildcard * > linux_wildcard_star_tinyglobby 1`] = 
   "digit9.js",
   "dist/",
   "docs/",
+  "e.js",
   "est.js",
   "file name.js",
   "file#hash.js",
