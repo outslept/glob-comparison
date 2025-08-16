@@ -19,14 +19,20 @@
 | Question mark (`?`)                             |                           ✅                            |                      ✅                       |                        ✅                         |                           ❌                            |                            ✅                             |                      ✅                      | tiny-glob question mark limitation [[4]]                                                                                                          |
 | **Character Classes**                           |                                                        |                                              |                                                  |                                                        |                                                          |                                             |                                                                                                                                                   |
 | Basic character ranges (`[abc]`)                |                           ✅                            |                      ✅                       |                        ✅                         |                           ✅                            |                            ✅                             |                      ✅                      |                                                                                                                                                   |
-| Range character classes (`[a-z]`)               |                           ✅                            |                      ✅                       |                        ✅                         |                           ✅                            |                            ✅                             |                      ✅                      |                                                                                                                                                   |
-| Case-sensitive ranges (`[A-Z]`)                 |                           ✅                            |                      ⚠️                      |                        ✅                         |                           ✅                            |                            ✅                             |                     ⚠️                      | Filesystem-dependent behavior for `glob`/`node:fs` [[6]](#6-platform-dependent-case-sensitivity)                                                  |
+| Range character classes (`[a-z]`)               |                           ✅                            |                      ✅                       |                        ✅                         |                           ⚠️                           |                            ✅                             |                      ✅                      | tiny-glob: throws error on invalid ranges (e.g. `[9-1]`)                                                                                          |
+| Case-sensitive ranges (`[A-Z]`)                 |                           ✅                            |                      ⚠️                      |                        ✅                         |                           ✅                            |                            ✅                             |                     ⚠️                      | Platform dependent case sensitivity [[5]]                                                                                                         |
 | Mixed case ranges (`[a-zA-Z]`)                  |                           ✅                            |                      ✅                       |                        ✅                         |                           ✅                            |                            ✅                             |                      ✅                      |                                                                                                                                                   |
 | Numeric ranges (`[0-9]`)                        |                           ✅                            |                      ✅                       |                        ✅                         |                           ✅                            |                            ✅                             |                      ✅                      |                                                                                                                                                   |
-| Negated ranges (`[!abc]`)                       |                           ✅                            |                      ✅                       |                        ✅                         |                           ✅                            |                            ✅                             |                      ✅                      | [[7]](#7-negation-handling-bugs)                                                                                                                  |
-| Caret negation (`[^abc]`)                       |                           ✅                            |                      ✅                       |                        ✅                         |                           ❌                            |                            ✅                             |                      ✅                      | tiny-glob caret-negation bug [[7]](#7-negation-handling-bugs)                                                                                     |
-| Negated case-sensitive ranges (`[!A-Z]`)        |                           ✅                            |                      ⚠️                      |                        ✅                         |                           ✅                            |                            ✅                             |                     ⚠️                      | Case sensitivity + negation [[6]](#6-platform-dependent-case-sensitivity) • [[7]](#7-negation-handling-bugs)                                      |
-| Empty negation classes (`[!]`, `[^]`)           |                           ✅                            |                      ✅                       |                        ✅                         |                           ⚠️                           |                            ✅                             |                      ✅                      | tiny-glob treats `[!]` as match-all [[7]](#7-negation-handling-bugs)                                                                              |
+| Negated ranges (`[!abc]`)                       |                           ✅                            |                      ✅                       |                        ✅                         |                           ✅                            |                            ✅                             |                      ✅                      |                                                                                                                                                   |
+| Caret negation (`[^abc]`)                       |                           ✅                            |                      ✅                       |                        ✅                         |                           ❌                            |                            ✅                             |                      ✅                      | Negation handling bugs [[6]]                                                                                                                      |
+| Negated case-sensitive ranges (`[!A-Z]`)        |                           ✅                            |                      ⚠️                      |                        ✅                         |                           ✅                            |                            ✅                             |                     ⚠️                      | Case sensitivity + negation [[5]]                                                                                                                 |
+|                                                 |                                                        |                                              |                                                  |                                                        |                                                          |                                             |                                                                                                                                                   |
+| Empty negation classes (`[!]`, `[^]`)           |                           ✅                            |                      ✅                       |                        ✅                         |                           ⚠️                           |                            ✅                             |                      ✅                      | tiny-glob treats `[!]` as match-all [[6]]                                                                                                         |
+| **POSIX Character Classes**                     |                                                        |                                              |                                                  |                                                        |                                                          |                                             |                                                                                                                                                   |
+| POSIX alpha (`[[:alpha:]]`)                     |                           ✅                            |                      ✅                       |                        ✅                         |                           ❌                            |                            ✅                             |                      ✅                      | Tiny-glob POSIX limitation [[7]]                                                                                                                  |
+| POSIX digit (`[[:digit:]]`)                     |                           ✅                            |                      ✅                       |                        ✅                         |                           ✅                            |                            ✅                             |                      ✅                      |                                                                                                                                                   |
+| **Case Insensitive Support**                    |                                                        |                                              |                                                  |                                                        |                                                          |                                             |                                                                                                                                                   |
+| Case insensitive option                         |                           ✅                            |                      ✅                       |                        ✅                         |                           ❌                            |                            ✅                             |                      ❌                      |                                                                                                                                                   |
 | **Brace Expansion**                             |                                                        |                                              |                                                  |                                                        |                                                          |                                             |                                                                                                                                                   |
 | Basic expansion (`{js,ts}`)                     |                           ✅                            |                      ✅                       |                        ✅                         |                           ✅                            |                            ✅                             |                      ✅                      | [[9]](#9-brace-expansion-result-ordering)                                                                                                         |
 | Nested expansion (`*.{spec,test}.js`)           |                           ✅                            |                      ✅                       |                        ✅                         |                           ✅                            |                            ✅                             |                      ✅                      | [[9]](#9-brace-expansion-result-ordering)                                                                                                         |
@@ -146,79 +152,66 @@ await tinyGlob("?.*", { cwd: "test-fixtures" }); // ['a.js','b.js',...] ✅
 
 ---
 
-### [4] tiny-glob invalid character range handling
-
-Invalid character classes (e.g., `[9-1]`) produce a runtime error via `globrex` with `extended: true`, while other libraries return no matches.
-
-Reproduction:
-
-```javascript
-await tinyGlob("[9-1].txt", { cwd: "test-fixtures" }); // Error: Range out of order in character class
-await fastGlob("[9-1].txt", { cwd: "test-fixtures" }); // []
-```
-
-[↑ Back to top](#feature-comparison-matrix)
-
----
-
 ### [5] Platform-dependent case sensitivity behavior
 
-Mixed-case ranges produce different results depending on filesystem case sensitivity.
-
-Reproduction:
-
-```javascript
-// Files: a.js, b.js, c.js, A.js, B.js
-await fastGlob("[a-cA-C].js", { cwd: "test-fixtures" });
-// Windows: ['a.js','b.js','c.js']
-// Linux:   ['A.js','B.js','a.js','b.js','c.js']
-```
-
-[↑ Back to top](#feature-comparison-matrix)
-
----
-
-### [6] Platform-Dependent Case Sensitivity
-
-`glob` and `node:fs` adapt to platform case sensitivity; `fast-glob`, `globby`, `tinyglobby` are case-sensitive by default.
+`glob` and `node:fs` adapt to platform case sensitivity; `fast-glob`, `globby`, `tinyglobby` are case-sensitive by default. Mixed-case ranges produce different results depending on filesystem case sensitivity.
 
 Reproduction:
 
 ```javascript
 // Windows
-await glob("[A-C].js", { cwd: "test-fixtures" });     // ['a.js','b.js','c.js']
+await glob("[A-C].js", { cwd: "test-fixtures" }); // ['a.js','b.js','c.js']
 await fastGlob("[A-C].js", { cwd: "test-fixtures" }); // []
 
 // Linux
-await glob("[A-C].js", { cwd: "test-fixtures" });     // ['A.js','B.js','C.js']
+await glob("[A-C].js", { cwd: "test-fixtures" }); // ['A.js','B.js','C.js']
 await fastGlob("[A-C].js", { cwd: "test-fixtures" }); // ['A.js','B.js','C.js']
+
+// Mixed case ranges
+await fastGlob("[a-cA-C].js", { cwd: "test-fixtures" });
+// Windows: ['a.js','b.js','c.js']
+// Linux: ['A.js','B.js','a.js','b.js','c.js']
 ```
-
-Toggles:
-
-- `glob`: `nocase: true/false`
-- `fast-glob`, `globby`, `tinyglobby`: `caseSensitiveMatch: false`
 
 [↑ Back to top](#feature-comparison-matrix)
 
 ---
 
-### [7] Negation Handling Bugs
+### [6] Negation Handling Bugs
 
-`tiny-glob` inverts caret-negated classes `[^...]`. Bracket-negation `[!... ]` works.
+`tiny-glob` inverts caret-negated classes `[^...]`. Bracket-negation `[!...]` works correctly.
 
 Reproduction:
 
 ```javascript
-await tinyGlob("[^abc].js", { cwd: "test-fixtures" }); // ['a.js','b.js','c.js'] (wrong)
-await fastGlob("[^abc].js", { cwd: "test-fixtures" }); // ['A.js','B.js','C.js','D.js','Z.js','d.js','e.js','z.js']
+await tinyGlob("[^abc].js", { cwd: "test-fixtures" }); // ['a.js','b.js','c.js'] ❌ (wrong)
 
-await tinyGlob("[!abc].js", { cwd: "test-fixtures" }); // ['A.js','B.js','C.js','Z.js','d.js','e.js','z.js']
+await fastGlob("[^abc].js", { cwd: "test-fixtures" }); // ['A.js','B.js','C.js','d.js','z.js'] ✅
+await tinyGlob("[!abc].js", { cwd: "test-fixtures" }); // ['A.js','B.js','C.js','d.js','z.js'] ✅
 ```
 
-Edge case:
+**Edge case:** `tiny-glob` treats `[!]` as match-all, whereas others return no matches.
 
-- `tiny-glob` treats `[!]` as match-all, whereas others return no matches.
+[↑ Back to top](#feature-comparison-matrix)
+
+---
+
+### [7] tiny-glob POSIX Character Class Limitation
+
+`tiny-glob` does not support POSIX alpha character classes `[[:alpha:]]`, but supports digit classes `[[:digit:]]`. This inconsistent POSIX support makes it unreliable for portable character class patterns.
+
+Reproduction:
+
+```javascript
+// POSIX alpha fails
+await tinyGlob("[[:alpha:]]*.js", { cwd: "test-fixtures" }); // [] ❌
+// Should find: ['a.js', 'b.js', 'c.js', 'A.js', 'B.js', ...]
+
+// POSIX digit works
+await tinyGlob("*[[:digit:]].js", { cwd: "test-fixtures" }); // ['alnum1.js', 'digit9.js', ...] ✅
+
+// Other libraries support both
+```
 
 [↑ Back to top](#feature-comparison-matrix)
 
@@ -332,4 +325,3 @@ await tinyglobby("file{1..5..2}.txt", { cwd: "test-fixtures" });
 ```
 
 [↑ Back to top](#feature-comparison-matrix)
-
