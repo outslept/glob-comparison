@@ -285,9 +285,9 @@ await glob('app.{js}'); // [] - no match despite file existing
 
 References:
 
-https://github.com/micromatch/picomatch/pull/134
-https://github.com/micromatch/picomatch
-https://github.com/SuperchupuDev/tinyglobby/issues/148
+- https://github.com/micromatch/picomatch/pull/134
+- https://github.com/micromatch/picomatch
+- https://github.com/SuperchupuDev/tinyglobby/issues/148
 
 [↑ Back to top](#feature-comparison-matrix)
 
