@@ -778,7 +778,7 @@ describe(`glob tests (${isWindows ? 'win32' : 'linux'})`, () => {
   });
 
   it('literal square brackets escaped', async () => {
-    const pattern = 'foo$bar$\\.js';
+    const pattern = 'foo$bar$\\.js'; // TODO: unduck this pattern later, cause I typoed
     const workingDirectory = testFixture.path;
     const snapshotPrefix = `${isWindows ? 'win32' : 'linux'}_literal_brackets_escaped`;
 
